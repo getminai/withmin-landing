@@ -106,6 +106,7 @@
   @media (max-width: 940px) { .hero-row { grid-template-columns: 1fr; } }
 
   .sub { color: var(--dim); font-size: 17px; margin-bottom: 28px; }
+  .sub p + p { margin-top: 12px; }
   .sub b { color: var(--text); font-weight: 500; }
 
   /* composer: precise input, machined focus. no glow. */
@@ -261,9 +262,12 @@
 
     <div class="hero-row">
       <div>
-        <p class="sub rise d2">Every desk on Wall Street has an army of PhDs. Now so do you.
-        Give <b>min.</b> any idea. It pulls live market data, checks the numbers,
-        backtests it, and builds the strategy for you.</p>
+        <div class="sub rise d2">
+          <p>Every desk on Wall Street has an army of PhDs.</p>
+          <p>Now so do you.</p>
+          <p>Give <b>min.</b> any idea. It pulls live market data, checks the numbers,
+          backtests it, and builds the strategy for you.</p>
+        </div>
 
         <form class="composer rise d3" id="pf">
           <textarea id="q" rows="2" placeholder="tariffs get cut in 6 months. find me cheap names at support"
