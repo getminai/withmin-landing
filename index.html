@@ -4,122 +4,135 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>min. | AI Quant</title>
-<meta name="description" content="Type your market thesis. min. researches it live, checks the numbers, and builds the strategy.">
+<meta name="description" content="This is your quant. Type your market thesis. min. researches it live, checks the numbers, and builds the strategy.">
 <meta property="og:title" content="min. | AI Quant">
-<meta property="og:description" content="Your AI quant. First research run is free.">
+<meta property="og:description" content="This is your quant. First research run is free.">
 <meta property="og:url" content="https://withmin.ai">
-<link rel="preload" href="assets/SpaceGrotesk-700.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/SpaceGrotesk-500.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/Geist-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/Geist-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-  @font-face { font-family: "Space Grotesk"; font-weight: 700; font-display: swap;
-               src: url("assets/SpaceGrotesk-700.woff2") format("woff2"); }
-  @font-face { font-family: "Space Grotesk"; font-weight: 500; font-display: swap;
-               src: url("assets/SpaceGrotesk-500.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 400; font-display: swap;
+               src: url("assets/Geist-400.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 500; font-display: swap;
+               src: url("assets/Geist-500.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 600; font-display: swap;
+               src: url("assets/Geist-600.woff2") format("woff2"); }
+  @font-face { font-family: "Geist Mono"; font-weight: 400; font-display: swap;
+               src: url("assets/GeistMono-400.woff2") format("woff2"); }
 
   :root {
-    --bg: #0a0c10; --panel: #13161c; --panel2: #191d25; --border: #252a34;
-    --text: #e8ebf1; --dim: #99a1b1; --dimmer: #6d7686; --accent: #4da3ff;
+    --bg: #08090c; --panel: #101218; --panel2: #171a21;
+    --line: rgba(255,255,255,.08); --line-strong: rgba(255,255,255,.14);
+    --text: #edeff3; --dim: #9aa1b0; --dimmer: #676e7d; --accent: #4da3ff;
     --green: #3ddc84; --red: #ff5c5c;
-    --display: "Space Grotesk", -apple-system, sans-serif;
-    --mono: "SF Mono", ui-monospace, Menlo, monospace;
+    --sans: "Geist", -apple-system, "Segoe UI", sans-serif;
+    --mono: "Geist Mono", ui-monospace, Menlo, monospace;
   }
   * { box-sizing: border-box; margin: 0; }
   body { background: var(--bg); color: var(--text);
-         font: 16px/1.6 -apple-system, "Segoe UI", sans-serif; overflow-x: hidden; }
+         font: 15.5px/1.6 var(--sans); overflow-x: hidden;
+         -webkit-font-smoothing: antialiased; }
 
   .glow { position: fixed; inset: 0; pointer-events: none; z-index: 0;
     background:
-      radial-gradient(ellipse 900px 560px at 78% 8%, rgba(77,163,255,.09), transparent 62%),
-      radial-gradient(ellipse 620px 480px at 6% 92%, rgba(61,220,132,.045), transparent 60%); }
-  .grain { position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: .035;
+      radial-gradient(ellipse 1000px 600px at 75% 0%, rgba(77,163,255,.07), transparent 62%),
+      radial-gradient(ellipse 600px 500px at 0% 100%, rgba(77,163,255,.03), transparent 60%); }
+  .grain { position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: .03;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
   .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
 
   nav { display: flex; align-items: center; justify-content: space-between; padding: 26px 0; }
-  .wordmark { font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: -.01em;
+  .wordmark { font-weight: 600; font-size: 21px; letter-spacing: -.02em;
               color: var(--text); text-decoration: none; }
   .wordmark i { font-style: normal; color: var(--accent); }
-  .nav-signin { color: var(--dim); text-decoration: none; font-size: 14px; padding: 9px 18px;
-                border: 1px solid var(--border); border-radius: 999px; transition: all .15s; }
-  .nav-signin:hover { color: var(--text); border-color: #39404e; }
+  .nav-signin { color: var(--dim); text-decoration: none; font-size: 13.5px; font-weight: 500;
+                padding: 8px 18px; border: 1px solid var(--line); border-radius: 999px;
+                transition: all .15s; }
+  .nav-signin:hover { color: var(--text); border-color: var(--line-strong); }
 
   /* hero: headline full width, then asymmetric row */
-  .hero { padding: clamp(28px, 6vh, 72px) 0 40px; }
-  h1 { font-family: var(--display); font-weight: 700;
-       font-size: clamp(52px, 9vw, 108px); line-height: .98; letter-spacing: -.035em; }
+  .hero { padding: clamp(30px, 7vh, 80px) 0 40px; }
+  h1 { font-weight: 600; font-size: clamp(50px, 8.5vw, 102px);
+       line-height: 1.02; letter-spacing: -.045em; }
   h1 i { font-style: normal; color: var(--accent); }
   .hero-row { display: grid; grid-template-columns: 7fr 5fr; gap: clamp(36px, 5vw, 72px);
-              align-items: start; margin-top: clamp(28px, 4vh, 48px); }
+              align-items: start; margin-top: clamp(26px, 4vh, 44px); }
   @media (max-width: 940px) { .hero-row { grid-template-columns: 1fr; } }
 
-  .sub { color: var(--dim); font-size: 18px; max-width: 44ch; margin-bottom: 30px; }
-  .sub b { color: var(--text); font-weight: 600; }
+  .sub { color: var(--dim); font-size: 17px; max-width: 46ch; margin-bottom: 28px; }
+  .sub b { color: var(--text); font-weight: 500; }
 
-  .promptbox { display: flex; align-items: center; gap: 10px; background: var(--panel);
-               border: 1px solid var(--border); border-radius: 16px; padding: 9px 9px 9px 20px;
-               transition: border-color .15s, box-shadow .15s; }
-  .promptbox:focus-within { border-color: var(--accent);
-                            box-shadow: 0 0 0 3px rgba(77,163,255,.14), 0 24px 60px rgba(0,0,0,.45); }
-  .promptbox input { flex: 1; background: none; border: 0; outline: none; color: var(--text);
-                     font: 16px/1.4 -apple-system, sans-serif; min-width: 0; }
-  .promptbox input::placeholder { color: var(--dimmer); }
-  .promptbox button { background: var(--accent); color: #06121f; border: 0; border-radius: 11px;
-                      padding: 13px 24px; font-family: var(--display); font-weight: 700;
-                      font-size: 15px; cursor: pointer; white-space: nowrap;
-                      transition: transform .1s, filter .15s; }
-  .promptbox button:hover { filter: brightness(1.1); }
-  .promptbox button:active { transform: scale(.97); }
-  .free-note { color: var(--dimmer); font-size: 12.5px; margin-top: 13px; font-family: var(--mono); }
+  /* composer: the ChatGPT/Claude-shaped prompt box */
+  .composer { background: var(--panel); border: 1px solid var(--line); border-radius: 24px;
+              padding: 16px 14px 12px 18px; cursor: text;
+              box-shadow: 0 1px 0 rgba(255,255,255,.05) inset, 0 18px 50px rgba(0,0,0,.4);
+              transition: border-color .15s, box-shadow .15s; }
+  .composer:focus-within { border-color: rgba(77,163,255,.5);
+    box-shadow: 0 1px 0 rgba(255,255,255,.05) inset, 0 0 0 3px rgba(77,163,255,.12),
+                0 24px 60px rgba(0,0,0,.5); }
+  .composer textarea { display: block; width: 100%; resize: none; background: none; border: 0;
+                       outline: none; color: var(--text); font: 15.5px/1.55 var(--sans);
+                       min-height: 50px; max-height: 190px; }
+  .composer textarea::placeholder { color: var(--dimmer); }
+  .c-foot { display: flex; justify-content: space-between; align-items: center;
+            margin-top: 10px; gap: 12px; }
+  .c-hint { font-family: var(--mono); font-size: 11.5px; color: var(--dimmer);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .c-send { flex: none; width: 36px; height: 36px; border-radius: 999px; border: 0;
+            background: var(--accent); color: #06121f; cursor: pointer;
+            display: grid; place-items: center;
+            transition: transform .1s, filter .15s, opacity .15s; }
+  .c-send:hover { filter: brightness(1.12); }
+  .c-send:active { transform: scale(.94); }
+  .free-note { color: var(--dimmer); font-size: 12px; margin-top: 13px; font-family: var(--mono); }
 
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 26px; }
-  .chip { background: none; border: 1px solid var(--border); color: var(--dim); border-radius: 999px;
-          padding: 9px 15px; font-size: 13px; cursor: pointer; text-align: left;
-          transition: all .15s; font-family: inherit; }
-  .chip:hover { border-color: var(--accent); color: var(--text); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .chip { background: none; border: 1px solid var(--line); color: var(--dim); border-radius: 999px;
+          padding: 8px 15px; font-size: 13px; cursor: pointer; text-align: left;
+          transition: all .15s; font-family: var(--sans); }
+  .chip:hover { border-color: rgba(77,163,255,.5); color: var(--text); }
 
   /* real product preview: actual strategy from a live run */
-  .preview { background: var(--panel); border: 1px solid var(--border); border-radius: 18px;
+  .preview { background: var(--panel); border: 1px solid var(--line); border-radius: 16px;
              padding: 22px 22px 18px; position: relative;
-             box-shadow: 0 1px 0 rgba(255,255,255,.04) inset, 0 34px 90px rgba(0,0,0,.55);
-             transform: rotate(1.1deg); }
-  .preview::after { content: "built by min. from a live run"; position: absolute; top: -28px; right: 4px;
-                    font-family: var(--mono); font-size: 11px; color: var(--dimmer); }
-  @media (max-width: 940px) { .preview { transform: none; max-width: 460px; margin-top: 12px; } }
-  .p-name { font-family: var(--display); font-weight: 700; font-size: 21px; }
+             box-shadow: 0 1px 0 rgba(255,255,255,.05) inset, 0 30px 80px rgba(0,0,0,.5); }
+  .preview::after { content: "look at him. look at his charts."; position: absolute; top: -28px;
+                    right: 4px; font-family: var(--mono); font-size: 11px; color: var(--dimmer); }
+  @media (max-width: 940px) { .preview { max-width: 460px; margin-top: 12px; } }
+  .p-name { font-weight: 600; font-size: 20px; letter-spacing: -.02em; }
   .p-tag { color: var(--dim); font-size: 13px; margin: 3px 0 14px; }
   .p-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
-  .p-chip { background: var(--panel2); border: 1px solid var(--border); border-radius: 999px;
+  .p-chip { background: var(--panel2); border: 1px solid var(--line); border-radius: 999px;
             padding: 4px 10px; font-size: 11.5px; color: var(--dim); }
-  .p-chip b { color: var(--text); font-weight: 600; }
+  .p-chip b { color: var(--text); font-weight: 500; }
   .p-chip .dots { color: var(--accent); letter-spacing: 1.5px; font-size: 10px; }
   .allocbar { display: flex; height: 12px; margin-bottom: 14px; }
   .allocbar i { border-radius: 4px; margin-right: 2px; }
   .allocbar i:last-child { margin-right: 0; }
   .p-row { display: grid; grid-template-columns: 52px 58px 1fr 44px; gap: 10px; align-items: center;
-           padding: 8px 0; border-top: 1px solid var(--border); }
+           padding: 8px 0; border-top: 1px solid var(--line); }
   .p-sym { font-family: var(--mono); font-weight: 700; font-size: 13px; display: flex; align-items: center; gap: 7px; }
   .p-sym i { width: 8px; height: 8px; border-radius: 2px; display: inline-block; }
   .p-amt { font-family: var(--mono); font-size: 12.5px; color: var(--dim); text-align: right; }
   .p-row svg { justify-self: center; }
   .p-pct { font-family: var(--mono); font-size: 11px; text-align: right; }
   .up { color: var(--green); } .down { color: var(--red); }
-  .p-stop { border-top: 1px solid var(--border); margin-top: 2px; padding-top: 12px;
+  .p-stop { border-top: 1px solid var(--line); margin-top: 2px; padding-top: 12px;
             color: var(--dim); font-size: 12.5px; }
   .p-run { display: block; text-align: center; background: var(--accent); color: #06121f;
            border-radius: 10px; padding: 10px; margin-top: 14px; text-decoration: none;
-           font-family: var(--display); font-weight: 700; font-size: 14px; }
+           font-weight: 600; font-size: 14px; }
 
   /* values: asymmetric, borderless */
   .values { display: grid; grid-template-columns: 5fr 4fr 3fr; gap: 44px;
             padding: clamp(72px, 12vh, 128px) 0 clamp(64px, 10vh, 110px); }
   @media (max-width: 940px) { .values { grid-template-columns: 1fr; gap: 36px; } }
-  .value { border-top: 1px solid var(--border); padding-top: 22px; }
-  .value h3 { font-family: var(--display); font-weight: 700; font-size: 20px; margin-bottom: 8px;
-              letter-spacing: -.01em; }
+  .value { border-top: 1px solid var(--line); padding-top: 22px; }
+  .value h3 { font-weight: 600; font-size: 19px; margin-bottom: 8px; letter-spacing: -.02em; }
   .value p { color: var(--dim); font-size: 14.5px; max-width: 34ch; }
 
-  footer { border-top: 1px solid var(--border); padding: 28px 0 40px; display: flex;
+  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; display: flex;
            justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
   footer .fine { color: var(--dimmer); font-size: 12.5px; max-width: 60ch; }
   footer a { color: var(--dim); text-decoration: none; font-size: 13px; }
@@ -130,9 +143,7 @@
     .d1 { animation-delay: .04s; } .d2 { animation-delay: .14s; } .d3 { animation-delay: .24s; }
     .d4 { animation-delay: .34s; } .d5 { animation-delay: .48s; }
     @keyframes rise { to { opacity: 1; transform: translateY(0); } }
-    .preview { animation: rise .75s cubic-bezier(.16,1,.3,1) .4s forwards, floaty 8s ease-in-out 1.4s infinite; opacity: 0; }
-    @keyframes floaty { 0%,100% { transform: rotate(1.1deg) translateY(0); }
-                        50% { transform: rotate(1.1deg) translateY(-8px); } }
+    .preview { animation: rise .75s cubic-bezier(.16,1,.3,1) .4s forwards; opacity: 0; }
   }
 </style>
 </head>
@@ -146,19 +157,28 @@
   </nav>
 
   <main class="hero">
-    <h1 class="rise d1">Your AI quant<i>.</i></h1>
+    <h1 class="rise d1">This is your quant<i>.</i></h1>
 
     <div class="hero-row">
       <div>
-        <p class="sub rise d2">Type your market thesis. <b>min.</b> researches it live,
-        checks the numbers, and builds the strategy.</p>
+        <p class="sub rise d2">Every desk on Wall Street has one. Now you do.
+        Type your thesis and <b>min.</b> checks the numbers, runs the math,
+        and builds the strategy.</p>
 
-        <form class="promptbox rise d3" id="pf" action="https://quant.withmin.ai/" method="get">
-          <input id="q" name="q" placeholder="tariffs get cut in 6 months. find me cheap names at support"
-                 autocomplete="off" autofocus>
-          <button type="submit">Run it</button>
+        <form class="composer rise d3" id="pf">
+          <textarea id="q" rows="2" placeholder="tariffs get cut in 6 months. find me cheap names at support"
+                    autocomplete="off" autofocus></textarea>
+          <div class="c-foot">
+            <span class="c-hint">first research run free · no signup</span>
+            <button class="c-send" type="submit" aria-label="Run it">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                   stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 19V5M5 12l7-7 7 7"/>
+              </svg>
+            </button>
+          </div>
         </form>
-        <div class="free-note rise d4">first research run is free · no signup · this is not a casino</div>
+        <div class="free-note rise d4">this is not a casino</div>
 
         <div class="chips rise d5">
           <button class="chip" data-q="the AI bubble pops in 6 months. how do I profit?">the AI bubble pops in 6 months. how do I profit?</button>
@@ -195,7 +215,7 @@
           <svg width="120" height="30" viewBox="0 0 120 30"><polyline points="2.0,11.3 5.7,14.3 9.5,10.8 13.2,11.5 17.0,15.8 20.7,16.7 24.5,14.8 28.2,14.5 31.9,20.8 35.7,22.4 39.4,26.2 43.2,28.0 46.9,25.3 50.6,22.7 54.4,20.1 58.1,15.3 61.9,16.5 65.6,12.6 69.4,13.6 73.1,12.5 76.8,16.3 80.6,12.6 84.3,8.6 88.1,5.2 91.8,3.2 95.5,5.7 99.3,2.0 103.0,9.9 106.8,12.6 110.5,13.7 114.3,14.2 118.0,16.4" fill="none" stroke="#ff5c5c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           <span class="p-pct down">-4%</span>
         </div>
-        <div class="p-stop">🛡 auto-stop armed: bails if the deal collapses, tariffs rise, or support breaks.</div>
+        <div class="p-stop">auto-stop armed: bails if the deal collapses, tariffs rise, or support breaks.</div>
         <a class="p-run" href="https://quant.withmin.ai">Run it 🚀</a>
       </aside>
     </div>
@@ -225,14 +245,23 @@
 
 <script>
   const q = document.getElementById('q');
-  document.getElementById('pf').addEventListener('submit', (e) => {
-    e.preventDefault();
+  const pf = document.getElementById('pf');
+  const go = () => {
     const v = q.value.trim();
     if (!v) { q.focus(); return; }
     window.location.href = 'https://quant.withmin.ai/?q=' + encodeURIComponent(v);
+  };
+  pf.addEventListener('submit', (e) => { e.preventDefault(); go(); });
+  pf.addEventListener('click', () => q.focus());
+  q.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); go(); }
+  });
+  q.addEventListener('input', () => {
+    q.style.height = 'auto';
+    q.style.height = Math.min(q.scrollHeight, 190) + 'px';
   });
   document.querySelectorAll('.chip').forEach(c =>
-    c.addEventListener('click', () => { q.value = c.dataset.q; q.focus(); }));
+    c.addEventListener('click', () => { q.value = c.dataset.q; q.dispatchEvent(new Event('input')); q.focus(); }));
 </script>
 </body>
 </html>
