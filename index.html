@@ -169,19 +169,6 @@
   .hood span:not(.h-label) { font-family: var(--mono); font-size: 11.5px; color: var(--dim);
           border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; }
 
-  /* about */
-  #about { border-top: 1px solid var(--line); scroll-margin-top: 24px;
-           display: grid; grid-template-columns: 6fr 5fr; gap: clamp(36px, 5vw, 72px);
-           padding: clamp(56px, 9vh, 96px) 0 clamp(64px, 10vh, 110px); }
-  @media (max-width: 940px) { #about { grid-template-columns: 1fr; gap: 20px; } }
-  #about .sec-title { margin-bottom: 0; }
-  #about p { color: var(--dim); font-size: 15.5px; max-width: 46ch; }
-  #about p + p { margin-top: 14px; }
-  #about b { color: var(--text); font-weight: 500; }
-  .founder { border-top: 1px solid var(--line); margin-top: 26px; padding-top: 20px; }
-  .founder .f-kicker { font-family: var(--mono); font-size: 11px; color: var(--dimmer);
-                       letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px; }
-
   /* values: asymmetric, borderless */
   .values { display: grid; grid-template-columns: 5fr 4fr 3fr; gap: 44px;
             padding: clamp(64px, 10vh, 110px) 0 clamp(64px, 10vh, 110px); }
@@ -213,7 +200,7 @@
     <a class="wordmark" href="/">min<i>.</i></a>
     <div class="nav-links">
       <a class="nav-link" href="#how">How it works</a>
-      <a class="nav-link" href="#about">About</a>
+      <a class="nav-link" href="/about">About</a>
       <a class="nav-signin" href="https://quant.withmin.ai">Sign in</a>
     </div>
   </nav>
@@ -347,30 +334,6 @@
     <div class="value">
       <h3>Diamond hands, with rules.</h3>
       <p>Buys on schedule, auto-stops on guard. No panic scroll at 2am.</p>
-    </div>
-  </section>
-
-  <section id="about">
-    <h2 class="sec-title">About<i>.</i></h2>
-    <div>
-      <p>The market was never a fair fight. On one side: PhDs, math specialists,
-      algorithms trading in microseconds, data you will never see. On the other:
-      you, a feed, and a gut feeling. They call it dumb money, and they price it
-      like that. It's bringing a knife to a fighter-jet fight. Your position is
-      blown up before you know you were the target.</p>
-      <p>For the first time, the field is level. What a quant desk spends months
-      on, <b>min.</b> does in minutes: turning a thesis into a strategy,
-      compiling and cleaning the data, backtesting against years of history,
-      running the simulations, stress-testing the fragile parts. Live, showing
-      every source. No math degree, no computer science degree. The only
-      prerequisite is an opinion.</p>
-      <div class="founder">
-        <p class="f-kicker">The founder</p>
-        <p>Software engineer. Computer science at the University of Toronto.
-        Shipped product at Coursera ($COUR) and DoorDash ($DASH). Investing for
-        over a decade, tinkering with trading algorithms since high school.
-        <b>min.</b> is the quant he always wanted on his side of the trade.</p>
-      </div>
     </div>
   </section>
 

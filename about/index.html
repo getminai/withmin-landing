@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About | min.</title>
+<meta name="description" content="Why min. exists: the market was never a fair fight. Now the field is level.">
+<meta property="og:title" content="About | min.">
+<meta property="og:description" content="The market was never a fair fight. For the first time, the field is level.">
+<meta property="og:url" content="https://withmin.ai/about">
+<link rel="preload" href="/assets/Geist-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/Geist-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face { font-family: "Geist"; font-weight: 400; font-display: swap;
+               src: url("/assets/Geist-400.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 500; font-display: swap;
+               src: url("/assets/Geist-500.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 600; font-display: swap;
+               src: url("/assets/Geist-600.woff2") format("woff2"); }
+  @font-face { font-family: "Geist Mono"; font-weight: 400; font-display: swap;
+               src: url("/assets/GeistMono-400.woff2") format("woff2"); }
+
+  :root {
+    --bg: #08090c; --line: rgba(255,255,255,.08); --line-strong: rgba(255,255,255,.14);
+    --text: #edeff3; --dim: #9aa1b0; --dimmer: #676e7d; --accent: #4da3ff;
+    --sans: "Geist", -apple-system, "Segoe UI", sans-serif;
+    --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--text); font: 15.5px/1.6 var(--sans);
+         overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+
+  .glow { position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse 1000px 600px at 75% 0%, rgba(77,163,255,.06), transparent 62%); }
+  .grain { position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: .03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  .wrap { max-width: 680px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 26px 0; }
+  .wordmark { font-weight: 600; font-size: 21px; letter-spacing: -.02em;
+              color: var(--text); text-decoration: none; }
+  .wordmark i { font-style: normal; color: var(--accent); }
+  .nav-back { color: var(--dim); text-decoration: none; font-size: 13.5px; font-weight: 500;
+              padding: 8px 18px; border: 1px solid var(--line); border-radius: 999px;
+              transition: all .15s; }
+  .nav-back:hover { color: var(--text); border-color: var(--line-strong); }
+
+  main { padding: clamp(36px, 7vh, 72px) 0 clamp(64px, 10vh, 110px); }
+  h1 { font-weight: 600; font-size: clamp(38px, 5.5vw, 56px); letter-spacing: -.04em;
+       line-height: 1.05; margin-bottom: clamp(26px, 4vh, 40px); }
+  h1 i { font-style: normal; color: var(--accent); }
+  main p { color: var(--dim); font-size: 16px; }
+  main p + p { margin-top: 16px; }
+  main b { color: var(--text); font-weight: 500; }
+
+  .founder { border-top: 1px solid var(--line); margin-top: 34px; padding-top: 24px; }
+  .founder .f-kicker { font-family: var(--mono); font-size: 11px; color: var(--dimmer);
+                       letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; }
+
+  .cta { margin-top: 40px; }
+  .cta a { display: inline-block; background: var(--accent); color: #06121f; text-decoration: none;
+           border-radius: 999px; padding: 11px 24px; font-weight: 600; font-size: 14.5px;
+           transition: filter .15s, transform .1s; }
+  .cta a:hover { filter: brightness(1.12); }
+  .cta a:active { transform: scale(.97); }
+
+  footer { border-top: 1px solid var(--line); padding: 24px 0 40px; display: flex;
+           justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  footer .fine { color: var(--dimmer); font-size: 12.5px; }
+  footer a { color: var(--dim); text-decoration: none; font-size: 13px; }
+  footer a:hover { color: var(--text); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .rise { opacity: 0; transform: translateY(16px); animation: rise .7s cubic-bezier(.16,1,.3,1) forwards; }
+    .d1 { animation-delay: .04s; } .d2 { animation-delay: .12s; } .d3 { animation-delay: .2s; }
+    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
+  }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="grain"></div>
+<div class="wrap">
+  <nav>
+    <a class="wordmark" href="/">min<i>.</i></a>
+    <a class="nav-back" href="/">Back to home</a>
+  </nav>
+
+  <main>
+    <h1 class="rise d1">About<i>.</i></h1>
+
+    <div class="rise d2">
+      <p>The market was never a fair fight. On one side: PhDs, math specialists,
+      algorithms trading in microseconds, data you will never see. On the other:
+      you, a feed, and a gut feeling. They call it dumb money, and they price it
+      like that. It's bringing a knife to a fighter-jet fight. Your position is
+      blown up before you know you were the target.</p>
+      <p>For the first time, the field is level. What a quant desk spends months
+      on, <b>min.</b> does in minutes: turning a thesis into a strategy,
+      compiling and cleaning the data, backtesting against years of history,
+      running the simulations, stress-testing the fragile parts. Live, showing
+      every source. No math degree, no computer science degree. The only
+      prerequisite is an opinion.</p>
+    </div>
+
+    <div class="founder rise d3">
+      <p class="f-kicker">The founder</p>
+      <p>Software engineer. Computer science at the University of Toronto.
+      Shipped product at Coursera ($COUR) and DoorDash ($DASH). Investing for
+      over a decade, tinkering with trading algorithms since high school.
+      <b>min.</b> is the quant he always wanted on his side of the trade.</p>
+      <div class="cta"><a href="https://quant.withmin.ai">Meet your quant</a></div>
+    </div>
+  </main>
+
+  <footer>
+    <a class="wordmark" href="/">min<i>.</i></a>
+    <span class="fine">Research tooling, not financial advice.</span>
+    <a href="https://quant.withmin.ai">Sign in</a>
+  </footer>
+</div>
+</body>
+</html>
