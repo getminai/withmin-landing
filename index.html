@@ -150,13 +150,17 @@
   .sec-title { font-weight: 600; font-size: clamp(26px, 3vw, 36px); letter-spacing: -.03em;
                margin-bottom: clamp(28px, 4vh, 44px); }
   .sec-title i { font-style: normal; color: var(--accent); }
-  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
-  @media (max-width: 940px) { .steps { grid-template-columns: 1fr 1fr; } }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
+           position: relative; border-top: 1px solid var(--line); }
+  @media (max-width: 940px) { .steps { grid-template-columns: 1fr 1fr; border-top: 0; } }
   @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
-  .step { border-top: 1px solid var(--line); padding-top: 18px; }
+  .step { padding-top: 20px; position: relative; }
+  .step::before { content: ""; position: absolute; top: -3.5px; left: 0; width: 7px; height: 7px;
+                  border-radius: 99px; background: var(--accent); }
+  @media (max-width: 940px) { .step { border-top: 1px solid var(--line); } }
   .step .n { font-family: var(--mono); font-size: 11.5px; color: var(--accent);
              letter-spacing: .08em; }
-  .step h3 { font-weight: 600; font-size: 16.5px; letter-spacing: -.01em; margin: 10px 0 7px; }
+  .step h3 { font-weight: 600; font-size: 16.5px; letter-spacing: -.01em; margin: 8px 0 6px; }
   .step p { color: var(--dim); font-size: 13.5px; line-height: 1.55; }
   .hood { display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
           margin-top: clamp(28px, 4vh, 40px); }
@@ -174,6 +178,9 @@
   #about p { color: var(--dim); font-size: 15.5px; max-width: 46ch; }
   #about p + p { margin-top: 14px; }
   #about b { color: var(--text); font-weight: 500; }
+  .founder { border-top: 1px solid var(--line); margin-top: 26px; padding-top: 20px; }
+  .founder .f-kicker { font-family: var(--mono); font-size: 11px; color: var(--dimmer);
+                       letter-spacing: .08em; text-transform: uppercase; margin-bottom: 10px; }
 
   /* values: asymmetric, borderless */
   .values { display: grid; grid-template-columns: 5fr 4fr 3fr; gap: 44px;
@@ -298,26 +305,22 @@
       <div class="step">
         <span class="n">01</span>
         <h3>Call your shot</h3>
-        <p>Type any thesis in plain English. Tariffs, rate cuts, the AI bubble, a
-        ticker you've been eyeing. No formulas, no screeners.</p>
+        <p>Any thesis, in plain English. No formulas, no screeners.</p>
       </div>
       <div class="step">
         <span class="n">02</span>
         <h3>Deep research, live</h3>
-        <p>An agentic loop pulls live market data, filings, news, and event odds,
-        then cross-checks every number against the sources. You watch it work.</p>
+        <p>An agentic loop pulls live data, filings, and odds. You watch it work.</p>
       </div>
       <div class="step">
         <span class="n">03</span>
-        <h3>Stress-test the idea</h3>
-        <p>Backtests and simulations against years of price history. How much is
-        already priced in, what breaks the trade, and where the edge actually is.</p>
+        <h3>Stress-test it</h3>
+        <p>Backtests and simulations. What's priced in, what breaks the trade.</p>
       </div>
       <div class="step">
         <span class="n">04</span>
         <h3>Get the strategy</h3>
-        <p>Sized entries, a buying schedule, auto-stops. Approve it once and min.
-        executes on your brokerage and keeps watch. You stay in charge.</p>
+        <p>Sized entries, a schedule, auto-stops. Approve once; min. executes and keeps watch.</p>
       </div>
     </div>
     <div class="hood">
@@ -335,28 +338,39 @@
   <section class="values">
     <div class="value">
       <h3>Do the reading.</h3>
-      <p>Burry read the mortgage docs. That was the whole trade. min. reads the filings, the flows, and the odds on every single run.</p>
+      <p>Burry read the docs. That was the whole trade. min. reads everything, every run.</p>
     </div>
     <div class="value">
       <h3>Be first. Be smarter.</h3>
-      <p>Margin Call said there are three ways to win: be first, be smarter, or cheat. min. is built for the two legal ones.</p>
+      <p>Margin Call gave three ways to win. min. is built for the two legal ones.</p>
     </div>
     <div class="value">
       <h3>Diamond hands, with rules.</h3>
-      <p>Approve once and the buys execute on schedule while auto-stops guard the downside. No panic scroll at 2am.</p>
+      <p>Buys on schedule, auto-stops on guard. No panic scroll at 2am.</p>
     </div>
   </section>
 
   <section id="about">
     <h2 class="sec-title">About<i>.</i></h2>
     <div>
-      <p>Wall Street runs on quants. Retail runs on a feed of memes and a gut
-      feeling. <b>min.</b> closes that gap: a personal quant that does the
-      reading, checks the numbers, and builds real strategies for anyone
-      with a thesis.</p>
-      <p>The research is the product. No signal-selling, no order-flow games,
-      no black box. Every strategy ships with its sources, its backtest, and
-      the exact rules it will follow, so you always know what you own and why.</p>
+      <p>The market was never a fair fight. On one side: PhDs, math specialists,
+      algorithms trading in microseconds, data you will never see. On the other:
+      you, a feed, and a gut feeling. They call it dumb money, and they price it
+      like that. It's bringing a knife to a fighter-jet fight. Your position is
+      blown up before you know you were the target.</p>
+      <p>For the first time, the field is level. What a quant desk spends months
+      on, <b>min.</b> does in minutes: turning a thesis into a strategy,
+      compiling and cleaning the data, backtesting against years of history,
+      running the simulations, stress-testing the fragile parts. Live, showing
+      every source. No math degree, no computer science degree. The only
+      prerequisite is an opinion.</p>
+      <div class="founder">
+        <p class="f-kicker">The founder</p>
+        <p>Software engineer. Computer science at the University of Toronto.
+        Shipped product at Coursera ($COUR) and DoorDash ($DASH). Investing for
+        over a decade, tinkering with trading algorithms since high school.
+        <b>min.</b> is the quant he always wanted on his side of the trade.</p>
+      </div>
     </div>
   </section>
 
