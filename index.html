@@ -175,13 +175,11 @@
   .spark-rule { display: block; width: 100%; height: 84px;
                 margin-top: clamp(56px, 9vh, 96px); }
   .spark-rule path { fill: none; stroke: rgba(77,163,255,.38); stroke-width: 1.5; }
+  /* draw-on-scroll: JS adds .drawn on first sight; CSS runs the stroke */
   @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-      .spark-rule path { stroke-dasharray: 1500; stroke-dashoffset: 1500;
-                         animation: sparkdraw linear both;
-                         animation-timeline: view(); animation-range: entry 0% cover 42%; }
-      @keyframes sparkdraw { to { stroke-dashoffset: 0; } }
-    }
+    html.js .spark-rule path { stroke-dasharray: 1500; stroke-dashoffset: 1500;
+                               transition: stroke-dashoffset 1.6s cubic-bezier(.22,1,.36,1); }
+    html.js .spark-rule.drawn path { stroke-dashoffset: 0; }
   }
 
   /* values: asymmetric cascade, borderless */
@@ -262,11 +260,11 @@
         <button class="idea" data-q="regional banks are quietly broken. run the numbers and prove me wrong">
           <span>regional banks are quietly broken. prove me wrong</span><span class="arr">→</span>
         </button>
-        <button class="idea" data-q="oil hits $95 by summer. build the trade and tell me what kills it">
-          <span>oil hits $95 by summer. what kills the trade?</span><span class="arr">→</span>
+        <button class="idea" data-q="oil hits $95 by year-end. build the trade and tell me what kills it">
+          <span>oil hits $95 by year-end. what kills the trade?</span><span class="arr">→</span>
         </button>
-        <button class="idea" data-q="the fed cuts in march. who runs first, and what's already priced in?">
-          <span>the fed cuts in march. who runs first?</span><span class="arr">→</span>
+        <button class="idea" data-q="the fed cuts again in december. who runs first, and what's already priced in?">
+          <span>the fed cuts again in december. who runs first?</span><span class="arr">→</span>
         </button>
       </aside>
     </div>
@@ -328,7 +326,7 @@
        carry bleeding while investors revolted. unlabeled on purpose:
        "Do the reading." sits right under the payoff. -->
   <svg class="spark-rule" viewBox="0 0 1200 84" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,76 L75,72.4 L150,68.1 L225,67.4 L300,64.6 L375,58.8 L450,51.7 L525,50.2 L600,48.1 L675,43.1 L750,40.2 L825,43.8 L900,48.1 L975,45.9 L1050,28.8 L1125,17.3 L1200,6"/>
+    <path d="M0,76 L27,73 L54,74.5 L81,70 L108,71.5 L135,67 L162,69.5 L189,64 L216,66.5 L243,61 L270,64 L297,58.5 L324,61.5 L351,56 L378,58.5 L405,53 L432,56 L459,50.5 L486,53.5 L513,47 L540,50 L567,44 L594,47.5 L621,49 L648,52.5 L675,50 L702,55.5 L729,52.5 L756,58 L783,54.5 L810,59.5 L837,55 L864,57.5 L891,51 L918,54 L945,45 L972,48.5 L999,38 L1026,41.5 L1053,30 L1080,33.5 L1107,22 L1134,25 L1161,13 L1200,6"/>
   </svg>
 
   <section class="values">
@@ -355,6 +353,14 @@
 </div>
 
 <script>
+  document.documentElement.classList.add('js');
+  const spark = document.querySelector('.spark-rule');
+  if (spark && 'IntersectionObserver' in window) {
+    new IntersectionObserver((entries, io) => {
+      if (entries.some(e => e.isIntersecting)) { spark.classList.add('drawn'); io.disconnect(); }
+    }, {threshold: .35}).observe(spark);
+  } else if (spark) { spark.classList.add('drawn'); }
+
   const q = document.getElementById('q');
   const pf = document.getElementById('pf');
   const go = () => {
@@ -372,8 +378,8 @@
   /* rotating placeholder + tab to grab it (pairs with .phout fade) */
   const PROMPTS = [
     "tariffs get cut in 6 months. find me cheap names at support",
-    "the fed cuts in march. who runs first, and what's already priced in?",
-    "oil hits $95 by summer. build the trade and tell me what kills it",
+    "the fed cuts again in december. who runs first, and what's already priced in?",
+    "oil hits $95 by year-end. build the trade and tell me what kills it",
     "put $2k behind my AI thesis, spread over 8 weekly buys, bail if it breaks",
     "screen for names sitting at 52-week support with earnings still growing",
   ];
