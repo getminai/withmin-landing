@@ -124,9 +124,23 @@
            border-radius: 10px; padding: 10px; margin-top: 14px; text-decoration: none;
            font-weight: 600; font-size: 14px; }
 
+  /* the scene: Vennett introduces his quant */
+  .scene { display: grid; grid-template-columns: 6fr 5fr; gap: clamp(36px, 5vw, 72px);
+           align-items: start; border-top: 1px solid var(--line);
+           padding: clamp(56px, 9vh, 96px) 0 0; margin-top: clamp(48px, 8vh, 88px); }
+  @media (max-width: 940px) { .scene { grid-template-columns: 1fr; gap: 28px; } }
+  .s-kicker { font-family: var(--mono); font-size: 11.5px; color: var(--dimmer);
+              letter-spacing: .08em; text-transform: uppercase; margin-bottom: 18px; }
+  .s-quote { font-weight: 600; font-size: clamp(30px, 3.8vw, 46px); line-height: 1.12;
+             letter-spacing: -.035em; }
+  .s-quote i { font-style: normal; color: var(--accent); }
+  .s-body { color: var(--dim); font-size: 15.5px; max-width: 46ch; }
+  .s-body b { color: var(--text); font-weight: 500; }
+  .s-note { font-family: var(--mono); font-size: 12px; color: var(--dimmer); margin-top: 18px; }
+
   /* values: asymmetric, borderless */
   .values { display: grid; grid-template-columns: 5fr 4fr 3fr; gap: 44px;
-            padding: clamp(72px, 12vh, 128px) 0 clamp(64px, 10vh, 110px); }
+            padding: clamp(64px, 10vh, 110px) 0 clamp(64px, 10vh, 110px); }
   @media (max-width: 940px) { .values { grid-template-columns: 1fr; gap: 36px; } }
   .value { border-top: 1px solid var(--line); padding-top: 22px; }
   .value h3 { font-weight: 600; font-size: 19px; margin-bottom: 8px; letter-spacing: -.02em; }
@@ -220,6 +234,22 @@
       </aside>
     </div>
   </main>
+
+  <section class="scene">
+    <div>
+      <p class="s-kicker">The Big Short, 2015</p>
+      <p class="s-quote">"Look at him. That's my quant<i>.</i>"</p>
+    </div>
+    <div>
+      <p class="s-body">The short of the century got sold by pointing at a guy:
+      my quant. My quantitative. My math specialist. Won a national math
+      competition in China. You don't get to question him. That's the whole
+      Wall Street trick: the numbers live behind a guy behind a desk.
+      <b>min.</b> is that guy, except he works for you and shows the math on
+      every run: the sources, the backtest, the odds.</p>
+      <p class="s-note">(and he actually speaks English. and he came in second.)</p>
+    </div>
+  </section>
 
   <section class="values">
     <div class="value">
