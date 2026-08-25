@@ -74,7 +74,9 @@
   h1 { font-weight: 600; font-size: clamp(48px, 8.2vw, 98px);
        line-height: 1.0; letter-spacing: -.05em; }
   h1 i { font-style: normal; color: var(--accent); }
-  .hero-row { max-width: 660px; margin-top: clamp(26px, 4vh, 44px); }
+  .hero-row { display: grid; grid-template-columns: 6fr 5fr; gap: clamp(44px, 6vw, 96px);
+              align-items: start; margin-top: clamp(26px, 4vh, 44px); }
+  @media (max-width: 940px) { .hero-row { grid-template-columns: 1fr; } }
 
   .sub { color: var(--dim); font-size: 17px; max-width: 46ch; margin-bottom: 28px; }
   .sub b { color: var(--text); font-weight: 500; }
@@ -103,12 +105,22 @@
   .c-send:active { transform: translateY(1px); }
   .free-note { color: var(--dimmer); font-size: 12px; margin-top: 13px; font-family: var(--mono); }
 
-  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-  .chip { background: none; border: 1px solid var(--line); color: var(--dim);
-          border-radius: var(--r-ctl); padding: 8px 13px; font: 12.5px/1.5 var(--mono);
-          cursor: pointer; text-align: left; transition: border-color .15s, color .15s; }
-  .chip:hover { border-color: var(--accent); color: var(--text); }
-  .chip:active { transform: translateY(1px); }
+  /* idea stack: premade theses as rows on a rail, filling the hero's right column */
+  .ideas { padding-top: 6px; }
+  .i-label { font-family: var(--mono); font-size: 11.5px; color: var(--dimmer);
+             margin-bottom: 2px; }
+  .idea { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 14px;
+          width: 100%; background: none; border: 0; border-top: 1px solid var(--line);
+          padding: 17px 2px; font: 13px/1.55 var(--mono); color: var(--dim);
+          cursor: pointer; text-align: left;
+          transition: color .15s, border-color .15s, padding-left .18s; }
+  .idea:last-of-type { border-bottom: 1px solid var(--line); }
+  .idea .arr { color: var(--accent); opacity: 0; transform: translateX(-6px);
+               transition: opacity .18s, transform .18s; }
+  .idea:hover { color: var(--text); border-top-color: var(--line-strong); padding-left: 8px; }
+  .idea:hover .arr { opacity: 1; transform: none; }
+  .idea:active { transform: translateY(1px); }
+  @media (max-width: 940px) { .ideas { max-width: 560px; } }
 
   /* the scene: Vennett introduces his quant */
   .scene { display: grid; grid-template-columns: 6fr 5fr; gap: clamp(36px, 5vw, 72px);
@@ -131,8 +143,18 @@
                margin-bottom: clamp(28px, 4vh, 44px); }
   .sec-title i { font-style: normal; color: var(--accent); }
   .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
-           position: relative; border-top: 1px solid var(--line-strong); }
-  @media (max-width: 940px) { .steps { grid-template-columns: 1fr 1fr; border-top: 0; } }
+           position: relative; border-top: 1px solid var(--line-strong); overflow: hidden; }
+  /* data pulse traveling the pipeline rail: thesis in, strategy out */
+  .steps::after { content: ""; position: absolute; top: 0; left: 0; height: 1px; width: 140px;
+                  background: linear-gradient(90deg, transparent, rgba(77,163,255,.9), transparent); }
+  @media (prefers-reduced-motion: no-preference) {
+    .steps::after { animation: railflow 7s linear infinite; }
+    @keyframes railflow { 0% { transform: translateX(-140px); }
+                          65%, 100% { transform: translateX(1210px); } }
+  }
+  @media (prefers-reduced-motion: reduce) { .steps::after { display: none; } }
+  @media (max-width: 940px) { .steps { grid-template-columns: 1fr 1fr; border-top: 0; }
+                              .steps::after { display: none; } }
   @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
   .step { padding-top: 20px; position: relative; }
   .step::before { content: ""; position: absolute; top: 0; left: 0; width: 1px; height: 12px;
@@ -143,16 +165,32 @@
   .step h3 { font-weight: 600; font-size: 16.5px; letter-spacing: -.01em; margin: 8px 0 6px; }
   .step p { color: var(--dim); font-size: 13.5px; line-height: 1.55; }
   .hood { display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
-          margin-top: clamp(28px, 4vh, 40px); }
+          margin-top: clamp(40px, 6vh, 64px); }
   .hood .h-label { font-family: var(--mono); font-size: 11px; color: var(--dimmer);
                    letter-spacing: .08em; text-transform: uppercase; margin-right: 6px; }
   .hood span:not(.h-label) { font-family: var(--mono); font-size: 11.5px; color: var(--dim);
           border: 1px solid var(--line); border-radius: var(--r-ctl); padding: 5px 11px; }
 
-  /* values: asymmetric, borderless */
+  /* spark rule: one long price line drawing itself between sections */
+  .spark-rule { display: block; width: 100%; height: 84px;
+                margin-top: clamp(56px, 9vh, 96px); }
+  .spark-rule path { fill: none; stroke: rgba(77,163,255,.38); stroke-width: 1.5; }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .spark-rule path { stroke-dasharray: 1500; stroke-dashoffset: 1500;
+                         animation: sparkdraw linear both;
+                         animation-timeline: view(); animation-range: entry 0% cover 42%; }
+      @keyframes sparkdraw { to { stroke-dashoffset: 0; } }
+    }
+  }
+
+  /* values: asymmetric cascade, borderless */
   .values { display: grid; grid-template-columns: 5fr 4fr 3fr; gap: 44px;
-            padding: clamp(64px, 10vh, 110px) 0 clamp(64px, 10vh, 110px); }
-  @media (max-width: 940px) { .values { grid-template-columns: 1fr; gap: 36px; } }
+            padding: clamp(40px, 6vh, 64px) 0 clamp(64px, 10vh, 110px); }
+  .value:nth-child(2) { margin-top: 52px; }
+  .value:nth-child(3) { margin-top: 104px; }
+  @media (max-width: 940px) { .values { grid-template-columns: 1fr; gap: 36px; }
+                              .value:nth-child(2), .value:nth-child(3) { margin-top: 0; } }
   .value { border-top: 1px solid var(--line); padding-top: 22px; }
   .value h3 { font-weight: 600; font-size: 19px; margin-bottom: 8px; letter-spacing: -.02em; }
   .value p { color: var(--dim); font-size: 14.5px; max-width: 34ch; }
@@ -208,14 +246,26 @@
           </div>
         </form>
         <div class="free-note rise d4">not a casino, but if it were, you'd want a quant in your pocket</div>
-
-        <div class="chips rise d5">
-          <button class="chip" data-q="the AI bubble pops in 6 months. how do I profit?">the AI bubble pops in 6 months. how do I profit?</button>
-          <button class="chip" data-q="china controls global minerals. build me a slow 10-year position">china controls global minerals. build me a 10-year position</button>
-          <button class="chip" data-q="regional banks are quietly broken. run the numbers and prove me wrong">regional banks are quietly broken. prove me wrong</button>
-        </div>
       </div>
 
+      <aside class="ideas rise d5" aria-label="Example theses">
+        <p class="i-label">or run one of these</p>
+        <button class="idea" data-q="the AI bubble pops in 6 months. how do I profit?">
+          <span>the AI bubble pops in 6 months. how do I profit?</span><span class="arr">→</span>
+        </button>
+        <button class="idea" data-q="china controls global minerals. build me a slow 10-year position">
+          <span>china controls global minerals. build me a 10-year position</span><span class="arr">→</span>
+        </button>
+        <button class="idea" data-q="regional banks are quietly broken. run the numbers and prove me wrong">
+          <span>regional banks are quietly broken. prove me wrong</span><span class="arr">→</span>
+        </button>
+        <button class="idea" data-q="oil hits $95 by summer. build the trade and tell me what kills it">
+          <span>oil hits $95 by summer. what kills the trade?</span><span class="arr">→</span>
+        </button>
+        <button class="idea" data-q="the fed cuts in march. who runs first, and what's already priced in?">
+          <span>the fed cuts in march. who runs first?</span><span class="arr">→</span>
+        </button>
+      </aside>
     </div>
   </main>
 
@@ -271,6 +321,10 @@
     </div>
   </section>
 
+  <svg class="spark-rule" viewBox="0 0 1200 84" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,62 L40,58 L80,64 L120,55 L160,59 L200,50 L240,56 L280,46 L320,52 L360,40 L400,47 L440,52 L480,38 L520,44 L560,30 L600,38 L640,26 L680,34 L720,40 L760,24 L800,31 L840,18 L880,27 L920,14 L960,22 L1000,10 L1040,18 L1080,8 L1120,14 L1160,6 L1200,10"/>
+  </svg>
+
   <section class="values">
     <div class="value">
       <h3>Do the reading.</h3>
@@ -316,13 +370,13 @@
     "put $2k behind my AI thesis, spread over 8 weekly buys, bail if it breaks",
     "screen for names sitting at 52-week support with earnings still growing",
   ];
-  let pi = 0;
+  let pi = 0, hoveredIdea = false;
   setInterval(() => {
-    if (q.value || document.activeElement === q && q.value) return;
+    if (q.value || hoveredIdea) return;
     q.classList.add('phout');
     setTimeout(() => {
       pi = (pi + 1) % PROMPTS.length;
-      if (!q.value) q.placeholder = PROMPTS[pi];
+      if (!q.value && !hoveredIdea) q.placeholder = PROMPTS[pi];
       q.classList.remove('phout');
     }, 300);
   }, 9000);
@@ -334,8 +388,17 @@
       q.dispatchEvent(new Event('input'));
     }
   });
-  document.querySelectorAll('.chip').forEach(c =>
-    c.addEventListener('click', () => { q.value = c.dataset.q; q.dispatchEvent(new Event('input')); q.focus(); }));
+  /* ideas: hover primes the composer placeholder, click runs it in the app */
+  document.querySelectorAll('.idea').forEach(c => {
+    c.addEventListener('mouseenter', () => {
+      hoveredIdea = true;
+      if (!q.value) q.placeholder = c.dataset.q;
+    });
+    c.addEventListener('mouseleave', () => { hoveredIdea = false; });
+    c.addEventListener('click', () => {
+      window.location.href = 'https://quant.withmin.ai/?q=' + encodeURIComponent(c.dataset.q);
+    });
+  });
 </script>
 </body>
 </html>
