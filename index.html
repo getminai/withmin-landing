@@ -80,7 +80,8 @@
   .composer textarea { display: block; width: 100%; resize: none; background: none; border: 0;
                        outline: none; color: var(--text); font: 15.5px/1.55 var(--sans);
                        min-height: 50px; max-height: 190px; }
-  .composer textarea::placeholder { color: var(--dimmer); }
+  .composer textarea::placeholder { color: var(--dimmer); opacity: 1; transition: opacity .3s ease; }
+  .composer textarea.phout::placeholder { opacity: 0; }
   .c-foot { display: flex; justify-content: space-between; align-items: center;
             margin-top: 10px; gap: 12px; }
   .c-hint { font-family: var(--mono); font-size: 11.5px; color: var(--dimmer);
@@ -218,7 +219,7 @@
           <textarea id="q" rows="2" placeholder="tariffs get cut in 6 months. find me cheap names at support"
                     autocomplete="off" autofocus></textarea>
           <div class="c-foot">
-            <span class="c-hint">first research run free · no signup</span>
+            <span class="c-hint">first research run free · no signup · tab ⇥ grabs the idea</span>
             <button class="c-send" type="submit" aria-label="Run it">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                    stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
@@ -356,7 +357,34 @@
   pf.addEventListener('click', () => q.focus());
   q.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); go(); }
+    if (e.key === 'Tab' && !q.value.trim()) {
+      e.preventDefault();
+      q.value = q.placeholder;
+      q.dispatchEvent(new Event('input'));
+    }
   });
+
+  // rotating preselected ideas in the placeholder
+  const IDEAS = [
+    "tariffs get cut in 6 months. find me cheap names at support",
+    "the AI bubble pops in 6 months. how do I profit?",
+    "rate cuts are coming. what runs first?",
+    "china controls global minerals. build me a 10-year position",
+    "everyone is short the dollar. what's the contrarian play?",
+    "put $2k behind uranium, spread over 8 weekly buys",
+    "regional banks are quietly broken. prove me wrong",
+    "defense budgets only go up. build me the boring winner",
+  ];
+  let pi = 0;
+  setInterval(() => {
+    if (q.value) return;
+    q.classList.add('phout');
+    setTimeout(() => {
+      pi = (pi + 1) % IDEAS.length;
+      q.placeholder = IDEAS[pi];
+      q.classList.remove('phout');
+    }, 320);
+  }, 3600);
   q.addEventListener('input', () => {
     q.style.height = 'auto';
     q.style.height = Math.min(q.scrollHeight, 190) + 'px';
