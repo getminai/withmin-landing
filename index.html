@@ -187,10 +187,11 @@
   /* values: asymmetric cascade, borderless */
   .values { display: grid; grid-template-columns: 5fr 4fr 3fr; gap: 44px;
             padding: clamp(40px, 6vh, 64px) 0 clamp(64px, 10vh, 110px); }
+  /* the cascade climbs with the chart above it */
+  .value:nth-child(1) { margin-top: 104px; }
   .value:nth-child(2) { margin-top: 52px; }
-  .value:nth-child(3) { margin-top: 104px; }
   @media (max-width: 940px) { .values { grid-template-columns: 1fr; gap: 36px; }
-                              .value:nth-child(2), .value:nth-child(3) { margin-top: 0; } }
+                              .value:nth-child(1), .value:nth-child(2) { margin-top: 0; } }
   .value { border-top: 1px solid var(--line); padding-top: 22px; }
   .value h3 { font-weight: 600; font-size: 19px; margin-bottom: 8px; letter-spacing: -.02em; }
   .value p { color: var(--dim); font-size: 14.5px; max-width: 34ch; }
