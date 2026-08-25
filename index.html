@@ -29,6 +29,7 @@
     --mono: "Geist Mono", ui-monospace, Menlo, monospace;
   }
   * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
   body { background: var(--bg); color: var(--text);
          font: 15.5px/1.6 var(--sans); overflow-x: hidden;
          -webkit-font-smoothing: antialiased; }
@@ -46,10 +47,15 @@
   .wordmark { font-weight: 600; font-size: 21px; letter-spacing: -.02em;
               color: var(--text); text-decoration: none; }
   .wordmark i { font-style: normal; color: var(--accent); }
+  .nav-links { display: flex; align-items: center; gap: 6px; }
+  .nav-link { color: var(--dim); text-decoration: none; font-size: 13.5px; font-weight: 500;
+              padding: 8px 12px; border-radius: 999px; transition: color .15s; }
+  .nav-link:hover { color: var(--text); }
   .nav-signin { color: var(--dim); text-decoration: none; font-size: 13.5px; font-weight: 500;
                 padding: 8px 18px; border: 1px solid var(--line); border-radius: 999px;
-                transition: all .15s; }
+                margin-left: 10px; transition: all .15s; }
   .nav-signin:hover { color: var(--text); border-color: var(--line-strong); }
+  @media (max-width: 560px) { .nav-link { display: none; } }
 
   /* hero: headline full width, then asymmetric row */
   .hero { padding: clamp(30px, 7vh, 80px) 0 40px; }
@@ -138,6 +144,37 @@
   .s-body b { color: var(--text); font-weight: 500; }
   .s-note { font-family: var(--mono); font-size: 12px; color: var(--dimmer); margin-top: 18px; }
 
+  /* how it works: 4 steps + under-the-hood strip */
+  #how { border-top: 1px solid var(--line); scroll-margin-top: 24px;
+         padding: clamp(56px, 9vh, 96px) 0 0; margin-top: clamp(56px, 9vh, 96px); }
+  .sec-title { font-weight: 600; font-size: clamp(26px, 3vw, 36px); letter-spacing: -.03em;
+               margin-bottom: clamp(28px, 4vh, 44px); }
+  .sec-title i { font-style: normal; color: var(--accent); }
+  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  @media (max-width: 940px) { .steps { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
+  .step { border-top: 1px solid var(--line); padding-top: 18px; }
+  .step .n { font-family: var(--mono); font-size: 11.5px; color: var(--accent);
+             letter-spacing: .08em; }
+  .step h3 { font-weight: 600; font-size: 16.5px; letter-spacing: -.01em; margin: 10px 0 7px; }
+  .step p { color: var(--dim); font-size: 13.5px; line-height: 1.55; }
+  .hood { display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+          margin-top: clamp(28px, 4vh, 40px); }
+  .hood .h-label { font-family: var(--mono); font-size: 11px; color: var(--dimmer);
+                   letter-spacing: .08em; text-transform: uppercase; margin-right: 6px; }
+  .hood span:not(.h-label) { font-family: var(--mono); font-size: 11.5px; color: var(--dim);
+          border: 1px solid var(--line); border-radius: 999px; padding: 5px 12px; }
+
+  /* about */
+  #about { border-top: 1px solid var(--line); scroll-margin-top: 24px;
+           display: grid; grid-template-columns: 6fr 5fr; gap: clamp(36px, 5vw, 72px);
+           padding: clamp(56px, 9vh, 96px) 0 clamp(64px, 10vh, 110px); }
+  @media (max-width: 940px) { #about { grid-template-columns: 1fr; gap: 20px; } }
+  #about .sec-title { margin-bottom: 0; }
+  #about p { color: var(--dim); font-size: 15.5px; max-width: 46ch; }
+  #about p + p { margin-top: 14px; }
+  #about b { color: var(--text); font-weight: 500; }
+
   /* values: asymmetric, borderless */
   .values { display: grid; grid-template-columns: 5fr 4fr 3fr; gap: 44px;
             padding: clamp(64px, 10vh, 110px) 0 clamp(64px, 10vh, 110px); }
@@ -167,7 +204,11 @@
 <div class="wrap">
   <nav>
     <a class="wordmark" href="/">min<i>.</i></a>
-    <a class="nav-signin" href="https://quant.withmin.ai">Sign in</a>
+    <div class="nav-links">
+      <a class="nav-link" href="#how">How it works</a>
+      <a class="nav-link" href="#about">About</a>
+      <a class="nav-signin" href="https://quant.withmin.ai">Sign in</a>
+    </div>
   </nav>
 
   <main class="hero">
@@ -251,6 +292,46 @@
     </div>
   </section>
 
+  <section id="how">
+    <h2 class="sec-title">How it works<i>.</i></h2>
+    <div class="steps">
+      <div class="step">
+        <span class="n">01</span>
+        <h3>Call your shot</h3>
+        <p>Type any thesis in plain English. Tariffs, rate cuts, the AI bubble, a
+        ticker you've been eyeing. No formulas, no screeners.</p>
+      </div>
+      <div class="step">
+        <span class="n">02</span>
+        <h3>Deep research, live</h3>
+        <p>An agentic loop pulls live market data, filings, news, and event odds,
+        then cross-checks every number against the sources. You watch it work.</p>
+      </div>
+      <div class="step">
+        <span class="n">03</span>
+        <h3>Stress-test the idea</h3>
+        <p>Backtests and simulations against years of price history. How much is
+        already priced in, what breaks the trade, and where the edge actually is.</p>
+      </div>
+      <div class="step">
+        <span class="n">04</span>
+        <h3>Get the strategy</h3>
+        <p>Sized entries, a buying schedule, auto-stops. Approve it once and min.
+        executes on your brokerage and keeps watch. You stay in charge.</p>
+      </div>
+    </div>
+    <div class="hood">
+      <span class="h-label">under the hood</span>
+      <span>live market data</span>
+      <span>agentic research loops</span>
+      <span>live event odds</span>
+      <span>backtesting engines</span>
+      <span>simulations</span>
+      <span>auto-stop watchdogs</span>
+      <span>70+ research tools</span>
+    </div>
+  </section>
+
   <section class="values">
     <div class="value">
       <h3>Do the reading.</h3>
@@ -263,6 +344,19 @@
     <div class="value">
       <h3>Diamond hands, with rules.</h3>
       <p>Approve once and the buys execute on schedule while auto-stops guard the downside. No panic scroll at 2am.</p>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2 class="sec-title">About<i>.</i></h2>
+    <div>
+      <p>Wall Street runs on quants. Retail runs on a feed of memes and a gut
+      feeling. <b>min.</b> closes that gap: a personal quant that does the
+      reading, checks the numbers, and builds real strategies for anyone
+      with a thesis.</p>
+      <p>The research is the product. No signal-selling, no order-flow games,
+      no black box. Every strategy ships with its sources, its backtest, and
+      the exact rules it will follow, so you always know what you own and why.</p>
     </div>
   </section>
 
