@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy | min.</title>
+<meta name="description" content="min. never sells your data. Not your order flow, not your trading intents, not your email. Here is exactly what we collect and why.">
+<link rel="canonical" href="https://withmin.ai/privacy">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="min.">
+<meta property="og:title" content="Privacy | min.">
+<meta property="og:description" content="We never sell your data. Not your order flow, not your intents. That would make us the thing we built this to fight.">
+<meta property="og:url" content="https://withmin.ai/privacy">
+<meta property="og:image" content="https://withmin.ai/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@ericzizhouwangx">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/Geist-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/Geist-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face { font-family: "Geist"; font-weight: 400; font-display: swap;
+               src: url("/assets/Geist-400.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 500; font-display: swap;
+               src: url("/assets/Geist-500.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 600; font-display: swap;
+               src: url("/assets/Geist-600.woff2") format("woff2"); }
+  @font-face { font-family: "Geist Mono"; font-weight: 400; font-display: swap;
+               src: url("/assets/GeistMono-400.woff2") format("woff2"); }
+
+  :root {
+    --bg: #08090c; --line: rgba(255,255,255,.08); --line-strong: rgba(255,255,255,.14);
+    --text: #edeff3; --dim: #9aa1b0; --dimmer: #676e7d; --accent: #4da3ff;
+    --sans: "Geist", -apple-system, "Segoe UI", sans-serif;
+    --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--text); font: 15.5px/1.6 var(--sans);
+         overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  .glow { position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse 1000px 600px at 75% 0%, rgba(77,163,255,.06), transparent 62%); }
+  .grain { position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: .03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 26px 0; }
+  .wordmark { font-weight: 600; font-size: 21px; letter-spacing: -.02em;
+              color: var(--text); text-decoration: none; }
+  .wordmark i { font-style: normal; color: var(--accent); }
+  .nav-back { color: var(--dim); text-decoration: none; font-size: 13.5px; font-weight: 500;
+              padding: 8px 18px; border: 1px solid var(--line); border-radius: 999px;
+              transition: all .15s; }
+  .nav-back:hover { color: var(--text); border-color: var(--line-strong); }
+  main { padding: clamp(36px, 7vh, 72px) 0 clamp(64px, 10vh, 110px); }
+  h1 { font-weight: 600; font-size: clamp(38px, 5.5vw, 56px); letter-spacing: -.04em;
+       line-height: 1.05; margin-bottom: 10px; }
+  h1 i { font-style: normal; color: var(--accent); }
+  .updated { font-family: var(--mono); font-size: 12px; color: var(--dimmer);
+             margin-bottom: clamp(26px, 4vh, 40px); }
+  main p { color: var(--dim); font-size: 16px; }
+  main p + p { margin-top: 14px; }
+  main b { color: var(--text); font-weight: 500; }
+  main a { color: var(--dim); }
+  main a:hover { color: var(--text); }
+  .pledge { border: 1px solid var(--line-strong); border-radius: 12px;
+            padding: 22px 24px; margin-bottom: clamp(32px, 5vh, 48px); }
+  .pledge .big { color: var(--text); font-size: 19px; font-weight: 600;
+                 letter-spacing: -.01em; line-height: 1.4; }
+  section { border-top: 1px solid var(--line); margin-top: 30px; padding-top: 24px; }
+  .kicker { font-family: var(--mono); font-size: 11px; color: var(--dimmer);
+            letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; }
+  ul { margin: 12px 0 0; padding-left: 20px; color: var(--dim); font-size: 15px; }
+  li { margin-top: 6px; }
+  footer { border-top: 1px solid var(--line); padding: 24px 0 40px; display: flex;
+           justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  footer .fine { color: var(--dimmer); font-size: 12.5px; }
+  footer a { color: var(--dim); text-decoration: none; font-size: 13px; margin-left: 14px; }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="grain"></div>
+<div class="wrap">
+  <nav>
+    <a class="wordmark" href="/">min<i>.</i></a>
+    <a class="nav-back" href="/">Back to home</a>
+  </nav>
+
+  <main>
+    <h1>Privacy<i>.</i></h1>
+    <p class="updated">last updated 2026-08-26</p>
+
+    <div class="pledge">
+      <p class="big">We never sell your data. Not your order flow. Not your trading
+      intents. Not your ideas, your watchlist, or your email. Not to market makers,
+      not to hedge funds, not to data brokers, not to advertisers. Not raw, not
+      "anonymized", not "aggregated". Not ever.</p>
+      <p style="margin-top:14px">Wall Street built an industry on knowing what retail is about
+      to do before it does it. Your broker can get paid to route your orders; your
+      trades can become someone else's signal. <b>min.</b> exists because the market
+      was never a fair fight, and what you are about to trade is the most personal
+      financial data there is. Selling it would make us the thing we built this to
+      fight. If min. ever makes money, it will be because you chose to pay us,
+      never because someone paid us for you.</p>
+    </div>
+
+    <p>The rest of this page is the plain-language version of how your data is
+    handled by Siege AI, Inc., the company behind <b>min.</b> No legal maze, no
+    footnote tricks. If anything here is unclear, ask us.</p>
+
+    <section>
+      <p class="kicker">What we collect</p>
+      <ul>
+        <li><b>Account basics.</b> Your email and name, from magic-link sign-in or
+        Google / Microsoft sign-in (handled by our auth provider, Supabase). We
+        never see or store a password.</li>
+        <li><b>Your ideas and strategies.</b> The theses you type, the conversations
+        you have with the quant, and the strategies it builds for you.</li>
+        <li><b>Brokerage connection.</b> If you connect a brokerage (through
+        SnapTrade), we receive connection tokens and account data like balances and
+        holdings, so the desk can size and place what you approve. We never see
+        your brokerage password, and connection secrets are encrypted at rest.</li>
+        <li><b>Orders you approve.</b> A record of what you told the desk to do,
+        so we can show you what happened.</li>
+        <li><b>The boring technical stuff.</b> An IP-derived identifier for the
+        one-free-run limit, stored as a salted hash rather than your raw address.
+        Our pages run no ad trackers and no third-party analytics.</li>
+      </ul>
+    </section>
+
+    <section>
+      <p class="kicker">What we use it for</p>
+      <ul>
+        <li>Running your research and executing the strategies you approve. Nothing
+        runs without your say-so.</li>
+        <li>Keeping the service working: debugging, abuse prevention, capacity.
+        When fixing a bug means looking at an individual run, we treat that access
+        as sensitive and keep it to the minimum needed.</li>
+        <li>Improving the quant. Runs of our own example prompts (the premade ones
+        on the homepage) may be recorded and replayed for other visitors as demos.
+        <b>Your own typed ideas are never replayed or shown to anyone else.</b></li>
+      </ul>
+    </section>
+
+    <section>
+      <p class="kicker">Who touches it</p>
+      <p>A small set of service providers process data strictly to run min., under
+      contracts that prohibit using it for anything else: Supabase (accounts and
+      database), Railway (hosting), Anthropic (the AI that does the research),
+      SnapTrade (the brokerage connection), and market-data providers (which see
+      tickers and dates, not who you are). That is the whole list. No data brokers,
+      no ad networks, no "partners".</p>
+    </section>
+
+    <section>
+      <p class="kicker">What we will never do</p>
+      <ul>
+        <li>Sell, rent, or trade your personal data, your order flow, or your
+        trading intents, in any form, to anyone.</li>
+        <li>Use your data for advertising, or let anyone else.</li>
+        <li>Let third parties train their models on your ideas.</li>
+        <li>Share your data except: with the providers above to run the service,
+        if the law genuinely compels us (we push back where we lawfully can, and
+        tell you unless prohibited), or in a change of ownership where the new
+        owner inherits this exact pledge and you are notified first.</li>
+      </ul>
+    </section>
+
+    <section>
+      <p class="kicker">Retention and deletion</p>
+      <p>We keep your data while your account is active so your strategies and
+      history keep working. Ask us to delete your account and we remove your
+      personal data from live systems promptly, with backups expiring on their
+      normal cycle. The free-trial IP hash expires on its own.</p>
+    </section>
+
+    <section>
+      <p class="kicker">Security</p>
+      <p>Everything moves over TLS. Brokerage connection secrets are encrypted at
+      rest. Trial identifiers are salted hashes. Access to production data is
+      limited to what operating the service requires.</p>
+    </section>
+
+    <section>
+      <p class="kicker">Your rights</p>
+      <p>Wherever you live, you can ask us what we hold about you, get a copy,
+      correct it, or have it deleted. We honor these requests for everyone, not
+      just where a statute makes us.</p>
+    </section>
+
+    <section>
+      <p class="kicker">The small print</p>
+      <p>min. is for adults: you must be 18 or older. If this policy materially
+      changes, we will say so plainly here and flag it in the product before the
+      change takes effect, with the date above always current. Questions or
+      requests: reach the founder directly on
+      <a href="https://x.com/ericzizhouwangx" target="_blank" rel="noopener">X</a> or
+      <a href="https://www.linkedin.com/in/zizhouwang" target="_blank" rel="noopener">LinkedIn</a>.</p>
+    </section>
+  </main>
+
+  <footer>
+    <a class="wordmark" href="/">min<i>.</i></a>
+    <span class="fine">Research tooling, not financial advice.</span>
+    <span><a href="/terms">Terms</a><a href="https://quant.withmin.ai">Sign in</a></span>
+  </footer>
+</div>
+</body>
+</html>

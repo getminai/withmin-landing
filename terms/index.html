@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Terms | min.</title>
+<meta name="description" content="The terms for using min.: research tooling, not financial advice. You approve every trade; your money stays at your brokerage.">
+<link rel="canonical" href="https://withmin.ai/terms">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="min.">
+<meta property="og:title" content="Terms | min.">
+<meta property="og:description" content="Research tooling, not financial advice. You approve every trade.">
+<meta property="og:url" content="https://withmin.ai/terms">
+<meta property="og:image" content="https://withmin.ai/assets/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@ericzizhouwangx">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/Geist-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/Geist-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face { font-family: "Geist"; font-weight: 400; font-display: swap;
+               src: url("/assets/Geist-400.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 500; font-display: swap;
+               src: url("/assets/Geist-500.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 600; font-display: swap;
+               src: url("/assets/Geist-600.woff2") format("woff2"); }
+  @font-face { font-family: "Geist Mono"; font-weight: 400; font-display: swap;
+               src: url("/assets/GeistMono-400.woff2") format("woff2"); }
+
+  :root {
+    --bg: #08090c; --line: rgba(255,255,255,.08); --line-strong: rgba(255,255,255,.14);
+    --text: #edeff3; --dim: #9aa1b0; --dimmer: #676e7d; --accent: #4da3ff;
+    --sans: "Geist", -apple-system, "Segoe UI", sans-serif;
+    --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  body { background: var(--bg); color: var(--text); font: 15.5px/1.6 var(--sans);
+         overflow-x: hidden; -webkit-font-smoothing: antialiased; }
+  .glow { position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background: radial-gradient(ellipse 1000px 600px at 75% 0%, rgba(77,163,255,.06), transparent 62%); }
+  .grain { position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: .03;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .wrap { max-width: 680px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+  nav { display: flex; align-items: center; justify-content: space-between; padding: 26px 0; }
+  .wordmark { font-weight: 600; font-size: 21px; letter-spacing: -.02em;
+              color: var(--text); text-decoration: none; }
+  .wordmark i { font-style: normal; color: var(--accent); }
+  .nav-back { color: var(--dim); text-decoration: none; font-size: 13.5px; font-weight: 500;
+              padding: 8px 18px; border: 1px solid var(--line); border-radius: 999px;
+              transition: all .15s; }
+  .nav-back:hover { color: var(--text); border-color: var(--line-strong); }
+  main { padding: clamp(36px, 7vh, 72px) 0 clamp(64px, 10vh, 110px); }
+  h1 { font-weight: 600; font-size: clamp(38px, 5.5vw, 56px); letter-spacing: -.04em;
+       line-height: 1.05; margin-bottom: 10px; }
+  h1 i { font-style: normal; color: var(--accent); }
+  .updated { font-family: var(--mono); font-size: 12px; color: var(--dimmer);
+             margin-bottom: clamp(26px, 4vh, 40px); }
+  main p { color: var(--dim); font-size: 16px; }
+  main p + p { margin-top: 14px; }
+  main b { color: var(--text); font-weight: 500; }
+  main a { color: var(--dim); }
+  main a:hover { color: var(--text); }
+  section { border-top: 1px solid var(--line); margin-top: 30px; padding-top: 24px; }
+  .kicker { font-family: var(--mono); font-size: 11px; color: var(--dimmer);
+            letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px; }
+  ul { margin: 12px 0 0; padding-left: 20px; color: var(--dim); font-size: 15px; }
+  li { margin-top: 6px; }
+  footer { border-top: 1px solid var(--line); padding: 24px 0 40px; display: flex;
+           justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  footer .fine { color: var(--dimmer); font-size: 12.5px; }
+  footer a { color: var(--dim); text-decoration: none; font-size: 13px; margin-left: 14px; }
+  footer a:hover { color: var(--text); }
+</style>
+</head>
+<body>
+<div class="glow"></div>
+<div class="grain"></div>
+<div class="wrap">
+  <nav>
+    <a class="wordmark" href="/">min<i>.</i></a>
+    <a class="nav-back" href="/">Back to home</a>
+  </nav>
+
+  <main>
+    <h1>Terms<i>.</i></h1>
+    <p class="updated">last updated 2026-08-26</p>
+
+    <p>These are the terms for using <b>min.</b>, operated by Siege AI, Inc.
+    ("we", "us"). By using min. you agree to them. They are written to be read,
+    not skimmed past; the load-bearing parts are short.</p>
+
+    <section>
+      <p class="kicker">What min. is, and is not</p>
+      <p><b>min. is research tooling and execution convenience. It is not
+      financial advice.</b> We are not a broker-dealer, not an investment
+      adviser, and we owe you no fiduciary duty. The quant's research,
+      backtests, conviction scores, and strategies are information produced by
+      software, including AI, and AI can be wrong. Nothing min. outputs is a
+      recommendation tailored to your circumstances. <b>You approve every
+      strategy, and every decision is yours.</b></p>
+      <p>Your money never sits with us. Brokerage accounts are yours, held at
+      your brokerage, connected through SnapTrade. Until you connect one,
+      trading runs in a sandbox with no real money.</p>
+    </section>
+
+    <section>
+      <p class="kicker">Eligibility and your account</p>
+      <ul>
+        <li>You must be 18 or older and able to form a binding contract.</li>
+        <li>Keep your sign-in method secure; you are responsible for activity on
+        your account.</li>
+        <li>The free research run is one per person. Working around that limit
+        (or helping others to) is a way to get banned, not a growth hack.</li>
+      </ul>
+    </section>
+
+    <section>
+      <p class="kicker">Markets are risky. Backtests are history.</p>
+      <ul>
+        <li>Trading involves risk of loss, up to everything you put in. Size
+        accordingly; never trade money you cannot afford to lose.</li>
+        <li>Backtests and historical analogs describe the past. They do not
+        predict the future, and past performance does not guarantee anything.</li>
+        <li>Verify anything load-bearing before you act on it. The quant shows
+        its sources so you can.</li>
+      </ul>
+    </section>
+
+    <section>
+      <p class="kicker">Execution</p>
+      <p>When execution is enabled and you approve a strategy, orders route to
+      your connected brokerage. Guardrails like notional caps, the kill switch,
+      scheduled tranches, and auto-stop monitoring are best-effort software, not
+      guarantees: markets move, data feeds hiccup, brokers reject orders, and
+      software fails. You remain responsible for your positions and for
+      monitoring your own account.</p>
+    </section>
+
+    <section>
+      <p class="kicker">Acceptable use</p>
+      <p>Do not use min. to break the law or market rules (manipulation,
+      trading on stolen information, evading sanctions), do not scrape, resell,
+      or rehost the service, do not probe or overload it, and do not reverse
+      engineer it beyond what the law allows regardless of contract.</p>
+    </section>
+
+    <section>
+      <p class="kicker">Your ideas, our software</p>
+      <p>Your theses and conversations are yours. You give us just enough
+      license to process them to run the service for you, as described in the
+      <a href="/privacy">privacy policy</a>, and we never sell them. The min.
+      software, brand, and everything we built is ours; these terms give you a
+      personal, non-transferable right to use it.</p>
+    </section>
+
+    <section>
+      <p class="kicker">Warranties and liability</p>
+      <p>min. is provided as is, without warranties of any kind: no promise of
+      availability, accuracy, or profit. To the maximum extent the law allows,
+      Siege AI, Inc. is not liable for trading losses, lost profits, or
+      indirect, incidental, or consequential damages arising from the service,
+      and our total liability for any claim is capped at the greater of $100 or
+      the amounts you paid us in the 12 months before the claim arose. Some
+      jurisdictions do not allow certain limitations; where that is you, these
+      apply to the fullest extent permitted.</p>
+    </section>
+
+    <section>
+      <p class="kicker">Ending things, changing things</p>
+      <p>You can stop using min. and ask us to delete your account at any time.
+      We can suspend or end accounts that break these terms. We may update these
+      terms; if a change is material we will flag it in the product before it
+      takes effect, and the date above always tells you the current version.
+      Continued use after a change means you accept it.</p>
+    </section>
+
+    <section>
+      <p class="kicker">The legal frame</p>
+      <p>These terms are governed by the laws of the State of Delaware, USA,
+      without regard to conflict-of-law rules. If a court finds part of these
+      terms unenforceable, the rest stands. Questions: reach the founder on
+      <a href="https://x.com/ericzizhouwangx" target="_blank" rel="noopener">X</a> or
+      <a href="https://www.linkedin.com/in/zizhouwang" target="_blank" rel="noopener">LinkedIn</a>.</p>
+    </section>
+  </main>
+
+  <footer>
+    <a class="wordmark" href="/">min<i>.</i></a>
+    <span class="fine">Research tooling, not financial advice.</span>
+    <span><a href="/privacy">Privacy</a><a href="https://quant.withmin.ai">Sign in</a></span>
+  </footer>
+</div>
+</body>
+</html>
