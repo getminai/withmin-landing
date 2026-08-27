@@ -459,7 +459,7 @@
     }
   });
   /* ideas: hover primes the composer placeholder, click runs it in the app */
-  document.querySelectorAll('.idea').forEach(c => {
+  function bindIdea(c) {
     c.addEventListener('mouseenter', () => {
       hoveredIdea = true;
       if (!q.value) q.placeholder = c.dataset.q;
@@ -468,7 +468,35 @@
     c.addEventListener('click', () => {
       window.location.href = 'https://quant.withmin.ai/?q=' + encodeURIComponent(c.dataset.q);
     });
-  });
+  }
+  document.querySelectorAll('.idea').forEach(bindIdea);
+
+  /* one source of truth: the app regenerates the day's prompts at market
+     close; the static rows above are only the no-JS / fetch-failed fallback */
+  const IDEAS_URL = (location.protocol === 'file:' || location.hostname === 'localhost')
+    ? 'http://localhost:8931/api/prompts/public'
+    : 'https://quant.withmin.ai/api/prompts/public';
+  fetch(IDEAS_URL).then(r => r.json()).then(body => {
+    const fresh = (body.prompts || []).filter(p => typeof p === 'string' && p.trim());
+    if (fresh.length < 4) return;
+    PROMPTS.splice(0, PROMPTS.length, ...fresh);      // placeholder rotation
+    const stack = document.querySelector('.ideas');    // idea rows
+    if (!stack) return;
+    stack.querySelectorAll('.idea').forEach(n => n.remove());
+    fresh.slice(0, 6).forEach(p => {
+      const btn = document.createElement('button');
+      btn.className = 'idea';
+      btn.dataset.q = p;
+      const label = document.createElement('span');
+      label.textContent = p;
+      const arr = document.createElement('span');
+      arr.className = 'arr';
+      arr.textContent = '→';
+      btn.append(label, arr);
+      bindIdea(btn);
+      stack.appendChild(btn);
+    });
+  }).catch(() => {});
 </script>
 </body>
 </html>
