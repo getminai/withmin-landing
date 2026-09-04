@@ -83,7 +83,19 @@
               text-decoration: none; }
   .f-link a:hover { color: var(--text); }
 
-  .cta { margin-top: 40px; }
+  /* The two specialists, side by side: the argument above is about both. */
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(24px, 3.4vw, 46px);
+          border-top: 1px solid var(--line); margin-top: 34px; padding-top: 24px; }
+  @media (max-width: 720px) { .pair { grid-template-columns: 1fr; } }
+  .pair .p-name { color: var(--text); font-size: 17px; font-weight: 600;
+                  letter-spacing: -.02em; margin-bottom: 8px; }
+  .pair .p-name i { font-style: normal; color: var(--accent); }
+  .pair p { font-size: 14.5px; }
+
+  .cta { margin-top: 40px; display: flex; flex-wrap: wrap; gap: 10px; }
+  .cta a.alt { background: transparent; color: var(--text);
+               border: 1px solid var(--line-strong); }
+  .cta a.alt:hover { border-color: var(--accent); background: rgba(77,163,255,.1); }
   .cta a { display: inline-block; background: var(--accent); color: #06121f; text-decoration: none;
            border-radius: 999px; padding: 11px 24px; font-weight: 600; font-size: 14.5px;
            transition: filter .15s, transform .1s; }
@@ -121,33 +133,54 @@
       <p>The market was never a fair fight. On one side: PhDs, math specialists,
       algorithms trading in microseconds, data you will never see. On the other:
       you, a feed, and a gut feeling. They call it dumb money, and they price it
-      like that. It's bringing a knife to a fight with F-35s. Your position is
-      blown up before you know you were the target.</p>
-      <p>For the first time, the field is level. What a quant desk spends months
-      on, <b>min.</b> does in minutes: turning a thesis into a strategy,
-      compiling and cleaning the data, backtesting against years of history,
-      running the simulations, stress-testing the fragile parts. Live, showing
-      every source. No math degree, no computer science degree. The only
-      prerequisite is an idea.</p>
+      like that.</p>
+      <p>It was never only the market. Everywhere it counts, the people who win
+      have specialists. Someone who reads the filings. Someone who keeps the
+      calendar straight, catches the bill before it is late, remembers the name
+      of the person you are about to meet. Everyone else gets a search box and a
+      longer to-do list.</p>
+      <p><b>min.</b> builds those specialists, one at a time, and hands them
+      over. Not one assistant that knows a little about everything and is
+      accountable for none of it. One that gets the real instruments of a single
+      trade, acts with them, and shows every step, so you can check it, argue
+      with it, and change your mind.</p>
     </div>
 
-    <div class="founder rise d3">
+    <div class="pair rise d3">
+      <div>
+        <p class="p-name">min<i>.</i> quant</p>
+        <p>Your own investment team. It turns an idea into a strategy: compiling
+        and cleaning the data, backtesting against years of history, running the
+        simulations, stress-testing the fragile parts. Live, showing every
+        source. No math degree, no computer science degree. The only
+        prerequisite is an idea.</p>
+      </div>
+      <div>
+        <p class="p-name">min<i>.</i> life</p>
+        <p>The most personal AI. It reads your inbox and your calendar, learns
+        the shape of your week and the people in it, and handles the small things
+        you would otherwise carry around all day: the reply, the booking, the
+        renewal, the plan you keep meaning to make.</p>
+      </div>
+    </div>
+
+    <div class="founder rise d4">
       <p class="f-kicker">The founder</p>
       <p>I'm a software engineer. Computer science at the University of Toronto,
       shipped product at Coursera ($COUR) and DoorDash ($DASH). I've been
       investing for over a decade and tinkering with trading algorithms since I
-      was 15 years old. <b>min.</b> is the quant I always wanted on my side of
-      the trade.</p>
+      was 15 years old. <b>min.</b> started as the quant I always wanted on my
+      side of the trade. It did not stay one specialist for long.</p>
       <p class="f-link"><a href="https://www.linkedin.com/in/zizhouwang" target="_blank" rel="noopener">LinkedIn ↗</a>
       <a href="https://x.com/ericzizhouwangx" target="_blank" rel="me noopener" style="margin-left:16px">X ↗</a></p>
-      <div class="cta"><a href="https://quant.withmin.ai">Meet your quant</a></div>
+      <div class="cta"><a href="/quant">Meet your quant</a><a class="alt" href="https://life.withmin.ai">Meet min. life</a></div>
     </div>
   </main>
 
   <footer>
     <a class="wordmark" href="/">min<i>.</i></a>
     <span class="fine">Research tooling, not financial advice.</span>
-    <span class="f-nav"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="https://quant.withmin.ai">Sign in</a></span>
+    <span class="f-nav"><a href="/privacy">Privacy</a><a href="/terms">Terms</a></span>
   </footer>
 </div>
 </body>
