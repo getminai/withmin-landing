@@ -3,583 +3,375 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>min. | Your Personal Hedge Fund</title>
-<meta name="description" content="Type a trade idea. A quant researches it, a desk runs it, tripwires watch it. Your own fund, free. First run: no signup.">
+<title>min. | Specialist AI for your money and your life</title>
+<meta name="description" content="min. quant is your own investment team, turning ideas into strategies grounded in quantitative research. min. life is the most personal AI, built around you and acting for you.">
 <link rel="canonical" href="https://withmin.ai/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="min.">
-<meta property="og:title" content="min. | Run Your Own AI Hedge Fund">
-<meta property="og:description" content="Type a trade idea. A quant researches it, a desk runs it, tripwires watch it. Your own fund, free.">
+<meta property="og:title" content="min. | Specialists, not chatbots">
+<meta property="og:description" content="min. quant: your own investment team. min. life: the most personal AI. Pick a door.">
 <meta property="og:url" content="https://withmin.ai/">
-<meta property="og:image" content="https://withmin.ai/assets/og-05af7a61.png">
+<meta property="og:image" content="https://withmin.ai/assets/og-home.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="min. Run your own AI hedge fund. Free.">
+<meta property="og:image:alt" content="min. Specialists, not chatbots.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@ericzizhouwangx">
-<meta name="twitter:title" content="min. | Run Your Own AI Hedge Fund">
-<meta name="twitter:description" content="Type a trade idea. A quant researches it, a desk runs it, tripwires watch it. Your own fund, free.">
-<meta name="twitter:image" content="https://withmin.ai/assets/og-05af7a61.png">
+<meta name="twitter:title" content="min. | Specialists, not chatbots">
+<meta name="twitter:description" content="min. quant: your own investment team. min. life: the most personal AI. Pick a door.">
+<meta name="twitter:image" content="https://withmin.ai/assets/og-home.png">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
  {"@type":"Organization","@id":"https://withmin.ai/#org","name":"min.","url":"https://withmin.ai/",
   "sameAs":["https://x.com/ericzizhouwangx","https://www.linkedin.com/in/zizhouwang"]},
  {"@type":"WebSite","@id":"https://withmin.ai/#site","url":"https://withmin.ai/","name":"min.",
   "publisher":{"@id":"https://withmin.ai/#org"}},
- {"@type":"SoftwareApplication","name":"min.","applicationCategory":"FinanceApplication",
+ {"@type":"SoftwareApplication","name":"min. quant","applicationCategory":"FinanceApplication",
   "operatingSystem":"Web","url":"https://quant.withmin.ai",
-  "description":"Type a trade idea. A quant researches it, a desk runs it, tripwires watch it. Your own fund, free.",
+  "description":"Your own investment team. Turns an idea into a strategy, grounded in quantitative research.",
+  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
+ {"@type":"SoftwareApplication","name":"min. life","applicationCategory":"ProductivityApplication",
+  "operatingSystem":"Web","url":"https://life.withmin.ai",
+  "description":"The most personal AI. Built around you, knows you, and does things for you.",
   "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
 ]}
 </script>
 <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/assets/favicon-512.png" sizes="512x512" type="image/png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<link rel="preload" href="assets/Geist-600.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/Geist-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/GeistMono-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/Geist-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/Fraunces-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/GeistMono-400.woff2" as="font" type="font/woff2" crossorigin>
 <style>
   @font-face { font-family: "Geist"; font-weight: 400; font-display: swap;
-               src: url("assets/Geist-400.woff2") format("woff2"); }
+               src: url("/assets/Geist-400.woff2") format("woff2"); }
   @font-face { font-family: "Geist"; font-weight: 500; font-display: swap;
-               src: url("assets/Geist-500.woff2") format("woff2"); }
+               src: url("/assets/Geist-500.woff2") format("woff2"); }
   @font-face { font-family: "Geist"; font-weight: 600; font-display: swap;
-               src: url("assets/Geist-600.woff2") format("woff2"); }
+               src: url("/assets/Geist-600.woff2") format("woff2"); }
   @font-face { font-family: "Geist Mono"; font-weight: 400; font-display: swap;
-               src: url("assets/GeistMono-400.woff2") format("woff2"); }
+               src: url("/assets/GeistMono-400.woff2") format("woff2"); }
+  /* The life product's own display face. It is here for the same reason the
+     grid and the mono are: each half is rendered in its product's real
+     language, not in a neutral one. */
+  @font-face { font-family: "Fraunces"; font-weight: 600; font-display: swap;
+               src: url("/assets/Fraunces-600.woff2") format("woff2"); }
 
-  /* Shape rule: panels 8px, controls/chips 3px, data segments 1px. No pills. */
   :root {
-    --bg: #07080b; --panel: #0e1015; --panel2: #14171c;
-    --line: rgba(255,255,255,.09); --line-strong: rgba(255,255,255,.16);
+    --bg: #07080b; --panel: #0e1015; --line: rgba(255,255,255,.09);
+    --line-strong: rgba(255,255,255,.16);
     --text: #e9ecf1; --dim: #98a0af; --dimmer: #626a79; --accent: #4da3ff;
-    --green: #34d377; --red: #ff5d5d;
     --sans: "Geist", -apple-system, "Segoe UI", sans-serif;
     --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+    --serif: "Fraunces", Georgia, "Times New Roman", serif;
     --r-panel: 8px; --r-ctl: 3px;
   }
-  * { box-sizing: border-box; margin: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--text);
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; background: var(--bg); color: var(--text);
          font: 15.5px/1.6 var(--sans); overflow-x: hidden;
          -webkit-font-smoothing: antialiased; }
-
-  /* machined ground: fine chart-paper grid fading from the top, faint cold wash */
-  .machined { position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    background-image:
-      linear-gradient(rgba(255,255,255,.028) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,.028) 1px, transparent 1px);
-    background-size: 56px 56px;
-    -webkit-mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, black, transparent 78%);
-    mask-image: radial-gradient(ellipse 90% 65% at 50% 0%, black, transparent 78%); }
-  .wash { position: fixed; inset: 0; pointer-events: none; z-index: 0;
-    background: radial-gradient(ellipse 900px 520px at 78% 0%, rgba(77,163,255,.05), transparent 62%); }
   .grain { position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: .03;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
 
-  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; position: relative; z-index: 1; }
+  /* ------------------------------------------------------------------ */
+  /* The split. Two specialists, two worlds, one seam down the middle.    */
+  /* ------------------------------------------------------------------ */
+  .split { display: flex; min-height: 100dvh; position: relative; }
+  @media (max-width: 820px) { .split { flex-direction: column; } }
 
-  nav { display: flex; align-items: center; justify-content: space-between; padding: 24px 0; }
-  .wordmark { font-weight: 600; font-size: 21px; letter-spacing: -.02em;
+  .half { position: relative; flex: 1 1 50%; min-width: 0; overflow: hidden;
+          text-decoration: none; display: flex; align-items: flex-end;
+          transition: flex-grow .55s cubic-bezier(.22,1,.28,1); }
+  @media (max-width: 820px) { .half { min-height: 50dvh; } }
+  /* Hovering a door opens it wider. The page answers the choice you are
+     already making with the cursor. */
+  @media (min-width: 821px) and (hover: hover) {
+    .split:has(.half:hover) .half { flex-grow: .82; }
+    .split .half:hover { flex-grow: 1.36; }
+  }
+  .half:focus-visible { outline: 2px solid #fff; outline-offset: -6px; }
+
+  /* A scrim in each world's own base color, so the copy always has ground
+     under it wherever the graphic happens to land. */
+  .half::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0;
+                 height: 62%; z-index: 2; pointer-events: none; }
+  .quant::after { background: linear-gradient(to top, #07080b 18%,
+                  rgba(7,8,11,.86) 44%, transparent 100%); }
+  .life::after { background: linear-gradient(to top, oklch(0.84 0.13 52 / .62),
+                 oklch(0.84 0.13 52 / .18) 52%, transparent 100%); }
+
+  .h-inner { position: relative; z-index: 3; width: 100%;
+             padding: clamp(30px, 5vw, 68px); }
+  .h-name { font-size: clamp(30px, 4.4vw, 60px); line-height: 1;
+            letter-spacing: -.045em; margin: 0; }
+  .h-hook { font-size: clamp(15px, 1.5vw, 19px); margin: 16px 0 0; max-width: 34ch; }
+  .h-go { display: inline-flex; align-items: center; gap: 9px; margin-top: clamp(20px, 3vh, 30px);
+          font-family: var(--mono); font-size: 12px; letter-spacing: .06em;
+          text-transform: uppercase; padding: 11px 18px; border-radius: var(--r-ctl);
+          transition: background .2s, border-color .2s, color .2s, transform .2s; }
+  .h-go svg { transition: transform .2s; }
+  .half:hover .h-go svg { transform: translateX(4px); }
+
+  /* --- cool half: the quant's world --- */
+  .quant { background: #07080b; color: var(--text); }
+  .quant .grid { position: absolute; inset: 0; z-index: 1;
+    background-image:
+      linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
+    background-size: 52px 52px;
+    -webkit-mask-image: radial-gradient(ellipse 92% 72% at 50% 12%, black, transparent 82%);
+    mask-image: radial-gradient(ellipse 92% 72% at 50% 12%, black, transparent 82%); }
+  .quant .beam { position: absolute; inset: 0; z-index: 1;
+    background: radial-gradient(ellipse 70% 52% at 62% 6%, rgba(77,163,255,.16), transparent 64%); }
+  /* A real return curve, not decoration: the same series the quant page plots,
+     a fund's cumulative net return from Nov 2000 to Jun 2008. */
+  .quant .curve { position: absolute; left: 0; right: 0; top: 24%; z-index: 2;
+                  width: 100%; height: 46%; }
+  .quant .curve path { fill: none; stroke: var(--accent); stroke-width: 2;
+                       stroke-linecap: round; stroke-linejoin: round;
+                       filter: drop-shadow(0 0 10px rgba(77,163,255,.45)); }
+  .quant .curve .under { fill: url(#qfade); stroke: none; }
+  .quant .h-name { font-family: var(--sans); font-weight: 600; }
+  .quant .h-name i { font-style: normal; color: var(--accent); }
+  .quant .h-name span { color: var(--dim); font-weight: 500; }
+  .quant .h-hook { color: var(--dim); }
+  .quant .h-go { border: 1px solid var(--line-strong); color: var(--text);
+                 background: rgba(14,16,21,.7); }
+  .quant:hover .h-go { border-color: var(--accent); background: rgba(77,163,255,.12);
+                       color: #cfe4ff; }
+  .quant .tape { position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+                 display: flex; gap: 26px; padding: 22px clamp(30px, 5vw, 68px);
+                 font-family: var(--mono); font-size: 11.5px; color: var(--dimmer);
+                 letter-spacing: .04em; }
+  .quant .tape b { color: #7fb7f5; font-weight: 400; }
+
+  /* --- warm half: the life world, at golden hour --- */
+  .life { color: oklch(0.28 0.05 265);
+    background: linear-gradient(180deg,
+      oklch(0.55 0.12 288) 0%, oklch(0.68 0.15 42) 52%, oklch(0.79 0.16 46) 100%); }
+  .life .sun { position: absolute; z-index: 1; left: 62%; top: 46%;
+    width: min(46vw, 420px); aspect-ratio: 1; transform: translate(-50%, -50%);
+    background: radial-gradient(circle,
+      oklch(0.99 0.05 92) 0%, oklch(0.95 0.09 82 / .55) 32%, oklch(0.9 0.12 66 / .18) 54%, transparent 72%);
+    border-radius: 50%; }
+  .life .haze { position: absolute; inset: 0; z-index: 1;
+    background:
+      radial-gradient(ellipse 60% 26% at 22% 78%, oklch(1 0.02 80 / .45), transparent 66%),
+      radial-gradient(ellipse 48% 22% at 80% 88%, oklch(1 0.02 85 / .38), transparent 68%); }
+  /* Cloud forms, drifting the way the product's own sky does. Soft and
+     blurred so they read as weather, not as circles someone forgot to style. */
+  .life .orb { position: absolute; z-index: 2; border-radius: 999px;
+    background: oklch(1 0.02 88 / .30); filter: blur(26px); }
+  .life .o1 { width: min(38vw, 300px); height: 84px; left: 6%; top: 26%; }
+  .life .o2 { width: min(26vw, 190px); height: 54px; left: 62%; top: 17%;
+              background: oklch(1 0.02 88 / .22); }
+  .life .h-name { font-family: var(--serif); font-weight: 600;
+                  color: oklch(0.99 0.01 90); text-shadow: 0 2px 20px oklch(0.4 0.08 40 / .35); }
+  .life .h-name span { color: oklch(0.99 0.02 85 / .78); }
+  .life .h-hook { color: oklch(0.28 0.04 40 / .82); }
+  .life .h-go { border: 1px solid oklch(1 0 0 / .5); border-radius: 999px;
+                background: oklch(1 0.01 85 / .5); color: oklch(0.3 0.05 262);
+                backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+                text-transform: none; letter-spacing: .02em; font-size: 12.5px; }
+  .life:hover .h-go { background: oklch(1 0.01 85 / .82); border-color: #fff; }
+  .life .weather { position: absolute; top: 0; right: 0; z-index: 2;
+                   padding: 22px clamp(30px, 5vw, 68px); font-size: 12.5px;
+                   color: oklch(0.99 0.02 85 / .8); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .life .orb { animation: bob 9s ease-in-out infinite; }
+    .life .o2 { animation-duration: 12s; animation-delay: -3s; }
+    @keyframes bob { 50% { transform: translateY(-16px); } }
+    .quant .curve path { stroke-dasharray: 1600; stroke-dashoffset: 1600;
+                         animation: draw 2.1s cubic-bezier(.4,0,.2,1) .25s forwards; }
+    .quant .curve .under { opacity: 0; animation: fadein .9s ease 1.7s forwards; }
+    @keyframes draw { to { stroke-dashoffset: 0; } }
+    @keyframes fadein { to { opacity: 1; } }
+    .seam-mark, .h-inner > * { animation: rise .7s cubic-bezier(.16,1,.3,1) both; }
+    .h-inner > *:nth-child(2) { animation-delay: .07s; }
+    .h-inner > *:nth-child(3) { animation-delay: .14s; }
+    @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+  }
+
+  /* The brand sits on the seam: one company, two specialists spreading from it. */
+  .seam-mark { position: absolute; z-index: 5; left: 50%; top: 26px;
+               transform: translateX(-50%); display: flex; align-items: center;
+               gap: 10px; padding: 9px 16px; border-radius: var(--r-ctl);
+               background: rgba(7,8,11,.62); border: 1px solid rgba(255,255,255,.14);
+               backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+               font-weight: 600; font-size: 17px; letter-spacing: -.02em;
+               color: #fff; text-decoration: none; }
+  .seam-mark i { font-style: normal; color: var(--accent); }
+  .seam-mark em { font-style: normal; font-family: var(--mono); font-size: 10.5px;
+                  letter-spacing: .1em; text-transform: uppercase;
+                  color: rgba(255,255,255,.78); font-weight: 400; }
+  @media (max-width: 820px) {
+    .seam-mark { top: 18px; }
+    .quant .tape, .life .weather { font-size: 11px; padding-left: 22px; padding-right: 22px; }
+    .quant .curve { top: 16%; height: 34%; }
+  }
+
+  /* ------------------------------------------------------------------ */
+  /* Below the doors: why there are two of them.                          */
+  /* ------------------------------------------------------------------ */
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
+  .story { padding: clamp(64px, 11vh, 116px) 0 clamp(46px, 7vh, 78px); }
+  .story h2 { font-size: clamp(28px, 4vw, 46px); font-weight: 600; letter-spacing: -.045em;
+              line-height: 1.05; margin: 0 0 26px; max-width: 18ch; }
+  .story h2 i { font-style: normal; color: var(--accent); }
+  .story p { color: var(--dim); font-size: 16.5px; margin: 0; max-width: 66ch; }
+  .story p + p { margin-top: 15px; }
+  .story b { color: var(--text); font-weight: 500; }
+  .principles { display: grid; grid-template-columns: 1.12fr 1fr 1fr;
+                gap: clamp(24px, 3.4vw, 52px); margin-top: clamp(44px, 7vh, 74px); }
+  @media (max-width: 820px) { .principles { grid-template-columns: 1fr; } }
+  .principles > div { border-top: 1px solid var(--line-strong); padding-top: 18px; }
+  .principles h3 { font-size: 17px; font-weight: 600; letter-spacing: -.02em; margin: 0 0 8px; }
+  .principles p { color: var(--dim); font-size: 14.5px; }
+
+  footer { border-top: 1px solid var(--line); padding: 40px 0 58px; }
+  .f-top { display: flex; flex-wrap: wrap; gap: 30px 60px; justify-content: space-between; }
+  .wordmark { font-weight: 600; font-size: 20px; letter-spacing: -.02em;
               color: var(--text); text-decoration: none; }
   .wordmark i { font-style: normal; color: var(--accent); }
-  .nav-links { display: flex; align-items: center; gap: 4px; }
-  .nav-link { color: var(--dim); text-decoration: none; font-size: 13.5px; font-weight: 500;
-              padding: 8px 12px; border-radius: var(--r-ctl); transition: color .15s; }
-  .nav-link:hover { color: var(--text); }
-  .nav-signin { font-family: var(--mono); font-size: 12px; letter-spacing: .06em;
-                text-transform: uppercase; color: var(--text); text-decoration: none;
-                padding: 9px 16px; border: 1px solid var(--line-strong);
-                border-radius: var(--r-ctl); margin-left: 12px;
-                transition: border-color .15s, background .15s; }
-  .nav-signin:hover { border-color: var(--accent); background: rgba(77,163,255,.08); }
-  .nav-signin:active { transform: translateY(1px); }
-  @media (max-width: 560px) { .nav-link { display: none; } }
-
-  /* hero: headline full width, then asymmetric row */
-  .hero { padding: clamp(30px, 7vh, 76px) 0 40px; }
-  h1 { font-weight: 600; font-size: clamp(48px, 8.2vw, 98px);
-       line-height: 1.0; letter-spacing: -.05em; }
-  h1 i { font-style: normal; color: var(--accent); }
-  .hero-row { display: grid; grid-template-columns: 6fr 5fr; gap: clamp(44px, 6vw, 96px);
-              align-items: start; margin-top: clamp(26px, 4vh, 44px); }
-  /* grid items default to min-width:auto — a wide min-content child would
-     lock the column open and overflow phones */
-  .hero-row > *, .scene > * { min-width: 0; }
-  @media (max-width: 940px) { .hero-row { grid-template-columns: 1fr; } }
-
-  .sub { color: var(--dim); font-size: 17px; margin-bottom: 28px; }
-  .sub p + p { margin-top: 12px; }
-  .sub b { color: var(--text); font-weight: 500; }
-
-  /* composer: precise input, machined focus. no glow. */
-  .composer { background: var(--panel); border: 1px solid var(--line-strong);
-              border-radius: var(--r-panel); padding: 16px 14px 12px 16px; cursor: text;
-              box-shadow: 0 18px 50px rgba(0,0,0,.4);
-              transition: border-color .15s, box-shadow .15s; }
-  .composer:focus-within { border-color: var(--accent);
-    box-shadow: 0 0 0 1px rgba(77,163,255,.35), 0 24px 60px rgba(0,0,0,.5); }
-  .composer textarea { display: block; width: 100%; resize: none; background: none; border: 0;
-                       outline: none; color: var(--text); font: 15px/1.55 var(--mono);
-                       min-height: 50px; max-height: 190px; }
-  .composer textarea::placeholder { color: var(--dimmer); opacity: 1; transition: opacity .3s ease; }
-  .composer textarea.phout::placeholder { opacity: 0; }
-  .c-foot { display: flex; justify-content: space-between; align-items: center;
-            margin-top: 10px; gap: 12px; }
-  .c-hint { font-family: var(--mono); font-size: 11.5px; color: var(--dimmer);
-            flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .c-send { flex: none; width: 36px; height: 36px; border-radius: var(--r-ctl); border: 0;
-            background: var(--accent); color: #06121f; cursor: pointer;
-            display: grid; place-items: center;
-            transition: filter .15s, transform .1s; }
-  .c-send:hover { filter: brightness(1.12); }
-  .c-send:active { transform: translateY(1px); }
-  .free-note { color: var(--dimmer); font-size: 12px; margin-top: 13px; font-family: var(--mono); }
-
-  /* docked composer: when the hero box scrolls away, the prompt follows you,
-     bottom-center like a chat app. quick, smooth, no bounce. */
-  #dock { position: fixed; left: 50%; bottom: 20px; z-index: 40;
-          width: min(680px, calc(100vw - 32px));
-          opacity: 0; transform: translate(-50%, 14px) scale(.985);
-          pointer-events: none;
-          transition: opacity .2s ease-out, transform .32s cubic-bezier(.2,.85,.25,1); }
-  #dock.on { opacity: 1; transform: translate(-50%, 0) scale(1); pointer-events: auto; }
-  #dock .composer { padding: 12px 12px 10px 16px;
-                    background: rgba(14,16,21,.92); backdrop-filter: blur(14px);
-                    box-shadow: 0 24px 70px rgba(0,0,0,.6); }
-  #dock textarea { min-height: 24px; max-height: 120px; }
-  @media (prefers-reduced-motion: reduce) { #dock { transition: none; } }
-
-  /* idea stack: premade theses as rows on a rail, filling the hero's right column */
-  .ideas { padding-top: 6px; }
-  .idea { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 14px;
-          width: 100%; background: none; border: 0; border-top: 1px solid var(--line);
-          padding: 17px 2px; font: 13px/1.55 var(--mono); color: var(--dim);
-          cursor: pointer; text-align: left;
-          transition: color .15s, border-color .15s, padding-left .18s; }
-  .idea:last-of-type { border-bottom: 1px solid var(--line); }
-  .idea .arr { color: var(--accent); opacity: 0; transform: translateX(-6px);
-               transition: opacity .18s, transform .18s; }
-  .idea:hover { color: var(--text); border-top-color: var(--line-strong); padding-left: 8px; }
-  .idea:hover .arr { opacity: 1; transform: none; }
-  .idea:active { transform: translateY(1px); }
-  @media (max-width: 940px) { .ideas { max-width: 560px; } }
-
-  /* the scene: Vennett introduces his quant */
-  .scene { display: grid; grid-template-columns: 6fr 5fr; gap: clamp(36px, 5vw, 72px);
-           align-items: start; border-top: 1px solid var(--line);
-           padding: clamp(56px, 9vh, 96px) 0 0; margin-top: clamp(48px, 8vh, 88px); }
-  @media (max-width: 940px) { .scene { grid-template-columns: 1fr; gap: 28px; } }
-  .s-kicker { font-family: var(--mono); font-size: 11.5px; color: var(--dimmer);
-              letter-spacing: .08em; text-transform: uppercase; margin-bottom: 18px; }
-  .s-quote { font-weight: 600; font-size: clamp(30px, 3.8vw, 46px); line-height: 1.12;
-             letter-spacing: -.035em; }
-  .s-quote i { font-style: normal; color: var(--accent); }
-  .s-body { color: var(--dim); font-size: 15.5px; max-width: 46ch; }
-  .s-body b { color: var(--text); font-weight: 500; }
-  .s-note { font-family: var(--mono); font-size: 12px; color: var(--dimmer); margin-top: 18px; }
-
-  /* how it works: 4 steps on a rail with tick marks */
-  #how { border-top: 1px solid var(--line); scroll-margin-top: 24px;
-         padding: clamp(56px, 9vh, 96px) 0 0; margin-top: clamp(56px, 9vh, 96px); }
-  .sec-title { font-weight: 600; font-size: clamp(26px, 3vw, 36px); letter-spacing: -.03em;
-               margin-bottom: clamp(28px, 4vh, 44px); }
-  .sec-title i { font-style: normal; color: var(--accent); }
-  .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px;
-           position: relative; border-top: 1px solid var(--line-strong); overflow: hidden; }
-  /* data pulse traveling the pipeline rail: thesis in, strategy out */
-  .steps::after { content: ""; position: absolute; top: 0; left: 0; height: 1px; width: 140px;
-                  background: linear-gradient(90deg, transparent, rgba(77,163,255,.9), transparent); }
-  @media (prefers-reduced-motion: no-preference) {
-    .steps::after { animation: railflow 7s linear infinite; }
-    @keyframes railflow { 0% { transform: translateX(-140px); }
-                          65%, 100% { transform: translateX(1210px); } }
-  }
-  @media (prefers-reduced-motion: reduce) { .steps::after { display: none; } }
-  @media (max-width: 940px) { .steps { grid-template-columns: 1fr 1fr; border-top: 0; }
-                              .steps::after { display: none; } }
-  @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } }
-  .step { padding-top: 20px; position: relative; }
-  .step::before { content: ""; position: absolute; top: 0; left: 0; width: 1px; height: 12px;
-                  background: var(--line-strong); }
-  @media (max-width: 940px) { .step { border-top: 1px solid var(--line); } }
-  .step .n { font-family: var(--mono); font-size: 11.5px; color: var(--accent);
-             letter-spacing: .08em; }
-  .step h3 { font-weight: 600; font-size: 16.5px; letter-spacing: -.01em; margin: 8px 0 6px; }
-  .step p { color: var(--dim); font-size: 13.5px; line-height: 1.55; }
-  .hood { display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
-          margin-top: clamp(40px, 6vh, 64px); }
-  .hood .h-label { font-family: var(--mono); font-size: 11px; color: var(--dimmer);
-                   letter-spacing: .08em; text-transform: uppercase; margin-right: 6px; }
-  .hood span:not(.h-label) { font-family: var(--mono); font-size: 11.5px; color: var(--dim);
-          border: 1px solid var(--line); border-radius: var(--r-ctl); padding: 5px 11px; }
-
-  /* spark rule: one long price line drawing itself between sections */
-  .spark-rule { display: block; width: 100%; height: 84px;
-                margin-top: clamp(56px, 9vh, 96px); }
-  .spark-rule path { fill: none; stroke: rgba(77,163,255,.38); stroke-width: 1.5; }
-  /* draw-on-scroll. two tiers:
-     - scroll-scrubbed where supported: the line renders under your scroll
-     - otherwise (Safari): one-shot 1.6s draw when it first enters view */
-  @media (prefers-reduced-motion: no-preference) {
-    html.js .spark-rule path { stroke-dasharray: 1500; stroke-dashoffset: 1500;
-                               transition: stroke-dashoffset 1.6s cubic-bezier(.22,1,.36,1); }
-    html.js .spark-rule.drawn path { stroke-dashoffset: 0; }
-    @supports (animation-timeline: view()) {
-      html.js .spark-rule path { transition: none;
-                                 animation: sparkdraw linear both;
-                                 animation-timeline: view();
-                                 animation-range: entry 0% cover 42%; }
-      @keyframes sparkdraw { to { stroke-dashoffset: 0; } }
-    }
-  }
-
-  /* values: asymmetric cascade, borderless */
-  .values { display: grid; grid-template-columns: 5fr 4fr 3fr; gap: 44px;
-            padding: clamp(40px, 6vh, 64px) 0 clamp(64px, 10vh, 110px); }
-  /* the cascade climbs with the chart above it */
-  .value:nth-child(1) { margin-top: 104px; }
-  .value:nth-child(2) { margin-top: 52px; }
-  @media (max-width: 940px) { .values { grid-template-columns: 1fr; gap: 36px; }
-                              .value:nth-child(1), .value:nth-child(2) { margin-top: 0; } }
-  .value { border-top: 1px solid var(--line); padding-top: 22px; }
-  .value h3 { font-weight: 600; font-size: 19px; margin-bottom: 8px; letter-spacing: -.02em; }
-  .value p { color: var(--dim); font-size: 14.5px; max-width: 34ch; }
-
-  footer { border-top: 1px solid var(--line); padding: 28px 0 40px; display: flex;
-           justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
-  footer .fine { color: var(--dimmer); font-size: 12.5px; }
-  footer a { color: var(--dim); text-decoration: none; font-size: 13px; }
-  footer a:hover { color: var(--text); }
-  .f-nav a { margin-left: 16px; }
-  .f-nav a:first-child { margin-left: 0; }
-
-  @media (prefers-reduced-motion: no-preference) {
-    .rise { opacity: 0; transform: translateY(20px); animation: rise .75s cubic-bezier(.16,1,.3,1) forwards; }
-    .d1 { animation-delay: .04s; } .d2 { animation-delay: .14s; } .d3 { animation-delay: .24s; }
-    .d4 { animation-delay: .34s; } .d5 { animation-delay: .48s; }
-    @keyframes rise { to { opacity: 1; transform: translateY(0); } }
-  }
-
-  /* ---- phone polish ---- */
-  @media (max-width: 560px) {
-    .wrap { padding: 0 18px; }
-    nav { padding: 18px 0; }
-    .hero { padding-top: clamp(18px, 4vh, 40px); }
-    h1 { font-size: clamp(38px, 11vw, 48px); }
-    .sub { font-size: 15.5px; }
-    .composer textarea { font-size: 16px; } /* <16px zooms the page on iOS focus */
-    .s-quote { font-size: clamp(26px, 7.5vw, 34px); }
-    .sec-title { font-size: clamp(23px, 6.5vw, 28px); }
-  }
+  .f-cols { display: flex; flex-wrap: wrap; gap: 30px 56px; }
+  .f-col h4 { font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
+              text-transform: uppercase; color: var(--dimmer); font-weight: 400;
+              margin: 0 0 12px; }
+  .f-col a { display: block; color: var(--dim); text-decoration: none; font-size: 14px;
+             padding: 4px 0; transition: color .15s; }
+  .f-col a:hover { color: var(--text); }
+  .f-fine { color: var(--dimmer); font-size: 12.5px; margin: 36px 0 0; }
 </style>
 </head>
 <body>
-<div class="machined"></div>
-<div class="wash"></div>
 <div class="grain"></div>
+
+<div class="split">
+  <a class="seam-mark" href="/about">min<i>.</i> <em>why</em></a>
+
+  <a class="half quant" href="https://quant.withmin.ai">
+    <span class="grid"></span>
+    <span class="beam"></span>
+    <span class="tape" id="mkt"></span>
+    <svg class="curve" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="qfade" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#4da3ff" stop-opacity=".22"/>
+          <stop offset="100%" stop-color="#4da3ff" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path class="under" d="M0,182 L75,174 L150,164 L225,162 L300,155 L375,141 L450,124 L525,120 L600,115 L675,103 L750,96 L825,105 L900,115 L975,110 L1050,69 L1125,41 L1200,14 L1200,200 L0,200 Z"/>
+      <path d="M0,182 L75,174 L150,164 L225,162 L300,155 L375,141 L450,124 L525,120 L600,115 L675,103 L750,96 L825,105 L900,115 L975,110 L1050,69 L1125,41 L1200,14"/>
+    </svg>
+    <div class="h-inner">
+      <p class="h-name">min<i>.</i> <span>quant</span></p>
+      <p class="h-hook">Your own investment team. Turns an idea into a strategy,
+        grounded in quantitative research.</p>
+      <span class="h-go">Run an idea
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h13M12 5l7 7-7 7"/>
+        </svg>
+      </span>
+    </div>
+  </a>
+
+  <a class="half life" href="https://life.withmin.ai">
+    <span class="sun"></span>
+    <span class="haze"></span>
+    <span class="orb o1"></span>
+    <span class="orb o2"></span>
+    <span class="weather" id="now"></span>
+    <div class="h-inner">
+      <p class="h-name">min<i>.</i> <span>life</span></p>
+      <p class="h-hook">The most personal AI. Built around you, knows you,
+        and does things for you.</p>
+      <span class="h-go">See today
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M5 12h13M12 5l7 7-7 7"/>
+        </svg>
+      </span>
+    </div>
+  </a>
+</div>
+
 <div class="wrap">
-  <nav>
-    <a class="wordmark" href="/">min<i>.</i></a>
-    <div class="nav-links">
-      <a class="nav-link" href="#how">How it works</a>
-      <a class="nav-link" href="/about">Why</a>
-      <a class="nav-signin" href="https://quant.withmin.ai">Sign in</a>
-    </div>
-  </nav>
+  <section class="story">
+    <h2>Specialists, not chatbots<i>.</i></h2>
+    <p>The short of the century got sold by pointing at a guy. <b>My quant.</b>
+      My math specialist. You don't get to question him. That is the whole trick,
+      and it was never only about money: the people who win have specialists, and
+      everyone else has a search box.</p>
+    <p>A general assistant knows a little about everything and is accountable for
+      none of it. <b>min.</b> builds specialists instead, one at a time, and hands
+      them over. One for your money. One for your week.</p>
 
-  <main class="hero">
-    <h1 class="rise d1">Run your own AI hedge fund<i>.</i></h1>
-
-    <div class="hero-row">
+    <div class="principles">
       <div>
-        <div class="sub rise d2">
-          <p>Every great fund has a quant desk and a trade desk.</p>
-          <p>Wall St keeps it out of reach. Yours now for free.</p>
-          <p>Run your first idea.</p>
-        </div>
-
-        <form class="composer rise d3" id="pf">
-          <textarea id="q" rows="2" placeholder="tariffs get cut in 6 months. find me cheap names at support"
-                    autocomplete="off" autofocus></textarea>
-          <div class="c-foot">
-            <span class="c-hint">first research run free · no signup · tab ⇥ grabs the idea</span>
-            <button class="c-send" type="submit" aria-label="Run research">
-              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 19V5M5 12l7-7 7 7"/>
-              </svg>
-            </button>
-          </div>
-        </form>
-        <div class="free-note rise d4">not a casino, but if it were, you'd want your quant in your pocket</div>
+        <h3>One job, all the way down</h3>
+        <p>A specialist is not a smaller chatbot. It gets the real instruments of a
+          single trade: live market data and backtests for the quant, your inbox,
+          calendar and bills for your week.</p>
       </div>
-
-      <aside class="ideas rise d5" aria-label="Example theses">
-        <button class="idea" data-q="the AI bubble pops in 6 months. how do I profit?">
-          <span>the AI bubble pops in 6 months. how do I profit?</span><span class="arr">→</span>
-        </button>
-        <button class="idea" data-q="china controls global minerals. build me a slow 10-year position">
-          <span>china controls global minerals. build me a 10-year position</span><span class="arr">→</span>
-        </button>
-        <button class="idea" data-q="regional banks are quietly broken. run the numbers and prove me wrong">
-          <span>regional banks are quietly broken. prove me wrong</span><span class="arr">→</span>
-        </button>
-        <button class="idea" data-q="bitcoin just got smoked. bottom or bull trap? run the numbers">
-          <span>bitcoin just got smoked. bottom or bull trap?</span><span class="arr">→</span>
-        </button>
-        <button class="idea" data-q="oil hits $95 by year-end. build the trade and tell me what kills it">
-          <span>oil hits $95 by year-end. what kills the trade?</span><span class="arr">→</span>
-        </button>
-        <button class="idea" data-q="the fed cuts again in december. who runs first, and what's already priced in?">
-          <span>the fed cuts again in december. who runs first?</span><span class="arr">→</span>
-        </button>
-      </aside>
-    </div>
-  </main>
-
-  <section class="scene">
-    <div>
-      <p class="s-kicker">The Big Short, 2015</p>
-      <p class="s-quote">"Look at him. That's my quant<i>.</i>"</p>
-    </div>
-    <div>
-      <p class="s-body">The short of the century got sold by pointing at a guy:
-      my quant. My quantitative. My math specialist. Won a national math
-      competition in China. You don't get to question him. That's the whole
-      Wall Street trick: the numbers live behind a guy behind a desk.
-      <b>min.</b> is that guy, in your pocket. Knows the numbers, always shows
-      the work: data sources, backtests, the odds on every investing thesis.</p>
-      <p class="s-note">(and he actually speaks English. and he came in second.)</p>
-    </div>
-  </section>
-
-  <section id="how">
-    <h2 class="sec-title">How it works<i>.</i></h2>
-    <div class="steps">
-      <div class="step">
-        <span class="n">01</span>
-        <h3>Call your shot</h3>
-        <p>Any thesis, in plain English. No formulas, no screeners.</p>
+      <div>
+        <h3>It acts</h3>
+        <p>Sizes the position and sets the stops. Drafts the reply, books the thing,
+          catches the bill before it is late. Advice is the cheap part.</p>
       </div>
-      <div class="step">
-        <span class="n">02</span>
-        <h3>Deep research, live</h3>
-        <p>An agentic loop pulls live data, filings, and odds. You watch it work.</p>
+      <div>
+        <h3>It shows the work</h3>
+        <p>Every source, every number, every step it took. You should be able to
+          check it, argue with it, and change your mind.</p>
       </div>
-      <div class="step">
-        <span class="n">03</span>
-        <h3>Stress-test it</h3>
-        <p>Backtests and simulations. What's priced in, what breaks the trade.</p>
-      </div>
-      <div class="step">
-        <span class="n">04</span>
-        <h3>Get the strategy</h3>
-        <p>Sized entries, a schedule, auto-stops. Approve once; min. executes and keeps watch.</p>
-      </div>
-    </div>
-    <div class="hood">
-      <span class="h-label">under the hood</span>
-      <span>live market data</span>
-      <span>agentic research loops</span>
-      <span>backtesting engines</span>
-      <span>simulations</span>
-      <span>auto-stop watchdogs</span>
-      <span>70+ research tools</span>
-    </div>
-  </section>
-
-  <!-- the line: a certain fund's cumulative net return, Nov 2000 to Jun 2008.
-       +489% while the index did ~+2%. the sag in the middle is 2006: the CDS
-       carry bleeding while investors revolted. unlabeled on purpose:
-       "Do the reading." sits right under the payoff. -->
-  <svg class="spark-rule" viewBox="0 0 1200 84" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0,76 L75,72.4 L150,68.1 L225,67.4 L300,64.6 L375,58.8 L450,51.7 L525,50.2 L600,48.1 L675,43.1 L750,40.2 L825,43.8 L900,48.1 L975,45.9 L1050,28.8 L1125,17.3 L1200,6"/>
-  </svg>
-
-  <section class="values">
-    <div class="value">
-      <h3>Do the reading.</h3>
-      <p>Burry read the docs. That was the whole trade. min. reads everything, every run.</p>
-    </div>
-    <div class="value">
-      <h3>Be first. Be smarter.</h3>
-      <p>Margin Call gave three ways to win. min. is built for the two legal ones.</p>
-    </div>
-    <div class="value">
-      <h3>Diamond hands, with rules.</h3>
-      <p>Every play ships with a written plan: entries, exits, tripwires.
-      The discipline funds pay pros for, now included.</p>
     </div>
   </section>
 
   <footer>
-    <a class="wordmark" href="/">min<i>.</i></a>
-    <span class="fine">Research tooling, not financial advice. Trading runs in a sandbox until you connect a brokerage.</span>
-    <span class="f-nav"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="https://quant.withmin.ai">Sign in</a></span>
+    <div class="f-top">
+      <a class="wordmark" href="/">min<i>.</i></a>
+      <div class="f-cols">
+        <div class="f-col">
+          <h4>Specialists</h4>
+          <a href="https://quant.withmin.ai">min. quant</a>
+          <a href="https://life.withmin.ai">min. life</a>
+        </div>
+        <div class="f-col">
+          <h4>Company</h4>
+          <a href="/about">Why</a>
+          <a href="/quant">The quant story</a>
+        </div>
+        <div class="f-col">
+          <h4>Legal</h4>
+          <a href="/privacy">Privacy</a>
+          <a href="/terms">Terms</a>
+        </div>
+      </div>
+    </div>
+    <p class="f-fine">Research tooling, not financial advice.</p>
   </footer>
 </div>
 
 <script>
-  document.documentElement.classList.add('js');
-  const spark = document.querySelector('.spark-rule');
-  if (spark && 'IntersectionObserver' in window) {
-    new IntersectionObserver((entries, io) => {
-      if (entries.some(e => e.isIntersecting)) { spark.classList.add('drawn'); io.disconnect(); }
-    }, {threshold: .35}).observe(spark);
-  } else if (spark) { spark.classList.add('drawn'); }
-
-  const q = document.getElementById('q');
-  const pf = document.getElementById('pf');
-  const go = () => {
-    const v = q.value.trim();
-    if (!v) { q.focus(); return; }
-    window.location.href = 'https://quant.withmin.ai/?q=' + encodeURIComponent(v);
-  };
-  pf.addEventListener('submit', (e) => { e.preventDefault(); go(); });
-  pf.addEventListener('click', () => q.focus());
-  q.addEventListener('input', () => {
-    q.style.height = 'auto';
-    q.style.height = Math.min(q.scrollHeight, 190) + 'px';
-  });
-
-  /* rotating placeholder + tab to grab it (pairs with .phout fade) */
-  const PROMPTS = [
-    "tariffs get cut in 6 months. find me cheap names at support",
-    "the fed cuts again in december. who runs first, and what's already priced in?",
-    "oil hits $95 by year-end. build the trade and tell me what kills it",
-    "put $2k behind my AI thesis, spread over 8 weekly buys, bail if it breaks",
-    "bitcoin just got smoked. bottom or bull trap? run the numbers",
-    "screen for names sitting at 52-week support with earnings still growing",
-  ];
-  let pi = 0, hoveredIdea = false;
-  setInterval(() => {
-    if (q.value || hoveredIdea) return;
-    q.classList.add('phout');
-    setTimeout(() => {
-      pi = (pi + 1) % PROMPTS.length;
-      if (!q.value && !hoveredIdea) { q.placeholder = PROMPTS[pi]; dq.placeholder = PROMPTS[pi]; }
-      q.classList.remove('phout');
-    }, 300);
-  }, 9000);
-  q.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); go(); }
-    if (e.key === 'Tab' && !e.shiftKey && !q.value) {
-      e.preventDefault();
-      q.value = q.placeholder;
-      q.dispatchEvent(new Event('input'));
-    }
-  });
-  /* ideas: hover primes the composer placeholder, click runs it in the app */
-  /* docked composer: mirrors the hero box, appears when it scrolls out */
-  const dock = document.createElement('div');
-  dock.id = 'dock';
-  dock.innerHTML = `<form class="composer"><textarea rows="1" autocomplete="off"></textarea>
-    <div class="c-foot"><span class="c-hint">enter ↵ runs it · first research run free</span>
-    <button class="c-send" type="submit" aria-label="Run research">
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M12 19V5M5 12l7-7 7 7"/></svg></button></div></form>`;
-  document.body.appendChild(dock);
-  const dq = dock.querySelector('textarea');
-  dq.placeholder = q.placeholder;
-  const dsize = () => { dq.style.height = 'auto'; dq.style.height = Math.min(dq.scrollHeight, 120) + 'px'; };
-  dq.addEventListener('input', () => { if (q.value !== dq.value) q.value = dq.value; dsize(); });
-  q.addEventListener('input', () => { if (dq.value !== q.value) dq.value = q.value; });
-  dock.querySelector('form').addEventListener('submit', (e) => { e.preventDefault(); go(); });
-  dq.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); go(); }
-    if (e.key === 'Tab' && !e.shiftKey && !dq.value) {
-      e.preventDefault();
-      dq.value = dq.placeholder; q.value = dq.placeholder;
-    }
-  });
-  /* FLIP flight: the dock materializes AT the hero box's last position and
-     glides to bottom-center, so the eye follows one box travelling. Reverse
-     flight on the way back up. */
-  const noMotion = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const flightDelta = () => {
-    const pfR = pf.getBoundingClientRect();
-    const dR = dock.getBoundingClientRect();
-    return {
-      dx: (pfR.left + pfR.width / 2) - (dR.left + dR.width / 2),
-      dy: Math.max(pfR.top - dR.top, -window.innerHeight * 0.7),
-      s: Math.min(1.1, Math.max(0.8, pfR.width / dR.width)),
-    };
-  };
-  const showDock = () => {
-    if (dock.classList.contains('on')) return;
-    dq.value = q.value; dsize();
-    dock.classList.add('on');
-    if (noMotion) return;
-    const f = flightDelta();
-    dock.style.transition = 'none';
-    dock.style.transform = `translate(calc(-50% + ${f.dx}px), ${f.dy}px) scale(${f.s})`;
-    dock.style.opacity = '.5';
-    void dock.offsetHeight;
-    dock.style.transition = '';
-    dock.style.transform = '';
-    dock.style.opacity = '';
-  };
-  const hideDock = () => {
-    if (!dock.classList.contains('on')) return;
-    if (noMotion) { dock.classList.remove('on'); return; }
-    const f = flightDelta();
-    dock.style.transform = `translate(calc(-50% + ${f.dx}px), ${f.dy}px) scale(${f.s})`;
-    dock.style.opacity = '0';
-    let done = false;
-    const land = () => {
-      if (done) return;
-      done = true;
-      dock.classList.remove('on');
-      dock.style.transform = '';
-      dock.style.opacity = '';
-    };
-    dock.addEventListener('transitionend', land, {once: true});
-    setTimeout(land, 380);
-  };
-  new IntersectionObserver((entries) =>
-    entries[0].isIntersecting ? hideDock() : showDock(),
-  {rootMargin: '-8px'}).observe(pf);
-
-  function bindIdea(c) {
-    c.addEventListener('mouseenter', () => {
-      hoveredIdea = true;
-      if (!q.value) { q.placeholder = c.dataset.q; dq.placeholder = c.dataset.q; }
-    });
-    c.addEventListener('mouseleave', () => { hoveredIdea = false; });
-    c.addEventListener('click', () => {
-      window.location.href = 'https://quant.withmin.ai/?q=' + encodeURIComponent(c.dataset.q);
-    });
-  }
-  document.querySelectorAll('.idea').forEach(bindIdea);
-
-  /* one source of truth: the app regenerates the day's prompts at market
-     close; the static rows above are only the no-JS / fetch-failed fallback */
-  const IDEAS_URL = (location.protocol === 'file:' || location.hostname === 'localhost')
-    ? 'http://localhost:8931/api/prompts/public'
-    : 'https://quant.withmin.ai/api/prompts/public';
-  fetch(IDEAS_URL).then(r => r.json()).then(body => {
-    const fresh = (body.prompts || []).filter(p => typeof p === 'string' && p.trim());
-    if (fresh.length < 4) return;
-    PROMPTS.splice(0, PROMPTS.length, ...fresh);      // placeholder rotation
-    const stack = document.querySelector('.ideas');    // idea rows
-    if (!stack) return;
-    stack.querySelectorAll('.idea').forEach(n => n.remove());
-    fresh.slice(0, 6).forEach(p => {
-      const btn = document.createElement('button');
-      btn.className = 'idea';
-      btn.dataset.q = p;
-      const label = document.createElement('span');
-      label.textContent = p;
-      const arr = document.createElement('span');
-      arr.className = 'arr';
-      arr.textContent = '→';
-      btn.append(label, arr);
-      bindIdea(btn);
-      stack.appendChild(btn);
-    });
-  }).catch(() => {});
+  /* Both corner labels are computed, never typed: the quant half shows whether
+     the US market is actually open right now, the life half shows the visitor's
+     own day and hour. If anything here throws, the labels stay empty rather
+     than showing a number nobody measured. */
+  try {
+    var now = new Date();
+    var et = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
+    var day = et.getDay(), mins = et.getHours() * 60 + et.getMinutes();
+    var open = day > 0 && day < 6 && mins >= 570 && mins < 960;
+    document.getElementById("mkt").innerHTML =
+      "NEW YORK " + (open ? "<b>OPEN</b>" : "<b>CLOSED</b>");
+    var h = now.getHours();
+    var part = h < 5 ? "night" : h < 12 ? "morning" : h < 17 ? "afternoon"
+             : h < 21 ? "evening" : "night";
+    document.getElementById("now").textContent =
+      now.toLocaleDateString(undefined, {weekday: "long"}) + " " + part;
+  } catch (e) {}
 </script>
 </body>
 </html>
