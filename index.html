@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>min. | An intelligence that accompanies you through life</title>
-<meta name="description" content="min. is a friend who texts. It knows your week, remembers what you tell it, and lives quietly in the background. Also available for the markets.">
+<meta name="description" content="min. Always there. Knows your life, remembers the people in it. A friend who texts. Also available for the markets.">
 <link rel="canonical" href="https://withmin.ai/">
 <meta name="theme-color" content="#f6efe4">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="min.">
 <meta property="og:title" content="min. | An intelligence that accompanies you through life">
-<meta property="og:description" content="A friend who texts. Knows your week, remembers what you tell it, lives quietly in the background.">
+<meta property="og:description" content="Always there. Knows your life, remembers the people in it.">
 <meta property="og:url" content="https://withmin.ai/">
 <meta property="og:image" content="https://withmin.ai/assets/og-home.png">
 <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@ericzizhouwangx">
 <meta name="twitter:title" content="min. | An intelligence that accompanies you through life">
-<meta name="twitter:description" content="A friend who texts. Knows your week, remembers what you tell it, lives quietly in the background.">
+<meta name="twitter:description" content="Always there. Knows your life, remembers the people in it.">
 <meta name="twitter:image" content="https://withmin.ai/assets/og-home.png">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
@@ -449,7 +449,6 @@
   h1 em { font-style: italic; }
   .lede { font-size: clamp(17px, 1.35vw, 20px); line-height: 1.5; color: var(--dim); margin: 0 0 clamp(26px, 4vh, 36px); max-width: 44ch; text-wrap: pretty;
           transition: opacity .6s var(--ease); }
-  .lede.swap { opacity: 0; }
   .ctas { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
   .cta { display: inline-flex; align-items: center; gap: 10px; background: var(--glow); color: var(--ink-on-glow); font-weight: 600; font-size: 16px;
          padding: 15px 24px; border-radius: 999px; box-shadow: 0 10px 30px oklch(from var(--glow) l c h / .35), inset 0 1px 0 oklch(1 0 0 / .5);
@@ -826,7 +825,7 @@
 
     <div data-for="life">
       <h1>An intelligence that accompanies you through <em>life</em>.</h1>
-      <p class="lede" id="lede">A friend who texts. Knows your week, remembers what you tell it, and lives quietly in the background.</p>
+      <p class="lede" id="lede">Always there. Knows your life, remembers the people in it.</p>
       <div class="ctas">
         <a class="cta" href="https://life.withmin.ai">Meet min. <span class="arrow" aria-hidden="true">&rarr;</span></a>
       </div>
@@ -935,7 +934,6 @@
    ?scene=rain-night and friends force a scene, for looking at it. */
 (function () {
   var root = document.documentElement;
-  var lede = document.getElementById("lede");
 
   function phaseFor(h) {
     if (h < 5) return "night";
@@ -953,30 +951,13 @@
     return "clear";
   }
 
-  /* one line under the headline changes with the weather, the way a friend's
-     first text would. short, and never about the page itself. */
-  var LINES = {
-    "rain":   "Raining where you are. Come in. min. is a friend who texts, and it knows your week.",
-    "snow":   "Cold out there. min. is a friend who texts, knows your week, and keeps things warm.",
-    "cloudy": "Grey where you are. min. is a friend who texts, knows your week, and stays in the background.",
-    "night":  "Late where you are. min. is a friend who texts, knows your week, and leaves the light on.",
-    "dawn":   "Early where you are. min. is a friend who texts, knows your week, and won't make a fuss.",
-    "golden": "Good light where you are. min. is a friend who texts, knows your week, and lives in the background.",
-    "dusk":   "Evening where you are. min. is a friend who texts, knows your week, and leaves the light on.",
-    "day":    "A friend who texts. Knows your week, remembers what you tell it, and lives quietly in the background."
-  };
-
-  function apply(phase, weather, cold, animate) {
+  function apply(phase, weather, cold) {
     root.setAttribute("data-phase", phase);
     root.setAttribute("data-weather", weather);
     if (cold) root.setAttribute("data-cold", ""); else root.removeAttribute("data-cold");
+    if (root.getAttribute("data-mode") === "invest") return;
     var meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute("content", (phase === "night" || phase === "dusk") ? "#2a2440" : "#f6efe4");
-    var line = LINES[weather !== "clear" ? weather : phase] || LINES.day;
-    if (!lede || lede.textContent === line) return;
-    if (!animate) { lede.textContent = line; return; }
-    lede.classList.add("swap");
-    setTimeout(function () { lede.textContent = line; lede.classList.remove("swap"); }, 600);
   }
 
   var now = new Date();
@@ -991,11 +972,11 @@
       else if (["dawn","day","golden","dusk","night"].indexOf(x) >= 0) p = x;
       else if (x === "cold") c = true;
     });
-    apply(p, w, c || w === "snow", false);
+    apply(p, w, c || w === "snow");
     return;
   }
 
-  apply(phase, "clear", false, false);
+  apply(phase, "clear", false);
 
   if (!window.fetch || !window.AbortController) return;
   var ctl = new AbortController();
@@ -1016,7 +997,7 @@
       var p = phase;
       if (cur.is_day === 0 && (p === "day" || p === "golden")) p = "dusk";
       if (cur.is_day === 1 && p === "night") p = "dawn";
-      apply(p, weather, cold, true);
+      apply(p, weather, cold);
     })
     .catch(function () { /* a clear day, then */ })
     .then(function () { clearTimeout(timer); });
