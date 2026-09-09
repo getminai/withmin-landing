@@ -48,6 +48,7 @@
   @font-face { font-family: "Geist"; font-weight: 500; font-display: swap; src: url("/assets/Geist-500.woff2") format("woff2"); }
   @font-face { font-family: "Geist"; font-weight: 600; font-display: swap; src: url("/assets/Geist-600.woff2") format("woff2"); }
   @font-face { font-family: "Fraunces"; font-weight: 600; font-display: swap; src: url("/assets/Fraunces-600.woff2") format("woff2"); }
+  @font-face { font-family: "Geist Mono"; font-weight: 400; font-display: swap; src: url("/assets/GeistMono-400.woff2") format("woff2"); }
 
   /* ------------------------------------------------------------------
      The page is a place, and the place has weather.
@@ -185,53 +186,79 @@
   [data-weather="snow"] .crown { background: var(--evergreen); filter: none; }
 
   /* ------------------------------------------------------------------
-     Invest is the same place at a cooler hour. The house, the weather and
-     the light in the window are unchanged; the sky and the ground shift
-     toward indigo and teal, the way the quant desk keeps later hours than
-     the rest of the house. Overrides sit on the --p-* base so weather still
-     derives correctly on top of them.
+     Invest is a different room. Life is the main product and keeps the
+     warm world; the quant desk is dark, gridded, and lit by one line: a
+     real return curve, the same series the quant page plots (a fund's
+     cumulative net return, Nov 2000 to Jun 2008), never decoration and
+     never invented data. Weather does not reach in here. The only clock
+     that matters on this side is whether New York is open.
      ------------------------------------------------------------------ */
   [data-mode="invest"] {
-    --p-sky-top: oklch(0.78 0.07 252);
-    --p-sky-mid: oklch(0.88 0.05 232);
-    --p-sky-low: oklch(0.94 0.035 200);
-    --p-hill-far: oklch(0.72 0.09 190);
-    --p-hill-mid: oklch(0.60 0.10 192);
-    --p-hill-near: oklch(0.47 0.10 195);
-    --p-haze: oklch(0.95 0.03 200 / .5);
-    --text: oklch(0.24 0.05 262);
-    --dim: oklch(0.24 0.05 262 / .66);
-    --bg: oklch(0.965 0.02 215);
-    --surface: oklch(0.99 0.01 215);
-    --line: oklch(0.24 0.05 262 / .10);
-    --bubble: oklch(0.91 0.03 215);
-    --bubble-ink: oklch(0.24 0.05 262);
+    --glow: oklch(0.74 0.13 250);
+    --glow-deep: oklch(0.64 0.15 250);
+    --ink-on-glow: oklch(0.14 0.03 262);
+    --text: oklch(0.96 0.01 250);
+    --dim: oklch(0.96 0.01 250 / .62);
+    --bg: oklch(0.15 0.02 262);
+    --surface: oklch(0.20 0.025 262);
+    --line: oklch(0.96 0.01 250 / .10);
+    --bubble: oklch(0.23 0.03 262);
+    --bubble-ink: oklch(0.96 0.01 250);
+    --mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    color-scheme: dark;
   }
-  [data-mode="invest"][data-phase="dawn"] {
-    --p-sky-top: oklch(0.70 0.08 275); --p-sky-mid: oklch(0.84 0.06 250); --p-sky-low: oklch(0.92 0.05 210);
-    --p-hill-far: oklch(0.66 0.08 195); --p-hill-mid: oklch(0.55 0.09 195); --p-hill-near: oklch(0.42 0.09 198);
+  [data-mode="invest"] .scene { background: oklch(0.12 0.02 262); }
+  [data-mode="invest"] :is(.sky, .stars, .disc, .cloud, .ground, .haze, .chimney, .house, .tree, .fly, .rain, .snow) { display: none; }
+  [data-mode="life"] .market { display: none; }
+
+  .market.grid { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background-image: linear-gradient(to right, oklch(0.96 0.01 250 / .05) 1px, transparent 1px),
+                      linear-gradient(to bottom, oklch(0.96 0.01 250 / .05) 1px, transparent 1px);
+    background-size: 52px 52px;
+    -webkit-mask-image: radial-gradient(ellipse 92% 72% at 50% 12%, black, transparent 82%);
+    mask-image: radial-gradient(ellipse 92% 72% at 50% 12%, black, transparent 82%); }
+  .market.beam { position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: radial-gradient(ellipse 70% 52% at 66% 4%, oklch(0.74 0.13 250 / .18), transparent 64%); }
+  .market.curve { position: absolute; left: 0; right: 0; top: 34%; height: 46%; width: 100%; z-index: 2; pointer-events: none; }
+  .market.curve .line { fill: none; stroke: var(--glow); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;
+    filter: drop-shadow(0 0 10px oklch(0.74 0.13 250 / .5)); }
+  .market.curve .under { fill: url(#qfade); stroke: none; }
+  /* the line draws itself in, once, each time the room is entered */
+  @media (prefers-reduced-motion: no-preference) {
+    .market.curve .line { stroke-dasharray: 1600; stroke-dashoffset: 1600; }
+    .market.curve .under { opacity: 0; }
+    html.drawn .market.curve .line { animation: drawline 1.9s cubic-bezier(.22, 1, .36, 1) .2s forwards; }
+    html.drawn .market.curve .under { animation: fadein .9s ease 1.6s forwards; }
   }
-  [data-mode="invest"][data-phase="golden"] {
-    --p-sky-top: oklch(0.66 0.09 285); --p-sky-mid: oklch(0.80 0.08 265); --p-sky-low: oklch(0.90 0.07 215);
-    --p-hill-far: oklch(0.64 0.09 195); --p-hill-mid: oklch(0.52 0.10 195); --p-hill-near: oklch(0.40 0.09 198);
-    --p-haze: oklch(0.90 0.05 220 / .45);
+  @keyframes drawline { to { stroke-dashoffset: 0; } }
+  @keyframes fadein { to { opacity: 1; } }
+  .market.tape { position: absolute; z-index: 11; right: clamp(22px, 6vw, 84px); bottom: 30px; margin: 0;
+    font: 400 12px/1 var(--mono, ui-monospace, monospace); letter-spacing: .1em; text-transform: uppercase; color: var(--dim); }
+  .market.tape b { font-weight: 400; color: var(--glow); }
+
+  /* the quant sets its name in the sans: a different product has a different hand */
+  /* Geist runs wider than Fraunces: its own scale, or eight words become five lines */
+  [data-for="invest"] h1 { font-family: var(--sans); font-weight: 600; letter-spacing: -.035em; line-height: 1.04;
+                            font-size: clamp(34px, 4.4vw, 58px); max-width: 17ch; }
+  @media (max-width: 760px) { [data-for="invest"] h1 { font-size: clamp(30px, 8.4vw, 40px); max-width: none; } }
+  [data-for="invest"] h1 em { font-style: normal; color: var(--glow); }
+  [data-mode="invest"] h2 { font-family: var(--sans); letter-spacing: -.025em; }
+  [data-mode="invest"] .quiet p { font-family: var(--sans); letter-spacing: -.02em; }
+  [data-mode="invest"] .wordmark i { color: var(--glow); }
+  [data-mode="invest"] .seg button[aria-pressed="true"] { box-shadow: 0 2px 10px oklch(0 0 0 / .4); }
+  [data-mode="invest"] .cta { box-shadow: 0 10px 30px oklch(0.74 0.13 250 / .3), inset 0 1px 0 oklch(1 0 0 / .25); }
+
+  /* the four moves, from the quant page, in its words */
+  .steps { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px) clamp(24px, 4vw, 56px); margin: 40px 0 0; max-width: 820px; }
+  .step { border-top: 1px solid var(--line); padding-top: 16px; }
+  .step h3 { margin: 0 0 6px; font: 600 17px/1.3 var(--sans); letter-spacing: -.01em; }
+  .step p { margin: 0; font-size: 15px; line-height: 1.5; color: var(--dim); }
+  @media (max-width: 760px) {
+    .steps { grid-template-columns: 1fr; }
+    .market.curve { top: 14%; height: 34%; }
+    .market.tape { font-size: 11px; bottom: 22px; left: clamp(22px, 6vw, 84px); right: auto; }
+    [data-mode="invest"] .copy::before { background: linear-gradient(to top, oklch(0.12 0.02 262 / .94) 0%, oklch(0.12 0.02 262 / .7) 45%, transparent 80%); }
   }
-  [data-mode="invest"][data-phase="dusk"] {
-    --p-sky-top: oklch(0.28 0.08 270); --p-sky-mid: oklch(0.46 0.10 262); --p-sky-low: oklch(0.70 0.09 235);
-    --p-hill-far: oklch(0.44 0.08 200); --p-hill-mid: oklch(0.34 0.08 200); --p-hill-near: oklch(0.26 0.07 200);
-    --p-haze: oklch(0.70 0.08 230 / .35); --p-cloud: oklch(0.78 0.05 250 / .7);
-    --bg: oklch(0.26 0.06 268); --surface: oklch(0.30 0.06 268); --bubble: oklch(0.36 0.06 266);
-    --text: oklch(0.97 0.02 85); --dim: oklch(0.97 0.02 85 / .7); --line: oklch(0.97 0.02 85 / .12); --bubble-ink: oklch(0.97 0.02 85);
-  }
-  [data-mode="invest"][data-phase="night"] {
-    --p-sky-top: oklch(0.15 0.05 268); --p-sky-mid: oklch(0.23 0.06 262); --p-sky-low: oklch(0.32 0.07 252);
-    --p-hill-far: oklch(0.30 0.06 200); --p-hill-mid: oklch(0.24 0.06 200); --p-hill-near: oklch(0.18 0.05 200);
-    --p-haze: oklch(0.40 0.07 250 / .35); --p-cloud: oklch(0.50 0.05 255 / .5);
-    --bg: oklch(0.19 0.05 265); --surface: oklch(0.23 0.05 265); --bubble: oklch(0.29 0.05 265);
-    --text: oklch(0.97 0.02 85); --dim: oklch(0.97 0.02 85 / .7); --line: oklch(0.97 0.02 85 / .12); --bubble-ink: oklch(0.97 0.02 85);
-  }
-  [data-mode="invest"] .disc { background: oklch(0.96 0.05 95); }
-  [data-mode="invest"][data-phase="night"] .disc { background: oklch(0.95 0.02 220); }
 
   /* the whole page crossfades on a switch, so it reads as one place
      changing rather than two pages swapping */
@@ -428,8 +455,6 @@
   .cta:hover .arrow { transform: translateX(3px); }
   .fine { font-size: 13px; color: var(--dim); margin: 14px 0 0; }
   [data-mode="life"] [data-for="invest"], [data-mode="invest"] [data-for="life"] { display: none; }
-  /* "the markets" is a word longer than "life": one more ch keeps the headline at three lines */
-  [data-for="invest"] h1 { max-width: 14ch; }
 
   @media (max-width: 760px) {
     .copy { align-content: end; padding-bottom: clamp(90px, 16vh, 140px); max-width: 100%; }
@@ -508,6 +533,20 @@
   <div class="rain" aria-hidden="true"></div>
   <div class="snow" aria-hidden="true"></div>
 
+  <div class="market grid" aria-hidden="true"></div>
+  <div class="market beam" aria-hidden="true"></div>
+  <svg class="market curve" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
+    <defs>
+      <linearGradient id="qfade" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="oklch(0.74 0.13 250)" stop-opacity=".22"/>
+        <stop offset="100%" stop-color="oklch(0.74 0.13 250)" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <path class="under" d="M0,182 L75,174 L150,164 L225,162 L300,155 L375,141 L450,124 L525,120 L600,115 L675,103 L750,96 L825,105 L900,115 L975,110 L1050,69 L1125,41 L1200,14 L1200,200 L0,200 Z"/>
+    <path class="line" d="M0,182 L75,174 L150,164 L225,162 L300,155 L375,141 L450,124 L525,120 L600,115 L675,103 L750,96 L825,105 L900,115 L975,110 L1050,69 L1125,41 L1200,14"/>
+  </svg>
+  <p class="market tape" id="tape" aria-live="polite"></p>
+
   <nav class="top">
     <a class="wordmark" href="/">min<i>.</i></a>
     <a class="why" href="/about">why</a>
@@ -557,10 +596,23 @@
   </section>
 
   <section data-for="invest">
+    <div class="wrap">
+      <h2>Call your shot. It does the reading.</h2>
+      <p class="sub">Any thesis in plain words. Live data, filings, backtests and the odds, with the work shown every run.</p>
+      <div class="steps">
+        <div class="step"><h3>Call your shot</h3><p>Any thesis, in plain English. No formulas, no screeners.</p></div>
+        <div class="step"><h3>Deep research, live</h3><p>An agentic loop pulls live data, filings, and odds. You watch it work.</p></div>
+        <div class="step"><h3>Stress-test it</h3><p>Backtests and simulations. What's priced in, what breaks the trade.</p></div>
+        <div class="step"><h3>Get the strategy</h3><p>Sized entries, a schedule, auto-stops. Approve once; min. executes and keeps watch.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section data-for="invest">
     <div class="wrap two">
       <div>
-        <h2>Call your shot. It does the reading.</h2>
-        <p class="sub">Any thesis in plain words. Live data, filings, backtests and the odds, with the work shown every run.</p>
+        <h2>Ideas people have run.</h2>
+        <p class="sub">Tap one and it opens the quant with the idea already typed in.</p>
         <div class="ideas" aria-label="Ideas people have run">
           <a class="idea" href="https://quant.withmin.ai/?q=the%20AI%20bubble%20pops%20in%206%20months.%20how%20do%20I%20profit%3F">the AI bubble pops in 6 months. how do I profit?</a>
           <a class="idea" href="https://quant.withmin.ai/?q=china%20controls%20global%20minerals.%20build%20me%20a%2010-year%20position">china controls global minerals. build me a 10-year position</a>
@@ -714,22 +766,40 @@
   var TITLES = { life: "min. | An intelligence that accompanies you through life",
                  invest: "min. | An intelligence that accompanies you through the markets" };
 
-  function marketLine() {
+  var tape = document.getElementById("tape");
+  function market() {
     try {
       var et = new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
       var day = et.getDay(), mins = et.getHours() * 60 + et.getMinutes();
-      if (day === 0 || day === 6) return "Markets are shut for the weekend. A good time to think out loud, and let it do the reading.";
-      if (mins >= 570 && mins < 960) return "New York is open right now. Call your shot in plain words and watch it do the reading.";
-      if (mins < 570) return "New York opens at 9:30. Hand it an idea now and the reading is done by the bell.";
-      return "New York is closed for the day. Ideas keep. Hand it one tonight and read it over coffee.";
+      var weekend = day === 0 || day === 6, open = !weekend && mins >= 570 && mins < 960;
+      var line = weekend ? "Markets are shut for the weekend. A good time to think out loud, and let it do the reading."
+               : open ? "New York is open right now. Call your shot in plain words and watch it do the reading."
+               : mins < 570 ? "New York opens at 9:30. Hand it an idea now and the reading is done by the bell."
+               : "New York is closed for the day. Ideas keep. Hand it one tonight and read it over coffee.";
+      return { line: line, open: open };
     } catch (e) { return null; }
+  }
+  function redraw() {
+    root.classList.remove("drawn");
+    void root.offsetWidth; /* restart the stroke animation from zero */
+    root.classList.add("drawn");
   }
 
   function set(mode, persist) {
     root.setAttribute("data-mode", mode);
     buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-mode") === mode)); });
     document.title = TITLES[mode] || TITLES.life;
-    if (mode === "invest" && investLede) { var l = marketLine(); if (l) investLede.textContent = l; }
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (mode === "invest") {
+      var m = market();
+      if (m && investLede) investLede.textContent = m.line;
+      if (m && tape) tape.innerHTML = "New York <b>" + (m.open ? "open" : "closed") + "</b>";
+      if (meta) meta.setAttribute("content", "#161b26");
+      redraw();
+    } else if (meta) {
+      var ph = root.getAttribute("data-phase");
+      meta.setAttribute("content", (ph === "night" || ph === "dusk") ? "#2a2440" : "#f6efe4");
+    }
     if (persist) {
       try { localStorage.setItem("min.mode", mode); } catch (e) {}
       try { history.replaceState(null, "", mode === "invest" ? "#invest" : location.pathname + location.search); } catch (e) {}
@@ -748,6 +818,10 @@
   set(wanted === "invest" ? "invest" : "life", false);
   buttons.forEach(function (b) {
     b.addEventListener("click", function () { switchTo(b.getAttribute("data-mode")); });
+  });
+  /* a link to #invest on an already-open page is a hash change, not a load */
+  window.addEventListener("hashchange", function () {
+    if (location.hash === "#invest") switchTo("invest");
   });
 })();
 </script>
