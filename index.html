@@ -184,6 +184,73 @@
   [data-weather="snow"][data-phase="night"] { --hill-far: oklch(0.55 0.03 290); --hill-mid: oklch(0.62 0.03 290); --hill-near: oklch(0.70 0.03 290); --evergreen: oklch(0.34 0.07 160); }
   [data-weather="snow"] .crown { background: var(--evergreen); filter: none; }
 
+  /* ------------------------------------------------------------------
+     Invest is the same place at a cooler hour. The house, the weather and
+     the light in the window are unchanged; the sky and the ground shift
+     toward indigo and teal, the way the quant desk keeps later hours than
+     the rest of the house. Overrides sit on the --p-* base so weather still
+     derives correctly on top of them.
+     ------------------------------------------------------------------ */
+  [data-mode="invest"] {
+    --p-sky-top: oklch(0.78 0.07 252);
+    --p-sky-mid: oklch(0.88 0.05 232);
+    --p-sky-low: oklch(0.94 0.035 200);
+    --p-hill-far: oklch(0.72 0.09 190);
+    --p-hill-mid: oklch(0.60 0.10 192);
+    --p-hill-near: oklch(0.47 0.10 195);
+    --p-haze: oklch(0.95 0.03 200 / .5);
+    --text: oklch(0.24 0.05 262);
+    --dim: oklch(0.24 0.05 262 / .66);
+    --bg: oklch(0.965 0.02 215);
+    --surface: oklch(0.99 0.01 215);
+    --line: oklch(0.24 0.05 262 / .10);
+    --bubble: oklch(0.91 0.03 215);
+    --bubble-ink: oklch(0.24 0.05 262);
+  }
+  [data-mode="invest"][data-phase="dawn"] {
+    --p-sky-top: oklch(0.70 0.08 275); --p-sky-mid: oklch(0.84 0.06 250); --p-sky-low: oklch(0.92 0.05 210);
+    --p-hill-far: oklch(0.66 0.08 195); --p-hill-mid: oklch(0.55 0.09 195); --p-hill-near: oklch(0.42 0.09 198);
+  }
+  [data-mode="invest"][data-phase="golden"] {
+    --p-sky-top: oklch(0.66 0.09 285); --p-sky-mid: oklch(0.80 0.08 265); --p-sky-low: oklch(0.90 0.07 215);
+    --p-hill-far: oklch(0.64 0.09 195); --p-hill-mid: oklch(0.52 0.10 195); --p-hill-near: oklch(0.40 0.09 198);
+    --p-haze: oklch(0.90 0.05 220 / .45);
+  }
+  [data-mode="invest"][data-phase="dusk"] {
+    --p-sky-top: oklch(0.28 0.08 270); --p-sky-mid: oklch(0.46 0.10 262); --p-sky-low: oklch(0.70 0.09 235);
+    --p-hill-far: oklch(0.44 0.08 200); --p-hill-mid: oklch(0.34 0.08 200); --p-hill-near: oklch(0.26 0.07 200);
+    --p-haze: oklch(0.70 0.08 230 / .35); --p-cloud: oklch(0.78 0.05 250 / .7);
+    --bg: oklch(0.26 0.06 268); --surface: oklch(0.30 0.06 268); --bubble: oklch(0.36 0.06 266);
+    --text: oklch(0.97 0.02 85); --dim: oklch(0.97 0.02 85 / .7); --line: oklch(0.97 0.02 85 / .12); --bubble-ink: oklch(0.97 0.02 85);
+  }
+  [data-mode="invest"][data-phase="night"] {
+    --p-sky-top: oklch(0.15 0.05 268); --p-sky-mid: oklch(0.23 0.06 262); --p-sky-low: oklch(0.32 0.07 252);
+    --p-hill-far: oklch(0.30 0.06 200); --p-hill-mid: oklch(0.24 0.06 200); --p-hill-near: oklch(0.18 0.05 200);
+    --p-haze: oklch(0.40 0.07 250 / .35); --p-cloud: oklch(0.50 0.05 255 / .5);
+    --bg: oklch(0.19 0.05 265); --surface: oklch(0.23 0.05 265); --bubble: oklch(0.29 0.05 265);
+    --text: oklch(0.97 0.02 85); --dim: oklch(0.97 0.02 85 / .7); --line: oklch(0.97 0.02 85 / .12); --bubble-ink: oklch(0.97 0.02 85);
+  }
+  [data-mode="invest"] .disc { background: oklch(0.96 0.05 95); }
+  [data-mode="invest"][data-phase="night"] .disc { background: oklch(0.95 0.02 220); }
+
+  /* the whole page crossfades on a switch, so it reads as one place
+     changing rather than two pages swapping */
+  .copy, main, footer { transition: opacity .45s var(--ease); }
+  html.switching .copy, html.switching main, html.switching footer { opacity: 0; }
+
+  /* the six published ideas, as things to tap; each opens the quant with
+     the idea already typed in */
+  .ideas { display: flex; flex-wrap: wrap; gap: 10px; margin: 28px 0 0; max-width: 620px; }
+  .idea { display: inline-block; padding: 11px 16px; border-radius: 999px; font-size: 15px; line-height: 1.3;
+          background: var(--bubble); color: var(--bubble-ink); border: 1px solid var(--line);
+          transition: transform .25s var(--ease), background .25s var(--ease), border-color .25s; }
+  .idea:hover { transform: translateY(-1px); border-color: var(--glow-deep); }
+  .idea:active { transform: scale(.98); }
+  .idea:focus-visible { outline: 2px solid var(--glow-deep); outline-offset: 2px; }
+
+  [data-mode="invest"] .f-col a[href="/quant"] { order: -1; }
+  .f-fine { font-size: 13px; color: var(--dim); margin: 22px 0 0; }
+
   * { box-sizing: border-box; }
   html { color-scheme: light; scroll-behavior: smooth; }
   [data-phase="dusk"], [data-phase="night"] { color-scheme: dark; }
@@ -361,6 +428,8 @@
   .cta:hover .arrow { transform: translateX(3px); }
   .fine { font-size: 13px; color: var(--dim); margin: 14px 0 0; }
   [data-mode="life"] [data-for="invest"], [data-mode="invest"] [data-for="life"] { display: none; }
+  /* "the markets" is a word longer than "life": one more ch keeps the headline at three lines */
+  [data-for="invest"] h1 { max-width: 14ch; }
 
   @media (max-width: 760px) {
     .copy { align-content: end; padding-bottom: clamp(90px, 16vh, 140px); max-width: 100%; }
@@ -460,7 +529,7 @@
 
     <div data-for="invest">
       <h1>An intelligence that accompanies you through the <em>markets</em>.</h1>
-      <p class="lede">Hand it an idea in plain words. It researches, tests, and tells you what it found, honestly.</p>
+      <p class="lede" id="lede-invest">Hand it an idea in plain words. It does the reading, tests it, and tells you what it found.</p>
       <div class="ctas">
         <a class="cta" href="https://quant.withmin.ai">Run an idea <span class="arrow" aria-hidden="true">&rarr;</span></a>
       </div>
@@ -470,7 +539,7 @@
 </header>
 
 <main>
-  <section>
+  <section data-for="life">
     <div class="wrap two">
       <div>
         <h2>It texts. That is the whole app.</h2>
@@ -487,9 +556,34 @@
     </div>
   </section>
 
+  <section data-for="invest">
+    <div class="wrap two">
+      <div>
+        <h2>Call your shot. It does the reading.</h2>
+        <p class="sub">Any thesis in plain words. Live data, filings, backtests and the odds, with the work shown every run.</p>
+        <div class="ideas" aria-label="Ideas people have run">
+          <a class="idea" href="https://quant.withmin.ai/?q=the%20AI%20bubble%20pops%20in%206%20months.%20how%20do%20I%20profit%3F">the AI bubble pops in 6 months. how do I profit?</a>
+          <a class="idea" href="https://quant.withmin.ai/?q=china%20controls%20global%20minerals.%20build%20me%20a%2010-year%20position">china controls global minerals. build me a 10-year position</a>
+          <a class="idea" href="https://quant.withmin.ai/?q=regional%20banks%20are%20quietly%20broken.%20prove%20me%20wrong">regional banks are quietly broken. prove me wrong</a>
+          <a class="idea" href="https://quant.withmin.ai/?q=bitcoin%20just%20got%20smoked.%20bottom%20or%20bull%20trap%3F">bitcoin just got smoked. bottom or bull trap?</a>
+          <a class="idea" href="https://quant.withmin.ai/?q=oil%20hits%20%2495%20by%20year-end.%20what%20kills%20the%20trade%3F">oil hits $95 by year-end. what kills the trade?</a>
+          <a class="idea" href="https://quant.withmin.ai/?q=the%20fed%20cuts%20again%20in%20december.%20who%20runs%20first%3F">the fed cuts again in december. who runs first?</a>
+        </div>
+      </div>
+      <div class="thread" aria-label="The shape of a run">
+        <p class="when">A run</p>
+        <p class="msg you">regional banks are quietly broken. prove me wrong</p>
+        <p class="msg">read three quarters of filings for every regional that matters. two are actually broken. the rest are just boring.</p>
+        <p class="msg">here's the two, the backtest, and the one number that would make me wrong.</p>
+        <p class="msg gap">want the sized plan, or keep poking at it first?</p>
+      </div>
+    </div>
+  </section>
+
   <section class="quiet">
     <div class="wrap">
-      <p>The best technology is the kind you forget is there. min. is built to be that: <span>around</span>, not in the way.</p>
+      <p data-for="life">The best technology is the kind you forget is there. min. is built to be that: <span>around</span>, not in the way.</p>
+      <p data-for="invest">The best research is the kind you can check. min. shows its work, every run: <span>sources, backtests, odds</span>.</p>
     </div>
   </section>
 </main>
@@ -511,6 +605,7 @@
         </div>
       </div>
     </div>
+    <p class="f-fine" data-for="invest">Research tooling, not financial advice. Trading runs in a sandbox until you connect a brokerage.</p>
   </footer>
 </div>
 
@@ -609,20 +704,50 @@
     .then(function () { clearTimeout(timer); });
 })();
 
-/* Life is the door most people are here for; Invest is one tap away and remembered. */
+/* Life is the door most people are here for; Invest is one tap away and remembered.
+   Invest has its own line under the headline: not the weather, the market. Whether
+   New York is open right now is computed from the clock and never typed. */
 (function () {
   var root = document.documentElement;
   var buttons = document.querySelectorAll(".seg button");
+  var investLede = document.getElementById("lede-invest");
+  var TITLES = { life: "min. | An intelligence that accompanies you through life",
+                 invest: "min. | An intelligence that accompanies you through the markets" };
+
+  function marketLine() {
+    try {
+      var et = new Date(new Date().toLocaleString("en-US", { timeZone: "America/New_York" }));
+      var day = et.getDay(), mins = et.getHours() * 60 + et.getMinutes();
+      if (day === 0 || day === 6) return "Markets are shut for the weekend. A good time to think out loud, and let it do the reading.";
+      if (mins >= 570 && mins < 960) return "New York is open right now. Call your shot in plain words and watch it do the reading.";
+      if (mins < 570) return "New York opens at 9:30. Hand it an idea now and the reading is done by the bell.";
+      return "New York is closed for the day. Ideas keep. Hand it one tonight and read it over coffee.";
+    } catch (e) { return null; }
+  }
+
   function set(mode, persist) {
     root.setAttribute("data-mode", mode);
     buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-mode") === mode)); });
-    if (persist) { try { localStorage.setItem("min.mode", mode); } catch (e) {} }
+    document.title = TITLES[mode] || TITLES.life;
+    if (mode === "invest" && investLede) { var l = marketLine(); if (l) investLede.textContent = l; }
+    if (persist) {
+      try { localStorage.setItem("min.mode", mode); } catch (e) {}
+      try { history.replaceState(null, "", mode === "invest" ? "#invest" : location.pathname + location.search); } catch (e) {}
+    }
   }
+  function switchTo(mode) {
+    if (root.getAttribute("data-mode") === mode) return;
+    var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduce) { set(mode, true); return; }
+    root.classList.add("switching");
+    setTimeout(function () { set(mode, true); root.classList.remove("switching"); }, 460);
+  }
+
   var wanted = location.hash === "#invest" ? "invest" : null;
   if (!wanted) { try { wanted = localStorage.getItem("min.mode"); } catch (e) {} }
-  if (wanted === "invest") set("invest", false);
+  set(wanted === "invest" ? "invest" : "life", false);
   buttons.forEach(function (b) {
-    b.addEventListener("click", function () { set(b.getAttribute("data-mode"), true); });
+    b.addEventListener("click", function () { switchTo(b.getAttribute("data-mode")); });
   });
 })();
 </script>
