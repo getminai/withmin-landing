@@ -659,7 +659,8 @@
   .quiet { border-top: 1px solid var(--line); }
   .quiet .wrap { max-width: 760px; }
   .quiet h2 { font-size: clamp(32px, 4vw, 52px); }
-  .quiet .sub { margin-bottom: clamp(22px, 3vh, 30px); }
+  .quiet .sub { margin-bottom: 0.9em; }
+  .quiet .sub:last-of-type { margin-bottom: clamp(22px, 3vh, 30px); }
 
   footer { border-top: 1px solid var(--line); padding: 40px 0 56px; }
   .f-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; flex-wrap: wrap; }
@@ -1197,8 +1198,11 @@
   <section class="quiet">
     <div class="wrap">
       <div data-for="life">
-        <h2>The future can be kind.</h2>
-        <p class="sub">Hope doesn't come from software. It comes from people with the time and the head-space to be good to each other. Most of what gets built now takes that away. min. is built to give it back, little by little, day by day.</p>
+        <h2>The future can be so kind.</h2>
+        <p class="sub">The future of humanity can feel bleak right now.</p>
+        <p class="sub">But it doesn&rsquo;t have to be.</p>
+        <p class="sub">Hope comes from people with the time and headspace to think, create, love, and care for one another.</p>
+        <p class="sub">The future is still ours to build. And it can be better.</p>
         <div class="ctas"><a class="cta" href="https://life.withmin.ai">Meet min. <span class="arrow" aria-hidden="true">&rarr;</span></a></div>
       </div>
       <div data-for="invest">
