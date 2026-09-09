@@ -275,6 +275,10 @@
   .idea:active { transform: scale(.98); }
   .idea:focus-visible { outline: 2px solid var(--glow-deep); outline-offset: 2px; }
 
+  /* in Invest the quant is listed first; the heading is pinned ahead of both
+     links, because it shares the grid with them and `order` alone put a link
+     above the word "Companions" */
+  .f-col h4 { order: -2; }
   [data-mode="invest"] .f-col a[href="/quant"] { order: -1; }
   .f-fine { font-size: 13px; color: var(--dim); margin: 22px 0 0; }
 
