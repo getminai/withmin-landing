@@ -66,6 +66,16 @@
      same house. Nothing here is a photo: a photo cannot start raining.
      ------------------------------------------------------------------ */
   :root {
+    /* the city's materials, by day */
+    --tower: oklch(0.955 0.02 80);
+    --tower-2: oklch(0.90 0.03 78);
+    --leaf: oklch(0.68 0.14 140);
+    --leaf-2: oklch(0.57 0.13 145);
+    --trunk: oklch(0.45 0.06 40);
+    --water: oklch(0.87 0.06 220);
+    --rail: oklch(0.82 0.03 80);
+    --win-op: .3;
+    --cityglow: 0;
     --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
     --sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
     --glow: oklch(0.84 0.13 62);          /* the light in the window, the only accent */
@@ -103,6 +113,8 @@
     --cloud: var(--p-cloud);
   }
   [data-phase="dawn"] {
+    --tower: oklch(0.92 0.05 45); --tower-2: oklch(0.86 0.06 40); --leaf: oklch(0.63 0.11 145); --leaf-2: oklch(0.53 0.10 148);
+    --water: oklch(0.86 0.07 320); --rail: oklch(0.80 0.05 45); --win-op: .55; --cityglow: .03;
     --p-sky-top: oklch(0.78 0.08 300);
     --p-sky-mid: oklch(0.88 0.08 20);
     --p-sky-low: oklch(0.94 0.09 70);
@@ -112,6 +124,8 @@
     --p-haze: oklch(0.95 0.06 60 / .5);
   }
   [data-phase="golden"] {
+    --tower: oklch(0.93 0.07 62); --tower-2: oklch(0.86 0.08 55); --leaf: oklch(0.63 0.13 135); --leaf-2: oklch(0.52 0.12 140);
+    --water: oklch(0.88 0.09 65); --rail: oklch(0.80 0.06 60); --win-op: .55; --cityglow: .05;
     --p-sky-top: oklch(0.80 0.08 320);
     --p-sky-mid: oklch(0.88 0.11 40);
     --p-sky-low: oklch(0.92 0.14 65);
@@ -121,6 +135,8 @@
     --p-haze: oklch(0.93 0.10 60 / .5);
   }
   [data-phase="dusk"] {
+    --tower: oklch(0.50 0.07 318); --tower-2: oklch(0.43 0.07 315); --leaf: oklch(0.43 0.10 155); --leaf-2: oklch(0.36 0.09 158);
+    --trunk: oklch(0.30 0.05 40); --water: oklch(0.56 0.09 300); --rail: oklch(0.62 0.05 320); --win-op: .88; --cityglow: .10;
     --p-sky-top: oklch(0.36 0.09 290);
     --p-sky-mid: oklch(0.58 0.11 330);
     --p-sky-low: oklch(0.80 0.12 45);
@@ -138,6 +154,8 @@
     --bubble-ink: oklch(0.97 0.02 85);
   }
   [data-phase="night"] {
+    --tower: oklch(0.31 0.05 290); --tower-2: oklch(0.25 0.05 288); --leaf: oklch(0.35 0.08 160); --leaf-2: oklch(0.29 0.07 162);
+    --trunk: oklch(0.24 0.04 40); --water: oklch(0.30 0.06 280); --rail: oklch(0.46 0.04 290); --win-op: .95; --cityglow: .14;
     --p-sky-top: oklch(0.20 0.06 285);
     --p-sky-mid: oklch(0.28 0.07 295);
     --p-sky-low: oklch(0.38 0.08 305);
@@ -183,7 +201,10 @@
     --haze: oklch(from var(--p-haze) l calc(c * .3) 290);
     --evergreen: oklch(0.42 0.09 160); }
   [data-weather="snow"][data-phase="night"] { --hill-far: oklch(0.55 0.03 290); --hill-mid: oklch(0.62 0.03 290); --hill-near: oklch(0.70 0.03 290); --evergreen: oklch(0.34 0.07 160); }
-  [data-weather="snow"] .crown { background: var(--evergreen); filter: none; }
+  [data-weather="rain"] { --win-op: .75; --water: oklch(from var(--p-sky-mid) calc(l - .08) calc(c * .5) 225); }
+  [data-weather="snow"] { --tower: oklch(0.97 0.01 290); --tower-2: oklch(0.91 0.015 290); --leaf: oklch(0.86 0.03 150); --leaf-2: oklch(0.62 0.08 160);
+                          --water: oklch(0.86 0.02 290); --rail: oklch(0.85 0.01 290); --win-op: .8; }
+  [data-weather="snow"][data-phase="night"] { --tower: oklch(0.42 0.03 290); --tower-2: oklch(0.36 0.03 290); --leaf: oklch(0.55 0.03 160); --leaf-2: oklch(0.40 0.06 160); --water: oklch(0.36 0.03 280); }
 
   /* ------------------------------------------------------------------
      Invest is a different room. Life is the main product and keeps the
@@ -208,7 +229,7 @@
     color-scheme: dark;
   }
   [data-mode="invest"] .scene { background: oklch(0.12 0.02 262); }
-  [data-mode="invest"] :is(.sky, .stars, .disc, .cloud, .ground, .haze, .chimney, .house, .tree, .fly, .rain, .snow) { display: none; }
+  [data-mode="invest"] :is(.sky, .stars, .disc, .cloud, .city, .haze, .fly, .rain, .snow) { display: none; }
   [data-mode="life"] .market { display: none; }
 
   .market.grid { position: absolute; inset: 0; z-index: 1; pointer-events: none;
@@ -375,49 +396,30 @@
   [data-weather="snow"] .snow { opacity: .9; }
   @keyframes fall { from { transform: translate3d(0,-240px,0); } to { transform: translate3d(40px,240px,0); } }
 
-  /* the ground: three hills, one house, one tree. all geometry. */
-  .ground { position: absolute; inset: auto 0 0 0; height: 46%; z-index: 3; pointer-events: none; }
-  .hill { position: absolute; bottom: -30%; border-radius: 50%; transition: background var(--fade) var(--ease); }
-  .h-far  { left: -20%; width: 90%; height: 90%; background: var(--hill-far); }
-  .h-mid  { left: 35%; width: 95%; height: 80%; background: var(--hill-mid); }
-  .h-near { left: -35%; width: 120%; height: 66%; bottom: -34%; background: var(--hill-near); }
-  .haze { position: absolute; inset: auto 0 0 0; height: 60%; z-index: 4; pointer-events: none;
+  /* the ground: a city people would want to live in. towers with gardens on
+     every setback, a river, a monorail, parks between the buildings, and a
+     window light that comes on when it is dark, wet or cold. all geometry,
+     all recoloured by the phase tokens, so the same skyline is noon, golden
+     hour, a rainy night. the rail is CSS motion-path; nothing else moves. */
+  .city { position: absolute; left: 0; bottom: 0; width: 100%; height: auto; z-index: 3; pointer-events: none;
+          filter: drop-shadow(0 -6px 30px oklch(from var(--sky-low) l c h / .25)); }
+  .city .win { opacity: var(--win-op); transition: opacity var(--fade) var(--ease); }
+  .city .cityglow { opacity: var(--cityglow); transition: opacity var(--fade) var(--ease); }
+  .city .pod { offset-path: path("M300,318 C520,300 700,336 900,312 S1240,286 1400,300"); offset-rotate: auto; animation: ride 46s linear infinite; }
+  @keyframes ride { from { offset-distance: 0%; } to { offset-distance: 100%; } }
+  .haze { position: absolute; inset: auto 0 0 0; height: 46%; z-index: 4; pointer-events: none;
           background: linear-gradient(to top, var(--haze), transparent); transition: background var(--fade); }
-
-  .house { position: absolute; z-index: 5; left: 61%; bottom: 25%; width: clamp(70px, 8.4vw, 118px); pointer-events: none;
-           transition: transform var(--fade) var(--ease); }
-  .roof { width: 100%; aspect-ratio: 2 / 0.9; background: oklch(0.42 0.06 30); clip-path: polygon(50% 0, 100% 100%, 0 100%); border-radius: 4px; }
-  [data-phase="night"] .roof, [data-phase="dusk"] .roof { background: oklch(0.28 0.05 30); }
-  .walls { width: 82%; margin: -2px auto 0; aspect-ratio: 1 / 0.78; background: oklch(0.95 0.03 80); border-radius: 0 0 8px 8px; position: relative; }
-  [data-phase="night"] .walls, [data-phase="dusk"] .walls { background: oklch(0.72 0.03 80); }
-  .window { position: absolute; left: 22%; top: 24%; width: 26%; aspect-ratio: 1; border-radius: 4px; background: var(--glow);
-            box-shadow: 0 0 0 0 var(--glow); transition: box-shadow var(--fade), opacity var(--fade); }
-  .door { position: absolute; right: 18%; bottom: 0; width: 22%; height: 52%; background: oklch(0.42 0.06 30); border-radius: 6px 6px 0 0; }
-  /* the light comes on when it is dark or wet or cold: someone is home */
-  [data-phase="night"] .window, [data-phase="dusk"] .window, [data-weather="rain"] .window, [data-weather="snow"] .window, [data-cold] .window {
-    box-shadow: 0 0 18px 6px oklch(from var(--glow) l c h / .55), 0 0 60px 22px oklch(from var(--glow) l c h / .25);
-    animation: hearth 4.5s ease-in-out infinite alternate; }
-  [data-phase="day"] .window:not([data-weather="rain"] *) { opacity: .55; }
-  @keyframes hearth { from { filter: brightness(.96); } to { filter: brightness(1.08); } }
-  .chimney { position: absolute; z-index: 5; left: 66.5%; bottom: calc(25% + clamp(62px, 7.4vw, 104px)); width: clamp(8px, .9vw, 13px); height: clamp(14px, 1.6vw, 22px); background: oklch(0.42 0.06 30); border-radius: 2px 2px 0 0; }
-  [data-phase="night"] .chimney, [data-phase="dusk"] .chimney { background: oklch(0.28 0.05 30); }
-  .smoke { position: absolute; left: 50%; bottom: 100%; width: 10px; height: 10px; border-radius: 50%; background: oklch(0.95 0.01 85 / .5);
-           opacity: 0; filter: blur(2px); }
-  [data-weather="rain"] .smoke, [data-weather="snow"] .smoke, [data-cold] .smoke, [data-phase="night"] .smoke { animation: puff 6s ease-out infinite; }
-  .smoke:nth-child(2) { animation-delay: -2s; } .smoke:nth-child(3) { animation-delay: -4s; }
-  @keyframes puff { 0% { opacity: 0; transform: translate(-50%, 0) scale(.6); } 20% { opacity: .55; } 100% { opacity: 0; transform: translate(-30%, -70px) scale(2.2); } }
-
-  .tree { position: absolute; z-index: 5; left: 74%; bottom: 23%; width: clamp(46px, 5.6vw, 80px); pointer-events: none; }
-  .crown { width: 100%; aspect-ratio: 1; border-radius: 50%; background: var(--hill-near); filter: brightness(1.15); transition: background var(--fade); }
-  .crown::before { content: ""; position: absolute; left: 18%; top: -18%; width: 64%; aspect-ratio: 1; border-radius: 50%; background: inherit; }
-  .trunk { width: 14%; height: 34%; margin: -8% auto 0; background: oklch(0.42 0.06 30); border-radius: 3px; }
+  @media (max-width: 760px) {
+    /* the phone shows the middle of the skyline at a readable size */
+    .city { width: 230%; left: -65%; }
+  }
 
   /* fireflies, only at night and only when it is clear */
   .fly { position: absolute; z-index: 6; width: 5px; height: 5px; border-radius: 50%; background: var(--glow);
          box-shadow: 0 0 10px 3px oklch(from var(--glow) l c h / .5); opacity: 0; pointer-events: none; }
   [data-phase="night"][data-weather="clear"] .fly { animation: glow 6s ease-in-out infinite; }
-  .f1 { left: 52%; bottom: 30%; animation-delay: 0s !important; } .f2 { left: 58%; bottom: 34%; animation-delay: -2s !important; }
-  .f3 { left: 81%; bottom: 29%; animation-delay: -3.5s !important; } .f4 { left: 45%; bottom: 36%; animation-delay: -5s !important; }
+  .f1 { left: 12%; bottom: 8%; animation-delay: 0s !important; } .f2 { left: 24%; bottom: 12%; animation-delay: -2s !important; }
+  .f3 { left: 74%; bottom: 7%; animation-delay: -3.5s !important; } .f4 { left: 90%; bottom: 11%; animation-delay: -5s !important; }
   @keyframes glow { 0%, 100% { opacity: 0; transform: translate(0,0); } 35% { opacity: .9; } 50% { transform: translate(8px,-14px); } 70% { opacity: .2; } }
 
   /* the words sit in the open air on the left; on a phone they get a soft scrim */
@@ -466,9 +468,6 @@
       background: linear-gradient(to top, oklch(from var(--sky-low) l c h / .92) 0%, oklch(from var(--sky-low) l c h / .7) 45%, transparent 80%); transition: background var(--fade); }
     [data-phase="night"] .copy::before, [data-phase="dusk"] .copy::before { background: linear-gradient(to top, oklch(from var(--sky-top) l c h / .92) 0%, oklch(from var(--sky-top) l c h / .7) 45%, transparent 80%); }
     .disc { left: 58%; top: 12%; }
-    .house { left: 64%; bottom: 42%; width: 64px; } .chimney { left: 69%; bottom: calc(42% + 56px); width: 8px; height: 13px; } .tree { left: 84%; bottom: 40%; width: 44px; }
-    .ground { height: 40%; }
-    .f1, .f2, .f3, .f4 { bottom: 42%; }
     h1 { font-size: clamp(32px, 9.4vw, 44px); max-width: none; }
   }
 
@@ -520,18 +519,281 @@
   <div class="cloud c1" aria-hidden="true"></div>
   <div class="cloud c2" aria-hidden="true"></div>
   <div class="cloud c3" aria-hidden="true"></div>
-  <div class="ground" aria-hidden="true">
-    <div class="hill h-far"></div>
-    <div class="hill h-mid"></div>
-    <div class="hill h-near"></div>
-  </div>
+<svg class="city" viewBox="0 0 1400 520" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+  <ellipse cx="260" cy="470" rx="560" ry="150" fill="var(--hill-far)"/>
+  <ellipse cx="1150" cy="482" rx="640" ry="160" fill="var(--hill-mid)"/>
+  <ellipse class="cityglow" cx="880" cy="400" rx="560" ry="150" fill="var(--glow)"/>
+  <rect x="395" y="322" width="70" height="124" rx="16" fill="var(--tower)"/>
+  <rect x="405" y="332" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="405" y="356" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="405" y="380" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="425" y="380" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="425" y="404" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="397" y="321" width="64" height="6" rx="3" fill="var(--leaf-2)"/>
+  <rect x="496" y="261" width="64" height="6" rx="3" fill="var(--leaf-2)"/>
+  <rect x="613" y="179" width="80" height="6" rx="3" fill="var(--leaf-2)"/>
+  <rect x="744" y="97" width="48" height="6" rx="3" fill="var(--leaf-2)"/>
+  <rect x="852" y="139" width="80" height="6" rx="3" fill="var(--leaf-2)"/>
+  <rect x="1002" y="61" width="64" height="6" rx="3" fill="var(--leaf-2)"/>
+  <rect x="1122" y="203" width="64" height="6" rx="3" fill="var(--leaf-2)"/>
+  <rect x="1220" y="273" width="112" height="6" rx="3" fill="var(--leaf-2)"/>
+  <rect x="1354" y="331" width="64" height="6" rx="3" fill="var(--leaf-2)"/>
+  <circle cx="405" cy="321" r="6" fill="var(--leaf)"/>
+  <circle cx="421" cy="321" r="7" fill="var(--leaf)"/>
+  <circle cx="437" cy="321" r="6" fill="var(--leaf)"/>
+  <circle cx="453" cy="321" r="6" fill="var(--leaf-2)"/>
+  <rect x="482" y="314" width="92" height="132" rx="16" fill="var(--tower-2)"/>
+  <rect x="532" y="324" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="492" y="348" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="512" y="348" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="532" y="348" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="492" y="372" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="532" y="372" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="492" y="396" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <circle cx="490" cy="312" r="8" fill="var(--leaf)"/>
+  <rect x="495" y="262" width="66" height="52" rx="12" fill="var(--tower)"/>
+  <rect x="505" y="272" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <circle cx="504" cy="261" r="8" fill="var(--leaf-2)"/>
+  <circle cx="520" cy="261" r="7" fill="var(--leaf)"/>
+  <circle cx="536" cy="261" r="8" fill="var(--leaf)"/>
+  <circle cx="552" cy="261" r="6" fill="var(--leaf-2)"/>
+  <rect x="596" y="264" width="112" height="182" rx="16" fill="var(--tower)"/>
+  <rect x="606" y="274" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="626" y="274" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="646" y="274" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="666" y="274" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="606" y="298" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="626" y="298" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="606" y="322" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="646" y="322" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="666" y="322" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="606" y="346" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="626" y="346" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="646" y="346" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="606" y="370" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="646" y="370" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="666" y="370" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="606" y="394" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="626" y="394" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="666" y="394" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <circle cx="604" cy="262" r="8" fill="var(--leaf)"/>
+  <rect x="612" y="180" width="81" height="84" rx="12" fill="var(--tower-2)"/>
+  <rect x="622" y="190" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="642" y="190" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="662" y="190" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <circle cx="621" cy="179" r="8" fill="var(--leaf-2)"/>
+  <circle cx="637" cy="179" r="6" fill="var(--leaf-2)"/>
+  <circle cx="653" cy="179" r="7" fill="var(--leaf-2)"/>
+  <circle cx="669" cy="179" r="8" fill="var(--leaf-2)"/>
+  <circle cx="685" cy="179" r="7" fill="var(--leaf-2)"/>
+  <rect x="600" y="276" width="9" height="154" rx="4" fill="var(--leaf-2)"/>
+  <rect x="732" y="216" width="78" height="230" rx="16" fill="var(--tower-2)"/>
+  <rect x="742" y="226" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="762" y="226" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="782" y="226" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="742" y="250" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="762" y="250" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="782" y="250" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="762" y="274" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="782" y="274" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="742" y="298" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="762" y="298" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="782" y="298" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="762" y="322" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="762" y="346" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="782" y="346" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="742" y="370" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="762" y="370" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="782" y="370" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="742" y="394" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="743" y="98" width="56" height="118" rx="12" fill="var(--tower)"/>
+  <rect x="773" y="108" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="773" y="132" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="773" y="156" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="773" y="180" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <circle cx="752" cy="97" r="8" fill="var(--leaf)"/>
+  <circle cx="768" cy="97" r="6" fill="var(--leaf-2)"/>
+  <circle cx="784" cy="97" r="8" fill="var(--leaf-2)"/>
+  <rect x="832" y="244" width="132" height="202" rx="16" fill="var(--tower)"/>
+  <rect x="842" y="254" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="862" y="254" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="882" y="254" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="902" y="254" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="922" y="254" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="842" y="278" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="862" y="278" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="882" y="278" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="902" y="278" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="922" y="278" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="842" y="302" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="882" y="302" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="902" y="302" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="842" y="326" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="882" y="326" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="902" y="326" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="922" y="326" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="842" y="350" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="902" y="350" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="922" y="350" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="842" y="374" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="862" y="374" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="882" y="374" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="922" y="374" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="842" y="398" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="862" y="398" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="882" y="398" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="922" y="398" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <circle cx="840" cy="242" r="9" fill="var(--leaf)"/>
+  <rect x="850" y="140" width="95" height="104" rx="12" fill="var(--tower-2)"/>
+  <rect x="860" y="150" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="860" y="174" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="880" y="174" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="860" y="198" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="900" y="198" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <circle cx="860" cy="139" r="8" fill="var(--leaf-2)"/>
+  <circle cx="876" cy="139" r="8" fill="var(--leaf-2)"/>
+  <circle cx="892" cy="139" r="8" fill="var(--leaf)"/>
+  <circle cx="908" cy="139" r="6" fill="var(--leaf)"/>
+  <circle cx="924" cy="139" r="6" fill="var(--leaf)"/>
+  <rect x="951" y="256" width="9" height="174" rx="4" fill="var(--leaf-2)"/>
+  <rect x="986" y="194" width="102" height="252" rx="16" fill="var(--tower-2)"/>
+  <rect x="996" y="204" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1016" y="204" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1056" y="204" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="996" y="228" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1016" y="228" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1036" y="228" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1056" y="228" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="996" y="252" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1036" y="252" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1056" y="252" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="996" y="300" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1016" y="300" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1036" y="300" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1056" y="300" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="996" y="324" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1016" y="324" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1036" y="324" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1056" y="348" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="996" y="372" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1016" y="372" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1036" y="372" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1056" y="372" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="996" y="396" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1036" y="396" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1056" y="396" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <circle cx="994" cy="192" r="9" fill="var(--leaf-2)"/>
+  <rect x="1000" y="62" width="73" height="132" rx="12" fill="var(--tower)"/>
+  <rect x="1010" y="72" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1010" y="96" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1030" y="96" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1010" y="120" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1030" y="120" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1010" y="144" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1030" y="144" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <circle cx="1010" cy="61" r="6" fill="var(--leaf-2)"/>
+  <circle cx="1026" cy="61" r="6" fill="var(--leaf-2)"/>
+  <circle cx="1042" cy="61" r="6" fill="var(--leaf)"/>
+  <circle cx="1058" cy="61" r="7" fill="var(--leaf-2)"/>
+  <rect x="1108" y="282" width="92" height="164" rx="16" fill="var(--tower)"/>
+  <rect x="1138" y="292" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1158" y="292" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1118" y="316" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1138" y="316" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1158" y="316" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1158" y="340" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1118" y="364" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1138" y="364" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1158" y="364" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1118" y="388" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1138" y="388" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1158" y="388" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <circle cx="1116" cy="280" r="7" fill="var(--leaf)"/>
+  <rect x="1121" y="204" width="66" height="78" rx="12" fill="var(--tower-2)"/>
+  <rect x="1151" y="214" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1131" y="238" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1151" y="238" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <circle cx="1130" cy="203" r="8" fill="var(--leaf)"/>
+  <circle cx="1146" cy="203" r="6" fill="var(--leaf)"/>
+  <circle cx="1162" cy="203" r="8" fill="var(--leaf)"/>
+  <circle cx="1178" cy="203" r="7" fill="var(--leaf-2)"/>
+  <rect x="1112" y="294" width="9" height="136" rx="4" fill="var(--leaf-2)"/>
+  <rect x="1218" y="274" width="122" height="172" rx="16" fill="var(--tower-2)"/>
+  <rect x="1228" y="284" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1248" y="284" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1268" y="284" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1288" y="284" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1248" y="308" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1268" y="308" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1288" y="308" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1308" y="308" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1228" y="332" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1288" y="332" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1248" y="356" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1268" y="356" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1288" y="356" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1308" y="356" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1228" y="380" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1228" y="404" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1268" y="404" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <rect x="1308" y="404" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <circle cx="1228" cy="273" r="8" fill="var(--leaf-2)"/>
+  <circle cx="1244" cy="273" r="6" fill="var(--leaf-2)"/>
+  <circle cx="1260" cy="273" r="7" fill="var(--leaf)"/>
+  <circle cx="1276" cy="273" r="7" fill="var(--leaf)"/>
+  <circle cx="1292" cy="273" r="6" fill="var(--leaf-2)"/>
+  <circle cx="1308" cy="273" r="7" fill="var(--leaf-2)"/>
+  <circle cx="1324" cy="273" r="6" fill="var(--leaf-2)"/>
+  <rect x="1352" y="332" width="72" height="114" rx="16" fill="var(--tower)"/>
+  <rect x="1362" y="366" width="9" height="12" rx="2" fill="var(--glow)" class="win"/>
+  <circle cx="1362" cy="331" r="8" fill="var(--leaf)"/>
+  <circle cx="1378" cy="331" r="6" fill="var(--leaf-2)"/>
+  <circle cx="1394" cy="331" r="6" fill="var(--leaf-2)"/>
+  <circle cx="1410" cy="331" r="8" fill="var(--leaf-2)"/>
+  <rect x="922" y="140" width="22" height="306" rx="10" fill="var(--tower-2)"/>
+  <ellipse cx="933" cy="200" rx="34" ry="9" fill="none" stroke="var(--rail)" stroke-width="3"/>
+  <circle cx="933" cy="134" r="9" fill="var(--glow)" class="win"/>
+  <path class="rail" d="M300,318 C520,300 700,336 900,312 S1240,286 1400,300" fill="none" stroke="var(--rail)" stroke-width="3" stroke-linecap="round"/>
+  <g class="pod"><rect x="-16" y="-6" width="32" height="12" rx="6" fill="var(--tower)"/><rect x="-9" y="-3" width="18" height="6" rx="3" fill="var(--glow)" class="win"/></g>
+  <ellipse cx="700" cy="540" rx="980" ry="90" fill="var(--hill-near)"/>
+  <path d="M0,482 C300,472 520,494 760,486 S1100,474 1400,488 L1400,500 L0,500 Z" fill="var(--water)"/>
+  <path d="M560,486 Q612,458 664,486" fill="none" stroke="var(--tower-2)" stroke-width="6" stroke-linecap="round"/>
+  <rect x="556" y="483" width="112" height="5" rx="2.5" fill="var(--tower-2)"/>
+  <rect x="77" y="470" width="6" height="24" rx="3" fill="var(--trunk)"/>
+  <circle cx="80" cy="462" r="20" fill="var(--leaf)"/>
+  <circle cx="69" cy="468" r="14" fill="var(--leaf-2)"/>
+  <rect x="147" y="470" width="6" height="24" rx="3" fill="var(--trunk)"/>
+  <circle cx="150" cy="464" r="15" fill="var(--leaf-2)"/>
+  <circle cx="142" cy="469" r="10" fill="var(--leaf-2)"/>
+  <rect x="227" y="470" width="6" height="24" rx="3" fill="var(--trunk)"/>
+  <circle cx="230" cy="461" r="24" fill="var(--leaf-2)"/>
+  <circle cx="217" cy="467" r="17" fill="var(--leaf-2)"/>
+  <rect x="327" y="470" width="6" height="24" rx="3" fill="var(--trunk)"/>
+  <circle cx="330" cy="463" r="17" fill="var(--leaf)"/>
+  <circle cx="321" cy="469" r="12" fill="var(--leaf-2)"/>
+  <rect x="697" y="470" width="6" height="24" rx="3" fill="var(--trunk)"/>
+  <circle cx="700" cy="463" r="18" fill="var(--leaf-2)"/>
+  <circle cx="690" cy="468" r="13" fill="var(--leaf-2)"/>
+  <rect x="767" y="470" width="6" height="24" rx="3" fill="var(--trunk)"/>
+  <circle cx="770" cy="464" r="14" fill="var(--leaf)"/>
+  <circle cx="762" cy="469" r="10" fill="var(--leaf-2)"/>
+  <rect x="1017" y="470" width="6" height="24" rx="3" fill="var(--trunk)"/>
+  <circle cx="1020" cy="461" r="22" fill="var(--leaf)"/>
+  <circle cx="1008" cy="468" r="15" fill="var(--leaf-2)"/>
+  <rect x="1087" y="470" width="6" height="24" rx="3" fill="var(--trunk)"/>
+  <circle cx="1090" cy="463" r="16" fill="var(--leaf-2)"/>
+  <circle cx="1081" cy="469" r="11" fill="var(--leaf-2)"/>
+  <rect x="1187" y="470" width="6" height="24" rx="3" fill="var(--trunk)"/>
+  <circle cx="1190" cy="462" r="20" fill="var(--leaf-2)"/>
+  <circle cx="1179" cy="468" r="14" fill="var(--leaf-2)"/>
+  <rect x="1297" y="470" width="6" height="24" rx="3" fill="var(--trunk)"/>
+  <circle cx="1300" cy="464" r="15" fill="var(--leaf)"/>
+  <circle cx="1292" cy="469" r="10" fill="var(--leaf-2)"/>
+  <rect x="1377" y="470" width="6" height="24" rx="3" fill="var(--trunk)"/>
+  <circle cx="1380" cy="462" r="19" fill="var(--leaf)"/>
+  <circle cx="1370" cy="468" r="13" fill="var(--leaf-2)"/>
+</svg>
   <div class="haze" aria-hidden="true"></div>
-  <div class="chimney" aria-hidden="true"><span class="smoke"></span><span class="smoke"></span><span class="smoke"></span></div>
-  <div class="house" aria-hidden="true">
-    <div class="roof"></div>
-    <div class="walls"><span class="window"></span><span class="door"></span></div>
-  </div>
-  <div class="tree" aria-hidden="true"><div class="crown"></div><div class="trunk"></div></div>
   <span class="fly f1" aria-hidden="true"></span><span class="fly f2" aria-hidden="true"></span>
   <span class="fly f3" aria-hidden="true"></span><span class="fly f4" aria-hidden="true"></span>
   <div class="rain" aria-hidden="true"></div>
