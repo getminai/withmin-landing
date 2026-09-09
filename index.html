@@ -575,16 +575,21 @@
      hand. on a phone they become a row to swipe, so the page gets no taller. */
   .two.wide { grid-template-columns: .6fr 1.4fr; }
   .wall { position: relative; height: 840px; margin: 8px 0 0; max-width: 620px; }
+  /* solid paper, not glass: a card is opaque, has an edge, and casts a real
+     shadow, so a stack reads as cards on cards. under the hand (or a tap, on
+     a screen with no hover) one comes to the front at once and straightens. */
   .card { position: absolute; width: 224px; padding: 13px 13px 15px; border-radius: 22px; display: grid; gap: 7px;
-          background-color: var(--surface);
-          background-image: linear-gradient(160deg, oklch(from var(--sky-top) l c h / .32), oklch(from var(--sky-low) l c h / .32));
-          box-shadow: 0 10px 30px oklch(from var(--text) l c h / .12), inset 0 1px 0 oklch(1 0 0 / .35);
-          transition: transform .45s var(--ease), box-shadow .45s var(--ease), z-index 0s .2s; }
-  [data-mode="invest"] .card { background-image: none; }
+          background: var(--surface); border: 1px solid oklch(from var(--text) l c h / .08);
+          box-shadow: 0 14px 34px oklch(from var(--text) l c h / .16), 0 2px 6px oklch(from var(--text) l c h / .08);
+          transition: transform .35s var(--ease), box-shadow .35s var(--ease); }
   .card .when { margin: 0 0 1px; }
-  .card .msg { font-size: 14px; padding: 8px 12px; max-width: 92%; }
+  .card .msg { font-size: 14px; padding: 8px 12px; max-width: 92%; background: oklch(from var(--bubble) calc(l - .035) calc(c + .01) h); }
+  .card .msg.you { background: var(--glow); }
+  [data-phase="night"] .card .msg, [data-phase="dusk"] .card .msg, [data-mode="invest"] .card .msg { background: oklch(from var(--bubble) calc(l + .06) c h); }
+  [data-phase="night"] .card .msg.you, [data-phase="dusk"] .card .msg.you, [data-mode="invest"] .card .msg.you { background: var(--glow); }
   .card .gif { width: min(150px, 78%); }
-  .card:hover { transform: rotate(0deg) translateY(-4px) scale(1.03) !important; z-index: 20; box-shadow: 0 18px 44px oklch(from var(--text) l c h / .2), inset 0 1px 0 oklch(1 0 0 / .35); transition-delay: 0s; }
+  .card:hover, .card:focus-within, .card.front { transform: rotate(0deg) translateY(-6px) scale(1.04) !important; z-index: 20; animation-play-state: paused;
+    box-shadow: 0 26px 56px oklch(from var(--text) l c h / .26), 0 3px 8px oklch(from var(--text) l c h / .1); }
   .c1 { left: 0px;   top: 0px;   transform: rotate(-2.2deg); z-index: 3; animation: bob-a 9s ease-in-out infinite; }
   .c5 { left: 8px;   top: 318px; transform: rotate(1.4deg);  z-index: 4; animation: bob-b 13s ease-in-out infinite; animation-delay: -6s; }
   .c2 { left: 196px; top: 26px;  transform: rotate(1.6deg);  z-index: 5; animation: bob-b 11s ease-in-out infinite; }
@@ -1344,6 +1349,20 @@
   window.addEventListener("hashchange", function () {
     if (location.hash === "#invest") switchTo("invest");
   });
+})();
+
+/* on a touch screen there is no hover: a tap brings a card to the front, and
+   a tap elsewhere lets it go back */
+(function () {
+  var cards = document.querySelectorAll(".wall .card");
+  if (!cards.length || !window.matchMedia || matchMedia("(hover: hover)").matches) return;
+  cards.forEach(function (c) {
+    c.addEventListener("click", function (e) {
+      e.stopPropagation();
+      cards.forEach(function (o) { o.classList.toggle("front", o === c && !c.classList.contains("front")); });
+    });
+  });
+  document.addEventListener("click", function () { cards.forEach(function (o) { o.classList.remove("front"); }); });
 })();
 
 /* Ambient lofi, the way life.withmin.ai does it: one flat playlist, shuffled
