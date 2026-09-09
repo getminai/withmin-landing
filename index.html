@@ -333,7 +333,9 @@
          transition: background var(--fade) var(--ease); }
 
   /* the sun and the moon share one disc; the phase decides which it is and where */
-  .disc { position: absolute; z-index: 1; width: clamp(88px, 11vw, 150px); aspect-ratio: 1; border-radius: 50%;
+  /* the sun and the moon are a button: a tap moves the weather along */
+  .cloud { pointer-events: none; }
+  .disc { position: absolute; z-index: 6; width: clamp(88px, 11vw, 150px); aspect-ratio: 1; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
           left: 66%; top: 18%; background: oklch(0.97 0.09 85);
           box-shadow: 0 0 60px 24px oklch(0.96 0.10 80 / .55), 0 0 140px 70px oklch(0.94 0.10 75 / .22);
           transition: top var(--fade) var(--ease), left var(--fade) var(--ease), background var(--fade), box-shadow var(--fade), opacity var(--fade); }
@@ -342,6 +344,19 @@
   [data-phase="dusk"] .disc { top: 58%; left: 74%; background: oklch(0.86 0.15 45); box-shadow: 0 0 60px 26px oklch(0.84 0.15 40 / .45); }
   [data-phase="night"] .disc { top: 12%; left: 70%; width: clamp(64px, 7vw, 96px); background: oklch(0.96 0.03 90);
           box-shadow: 0 0 40px 14px oklch(0.95 0.03 90 / .35), inset -18px -10px 0 0 oklch(0.30 0.07 295); }
+  .disc:hover { filter: brightness(1.04); }
+  .disc:active { transform: scale(.97); }
+  .disc:focus-visible { outline: 2px solid var(--glow-deep); outline-offset: 6px; }
+  .disc-tip { position: absolute; z-index: 7; left: 66%; top: calc(18% + clamp(88px, 11vw, 150px) + 14px); transform: translateX(calc(clamp(88px, 11vw, 150px) / 2 - 50%));
+              font: 500 13px/1 var(--sans); letter-spacing: .02em; color: var(--dim); padding: 6px 10px; border-radius: 999px;
+              background: oklch(from var(--surface) l c h / .7); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+              opacity: 0; pointer-events: none; transition: opacity .35s var(--ease), top var(--fade) var(--ease), left var(--fade) var(--ease); }
+  .disc-tip.show { opacity: 1; }
+  [data-phase="dawn"] .disc-tip { top: calc(46% + clamp(88px, 11vw, 150px) + 14px); left: 72%; }
+  [data-phase="golden"] .disc-tip { top: calc(44% + clamp(88px, 11vw, 150px) + 14px); left: 70%; }
+  [data-phase="dusk"] .disc-tip { top: calc(58% + clamp(88px, 11vw, 150px) + 14px); left: 74%; }
+  [data-phase="night"] .disc-tip { top: calc(12% + clamp(64px, 7vw, 96px) + 14px); left: 70%; transform: translateX(calc(clamp(64px, 7vw, 96px) / 2 - 50%)); }
+  @media (max-width: 760px) { .disc-tip { left: 58%; top: calc(12% + clamp(88px, 11vw, 150px) + 12px); } [data-phase="night"] .disc-tip { left: 58%; } }
   [data-weather="rain"] .disc, [data-weather="snow"] .disc { opacity: .35; }
   [data-weather="cloudy"] .disc { opacity: .6; }
 
@@ -630,7 +645,8 @@
 <header class="scene">
   <div class="sky" aria-hidden="true"></div>
   <div class="stars" aria-hidden="true"></div>
-  <div class="disc" aria-hidden="true"></div>
+  <button type="button" class="disc" id="disc" aria-label="Change the weather" title="Change the weather"></button>
+  <span class="disc-tip" id="disc-tip" aria-live="polite"></span>
   <div class="cloud c1" aria-hidden="true"></div>
   <div class="cloud c2" aria-hidden="true"></div>
   <div class="cloud c3" aria-hidden="true"></div>
@@ -1206,6 +1222,18 @@
   var now = new Date();
   var phase = phaseFor(now.getHours() + now.getMinutes() / 60);
 
+  /* a tap on the sun or the moon walks the weather: clear, cloudy, rain, snow.
+     once they've touched it, the sky over their head stops overriding it. */
+  var ORDER = ["clear", "cloudy", "rain", "snow"], WORD = { clear: "clear", cloudy: "cloudy", rain: "rain", snow: "snow" };
+  var disc = document.getElementById("disc"), tip = document.getElementById("disc-tip"), tipTimer = null, touched = false;
+  if (disc) disc.addEventListener("click", function () {
+    touched = true;
+    var cur = root.getAttribute("data-weather"), next = ORDER[(ORDER.indexOf(cur) + 1) % ORDER.length];
+    apply(root.getAttribute("data-phase"), next, next === "snow");
+    if (tip) { tip.textContent = WORD[next]; tip.classList.add("show"); clearTimeout(tipTimer); tipTimer = setTimeout(function () { tip.classList.remove("show"); }, 1400); }
+  });
+
+
   if (/[?&]below=1/.test(location.search)) root.classList.add("below");
   /* the swings animate with SVG's own clock, which ignores prefers-reduced-motion; honour it by hand */
   if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) document.querySelectorAll("svg.city").forEach(function (c) { try { c.pauseAnimations(); } catch (e) {} });
@@ -1243,7 +1271,7 @@
       var p = phase;
       if (cur.is_day === 0 && (p === "day" || p === "golden")) p = "dusk";
       if (cur.is_day === 1 && p === "night") p = "dawn";
-      apply(p, weather, cold);
+      if (!touched) apply(p, weather, cold);
     })
     .catch(function () { /* a clear day, then */ })
     .then(function () { clearTimeout(timer); });
