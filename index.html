@@ -308,6 +308,7 @@
   [data-mode="invest"] .f-col a[href="/quant"] { order: -1; }
   .f-fine { font-size: 13px; color: var(--dim); margin: 22px 0 0; }
 
+  html.below .scene { display: none; } /* ?below=1: the page without its hero, for previews */
   * { box-sizing: border-box; }
   html { color-scheme: light; scroll-behavior: smooth; }
   [data-phase="dusk"], [data-phase="night"] { color-scheme: dark; }
@@ -483,12 +484,21 @@
 
   /* the product is a thread of texts, so the preview is a thread of texts:
      these three are the shapes min. actually sends, in the words it uses */
-  .thread { display: grid; gap: 10px; max-width: 460px; margin: 40px 0 0; }
+  .thread { display: grid; gap: 10px; max-width: 460px; margin: 40px 0 0; padding: 22px; border-radius: 28px;
+            background: linear-gradient(160deg, oklch(from var(--sky-top) l c h / .35), oklch(from var(--sky-low) l c h / .35)); }
+  [data-mode="invest"] .thread { background: oklch(from var(--surface) l c h / .6); }
   .msg { padding: 12px 16px; border-radius: var(--r); background: var(--bubble); color: var(--bubble-ink); font-size: 16px; line-height: 1.4;
          width: fit-content; max-width: 88%; border-bottom-left-radius: 6px; box-shadow: 0 1px 0 oklch(from var(--text) l c h / .05); }
   .msg.you { justify-self: end; background: var(--glow); color: var(--ink-on-glow); border-bottom-left-radius: var(--r); border-bottom-right-radius: 6px; }
   .msg.gap { margin-top: 14px; }
   .when { font-size: 12.5px; color: var(--dim); text-align: center; margin: 6px 0 2px; }
+  /* a picture goes out as its own message, the way min. actually sends one */
+  .gif { display: block; width: min(232px, 78%); height: auto; border-radius: var(--r); border-bottom-left-radius: 6px;
+         background: var(--bubble); box-shadow: 0 1px 0 oklch(from var(--text) l c h / .05); }
+  .msg { position: relative; }
+  .tap { position: absolute; right: -8px; bottom: -12px; font-size: 15px; line-height: 1; padding: 3px 6px; border-radius: 999px;
+         background: var(--surface); box-shadow: 0 1px 4px oklch(from var(--text) l c h / .18); }
+  .credit { font-size: 11.5px; color: var(--dim); opacity: .7; margin: 10px 0 0; text-align: right; }
 
   .two { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
   @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
@@ -884,8 +894,14 @@
         <p class="msg">how'd the 9:30 go, or did it move again</p>
         <p class="msg you">moved. again.</p>
         <p class="msg">of course it did</p>
+        <img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzdzNwYzhza3d5cDBxbHh1YWxkazZzMGV5eW9yc3FkajUwbTFqeTA4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hyyV7pnbE0FqLNBAzs/200.gif" width="240" height="200" alt="Season 5 No GIF by The Office" loading="lazy" decoding="async">
+        <p class="when">Thursday</p>
+        <p class="msg you">SHE WALKED. across the whole living room</p>
+        <img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async">
+        <p class="msg">SHE'S MOBILE. lock the cabinets<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p>
         <p class="when">Saturday</p>
-        <p class="msg gap">ok it's 3pm, the dead zone. what are you doing</p>
+        <p class="msg">ok it's 3pm, the dead zone. what are you doing</p>
+        <p class="credit">clips via GIPHY</p>
       </div>
     </div>
   </section>
@@ -993,6 +1009,7 @@
   var now = new Date();
   var phase = phaseFor(now.getHours() + now.getMinutes() / 60);
 
+  if (/[?&]below=1/.test(location.search)) root.classList.add("below");
   var forced = /[?&]scene=([a-z-]+)/.exec(location.search);
   if (forced) {
     var parts = forced[1].split("-");
