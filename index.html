@@ -273,7 +273,6 @@
   @media (max-width: 760px) { [data-for="invest"] h1 { font-size: clamp(30px, 8.4vw, 40px); max-width: none; } }
   [data-for="invest"] h1 em { font-style: normal; color: var(--glow); }
   [data-mode="invest"] h2 { font-family: var(--sans); letter-spacing: -.025em; }
-  [data-mode="invest"] .quiet p { font-family: var(--sans); letter-spacing: -.02em; }
   [data-mode="invest"] .wordmark i { color: var(--glow); }
   [data-mode="invest"] .seg button[aria-pressed="true"] { box-shadow: 0 2px 10px oklch(0 0 0 / .4); }
   [data-mode="invest"] .cta { box-shadow: 0 10px 30px oklch(0.74 0.13 250 / .3), inset 0 1px 0 oklch(1 0 0 / .25); }
@@ -488,6 +487,19 @@
   .people .k-b { animation: climb-b 31s linear infinite; animation-delay: -12s; }
   @keyframes climb-a { 0% { translate: 210px 494px; } 70% { translate: 60px 412px; } 85% { translate: 60px 412px; } 100% { translate: 210px 494px; } }
   @keyframes climb-b { 0% { translate: 170px 494px; } 72% { translate: 40px 418px; } 86% { translate: 40px 418px; } 100% { translate: 170px 494px; } }
+  /* the slide: sit at the top, go, land, walk round to the ladder, climb, again */
+  .people .slidekid { animation: slidekid 9s linear infinite; }
+  @keyframes slidekid {
+    0%   { translate: 0 0; animation-timing-function: linear; }
+    14%  { translate: 0 0; animation-timing-function: ease-in; }
+    24%  { translate: 27px 27px; animation-timing-function: linear; }
+    34%  { translate: 27px 27px; animation-timing-function: ease-in-out; }
+    56%  { translate: -8px 27px; animation-timing-function: linear; }
+    62%  { translate: -8px 27px; animation-timing-function: ease-in-out; }
+    84%  { translate: -8px 2px; animation-timing-function: ease-in-out; }
+    92%  { translate: 0 0; animation-timing-function: linear; }
+    100% { translate: 0 0; }
+  }
   /* rain and snow empty the playground; snow also clears the promenade where the hill now is */
   [data-weather="rain"] .people .play, [data-weather="snow"] .people .play, [data-phase="night"] .people .play { display: none; }
   [data-weather="snow"] .people .nosnow { display: none; }
@@ -498,7 +510,7 @@
   @keyframes lantern { from { opacity: .75; } to { opacity: 1; } }
   .people .night-only circle[opacity] { animation: lanternhalo 3.4s ease-in-out infinite alternate; }
   @keyframes lanternhalo { from { opacity: .18; } to { opacity: .36; } }
-  @media (prefers-reduced-motion: reduce) { .people .p, .people .p > *, .people .swing, .people .run, .people .climb, .people .night-only circle { animation: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .people .p, .people .p > *, .people .swing, .people .run, .people .climb, .people .slidekid, .people .night-only circle { animation: none !important; } }
   /* fireflies, only at night and only when it is clear */
   .fly { position: absolute; z-index: 6; width: 5px; height: 5px; border-radius: 50%; background: var(--glow);
          box-shadow: 0 0 10px 3px oklch(from var(--glow) l c h / .5); opacity: 0; pointer-events: none; }
@@ -640,8 +652,8 @@
 
   .quiet { border-top: 1px solid var(--line); }
   .quiet .wrap { max-width: 760px; }
-  .quiet p { font-family: var(--serif); font-weight: 600; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.25; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
-  .quiet p span { color: var(--glow-deep); } [data-phase="night"] .quiet p span, [data-phase="dusk"] .quiet p span { color: var(--glow); }
+  .quiet h2 { font-size: clamp(32px, 4vw, 52px); }
+  .quiet .sub { margin-bottom: clamp(22px, 3vh, 30px); }
 
   footer { border-top: 1px solid var(--line); padding: 40px 0 56px; }
   .f-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; flex-wrap: wrap; }
@@ -996,7 +1008,7 @@
   <g class="p chat late" style="--bob:.84s" transform="translate(1262,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c3)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
   <g class="p chat" style="--bob:.76s" transform="translate(1276,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c2)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/><g class="brolly"><rect x="-0.6" y="-25.0" width="1.2" height="14.0" fill="var(--trunk)"/><path d="M-9.2,-25.0 A9.2,6.5 0 0 1 9.2,-25.0 Z" fill="var(--c1)"/></g></g>
   <g class="p bob" style="animation:r2 69s linear infinite;animation-delay:-40s;--bob:.58s" transform="translate(1360,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c1)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/><g class="brolly"><rect x="-0.6" y="-24.0" width="1.2" height="13.5" fill="var(--trunk)"/><path d="M-8.8,-24.0 A8.8,6.2 0 0 1 8.8,-24.0 Z" fill="var(--c3)"/></g></g>
-  <g class="playground"><rect x="1016" y="440" width="3" height="34" rx="1.5" fill="var(--rail)"/><rect x="1076" y="440" width="3" height="34" rx="1.5" fill="var(--rail)"/><rect x="1013" y="438" width="69" height="3" rx="1.5" fill="var(--rail)"/><g transform="translate(1032,441)"><g class="swing"><animateTransform attributeName="transform" type="rotate" values="-17 0 0;17 0 0;-17 0 0" dur="5.6s" begin="-1.2s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1"/><rect x="-0.5" y="0" width="1" height="20" fill="var(--trunk)"/><rect x="-5" y="20" width="10" height="2" rx="1" fill="var(--trunk)"/><g class="day-only play"><rect x="-3" y="12" width="6" height="9" rx="3" fill="var(--c1)"/><circle cx="0" cy="10" r="2.6" fill="var(--skin)"/></g></g></g><g transform="translate(1060,441)"><g class="swing"><animateTransform attributeName="transform" type="rotate" values="-17 0 0;17 0 0;-17 0 0" dur="6.4s" begin="-3.9s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1"/><rect x="-0.5" y="0" width="1" height="20" fill="var(--trunk)"/><rect x="-5" y="20" width="10" height="2" rx="1" fill="var(--trunk)"/><g class="day-only play"><rect x="-3" y="12" width="6" height="9" rx="3" fill="var(--c3)"/><circle cx="0" cy="10" r="2.6" fill="var(--skin)"/></g></g></g><path d="M1098,448 L1102,448 L1130,474 L1126,474 Z" fill="var(--c2)"/><rect x="1096" y="448" width="3" height="26" fill="var(--rail)"/><g class="day-only play"><rect x="1097" y="438" width="6" height="9" rx="3" fill="var(--c4)"/><circle cx="1100" cy="436" r="2.6" fill="var(--skin)"/></g></g>
+  <g class="playground"><rect x="1016" y="440" width="3" height="34" rx="1.5" fill="var(--rail)"/><rect x="1076" y="440" width="3" height="34" rx="1.5" fill="var(--rail)"/><rect x="1013" y="438" width="69" height="3" rx="1.5" fill="var(--rail)"/><g transform="translate(1032,441)"><g class="swing"><animateTransform attributeName="transform" type="rotate" values="-17 0 0;17 0 0;-17 0 0" dur="5.6s" begin="-1.2s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1"/><rect x="-0.5" y="0" width="1" height="20" fill="var(--trunk)"/><rect x="-5" y="20" width="10" height="2" rx="1" fill="var(--trunk)"/><g class="day-only play"><rect x="-3" y="12" width="6" height="9" rx="3" fill="var(--c1)"/><circle cx="0" cy="10" r="2.6" fill="var(--skin)"/></g></g></g><g transform="translate(1060,441)"><g class="swing"><animateTransform attributeName="transform" type="rotate" values="-17 0 0;17 0 0;-17 0 0" dur="6.4s" begin="-3.9s" repeatCount="indefinite" calcMode="spline" keySplines="0.45 0 0.55 1;0.45 0 0.55 1"/><rect x="-0.5" y="0" width="1" height="20" fill="var(--trunk)"/><rect x="-5" y="20" width="10" height="2" rx="1" fill="var(--trunk)"/><g class="day-only play"><rect x="-3" y="12" width="6" height="9" rx="3" fill="var(--c3)"/><circle cx="0" cy="10" r="2.6" fill="var(--skin)"/></g></g></g><path d="M1098,448 L1102,448 L1130,474 L1126,474 Z" fill="var(--c2)"/><rect x="1096" y="448" width="3" height="26" fill="var(--rail)"/><g class="day-only play slidekid"><rect x="1097" y="438" width="6" height="9" rx="3" fill="var(--c4)"/><circle cx="1100" cy="436" r="2.6" fill="var(--skin)"/></g></g>
   <g class="night-only"><path d="M540,458 Q775,472 1010,458" fill="none" stroke="var(--rail)" stroke-width="1"/><circle cx="560" cy="464" r="5" fill="var(--glow)" opacity=".3"/><circle cx="560" cy="464" r="2.2" fill="var(--glow)"/><circle cx="605" cy="467" r="5" fill="var(--glow)" opacity=".3"/><circle cx="605" cy="467" r="2.2" fill="var(--glow)"/><circle cx="650" cy="464" r="5" fill="var(--glow)" opacity=".3"/><circle cx="650" cy="464" r="2.2" fill="var(--glow)"/><circle cx="695" cy="467" r="5" fill="var(--glow)" opacity=".3"/><circle cx="695" cy="467" r="2.2" fill="var(--glow)"/><circle cx="740" cy="464" r="5" fill="var(--glow)" opacity=".3"/><circle cx="740" cy="464" r="2.2" fill="var(--glow)"/><circle cx="785" cy="467" r="5" fill="var(--glow)" opacity=".3"/><circle cx="785" cy="467" r="2.2" fill="var(--glow)"/><circle cx="830" cy="464" r="5" fill="var(--glow)" opacity=".3"/><circle cx="830" cy="464" r="2.2" fill="var(--glow)"/><circle cx="875" cy="467" r="5" fill="var(--glow)" opacity=".3"/><circle cx="875" cy="467" r="2.2" fill="var(--glow)"/><circle cx="920" cy="464" r="5" fill="var(--glow)" opacity=".3"/><circle cx="920" cy="464" r="2.2" fill="var(--glow)"/><circle cx="965" cy="467" r="5" fill="var(--glow)" opacity=".3"/><circle cx="965" cy="467" r="2.2" fill="var(--glow)"/></g>
   <g class="night-only market">
   <ellipse class="mglow" cx="612" cy="484" rx="40.0" ry="16" fill="var(--glow)" opacity=".22"/>
@@ -1178,8 +1190,16 @@
 
   <section class="quiet">
     <div class="wrap">
-      <p data-for="life">The best technology is the kind you forget is there. min. is built to be that: <span>around</span>, not in the way.</p>
-      <p data-for="invest">The best research is the kind you can check. min. shows its work, every run: <span>sources, backtests, odds</span>.</p>
+      <div data-for="life">
+        <h2>Text it like you'd text anyone.</h2>
+        <p class="sub">No app, no feed, nothing to check. A number in your phone, and someone on the other end who was there yesterday and will be there tomorrow.</p>
+        <div class="ctas"><a class="cta" href="https://life.withmin.ai">Meet min. <span class="arrow" aria-hidden="true">&rarr;</span></a></div>
+      </div>
+      <div data-for="invest">
+        <h2>Hand it an idea.</h2>
+        <p class="sub">In plain words. It reads everything, tests it, and tells you what it found, with the work shown every time.</p>
+        <div class="ctas"><a class="cta" href="https://quant.withmin.ai">Run an idea <span class="arrow" aria-hidden="true">&rarr;</span></a></div>
+      </div>
     </div>
   </section>
 </main>
