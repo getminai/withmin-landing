@@ -437,6 +437,25 @@
   .wordmark { font-family: var(--serif); font-weight: 600; font-size: 28px; letter-spacing: -.01em; line-height: 1; }
   .wordmark i { font-style: normal; color: var(--glow-deep); }
   [data-phase="night"] .wordmark i, [data-phase="dusk"] .wordmark i { color: var(--glow); }
+  .navr { display: flex; align-items: center; gap: 18px; }
+  /* the music switch: three bars that move while it plays, still when it doesn't */
+  .tune { appearance: none; border: 1px solid oklch(from var(--text) l c h / .14); background: oklch(from var(--text) l c h / .06);
+          color: var(--dim); font: 500 13px/1 var(--sans); letter-spacing: .01em; padding: 7px 12px 7px 9px; border-radius: 999px;
+          display: inline-flex; align-items: center; gap: 8px; cursor: pointer; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+          transition: color .3s, background .3s, border-color .3s, transform .15s; }
+  .tune:hover { color: var(--text); }
+  .tune:active { transform: scale(.97); }
+  .tune:focus-visible { outline: 2px solid var(--glow-deep); outline-offset: 2px; }
+  .bars { display: inline-flex; align-items: flex-end; gap: 2px; height: 12px; }
+  .bars i { display: block; width: 3px; height: 4px; border-radius: 2px; background: currentColor; transform-origin: bottom; }
+  .tune[aria-pressed="true"] { color: var(--text); }
+  .tune[aria-pressed="true"] .bars i { background: var(--glow-deep); animation: eq 1.1s ease-in-out infinite; }
+  [data-phase="night"] .tune[aria-pressed="true"] .bars i, [data-phase="dusk"] .tune[aria-pressed="true"] .bars i, [data-mode="invest"] .tune[aria-pressed="true"] .bars i { background: var(--glow); }
+  .tune[aria-pressed="true"] .bars i:nth-child(2) { animation-delay: -.35s; } .tune[aria-pressed="true"] .bars i:nth-child(3) { animation-delay: -.7s; }
+  .tune.waiting[aria-pressed="true"] .bars i { animation: none; height: 4px; opacity: .6; } /* on, but the browser wants a tap first */
+  @keyframes eq { 0%, 100% { height: 4px; } 50% { height: 12px; } }
+  @media (max-width: 760px) { .tune-l { display: none; } .tune { padding: 8px 10px; } }
+  @media (prefers-reduced-motion: reduce) { .tune .bars i { animation: none !important; height: 8px; } }
   .why { font-size: 14.5px; font-weight: 500; color: var(--dim); padding: 8px 2px; border-bottom: 1px solid transparent; transition: color .3s, border-color .3s; }
   .why:hover { color: var(--text); border-color: currentColor; }
 
@@ -853,7 +872,12 @@
 
   <nav class="top">
     <a class="wordmark" href="/">min<i>.</i></a>
-    <a class="why" href="/about">why</a>
+    <div class="navr">
+      <button type="button" class="tune" id="tune" aria-pressed="true" aria-label="Ambient music: on">
+        <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="tune-l">lofi</span>
+      </button>
+      <a class="why" href="/about">why</a>
+    </div>
   </nav>
 
   <div class="copy">
@@ -1115,6 +1139,103 @@
   window.addEventListener("hashchange", function () {
     if (location.hash === "#invest") switchTo("invest");
   });
+})();
+
+/* Ambient lofi, the way life.withmin.ai does it: one flat playlist, shuffled
+   with a per-day seed (same order all day, different tomorrow), started part
+   way through by the time of day so two visits an hour apart don't both open
+   on track one, each track crossfading into the next through gain nodes. On
+   by default; the mute is remembered. Browsers block sound before the first
+   interaction on a fresh visit, so it starts on the first tap or key when that
+   happens, and the switch shows still bars until then. */
+(function () {
+  var PREF = "min:ambient", GAIN = 0.32, FADE = 1.8;
+  var btn = document.getElementById("tune");
+  if (!btn || !window.AudioContext && !window.webkitAudioContext) { if (btn) btn.hidden = true; return; }
+  var on = true;
+  try { on = localStorage.getItem(PREF) !== "off"; } catch (e) {}
+  var tracks = [], order = [], idx = 0, ctx = null, cur = null, nxt = null, started = false, waiting = false;
+
+  function seedShuffle(items, seed) {
+    var out = items.slice(), s = (seed >>> 0) || 1;
+    function rand() { s ^= s << 13; s >>>= 0; s ^= s >>> 17; s ^= s << 5; s >>>= 0; return s / 0xffffffff; }
+    for (var i = out.length - 1; i > 0; i--) { var j = Math.floor(rand() * (i + 1)); var t = out[i]; out[i] = out[j]; out[j] = t; }
+    return out;
+  }
+  function daySeed() {
+    var d = new Date(); return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+  }
+  function paint() {
+    btn.setAttribute("aria-pressed", String(on));
+    btn.setAttribute("aria-label", "Ambient music: " + (on ? "on" : "off"));
+    btn.classList.toggle("waiting", on && waiting);
+  }
+  function make(track) {
+    var el = new Audio(); el.src = track.src; el.preload = "auto"; el.crossOrigin = "anonymous"; el.volume = 1;
+    var g = ctx.createGain(); g.gain.value = 0;
+    try { ctx.createMediaElementSource(el).connect(g); g.connect(ctx.destination); } catch (e) {}
+    return { el: el, gain: g, track: track, handed: false };
+  }
+  function fadeTo(d, v, secs) {
+    var t = ctx.currentTime; d.gain.gain.cancelScheduledValues(t);
+    d.gain.gain.setValueAtTime(d.gain.gain.value, t);
+    d.gain.gain.linearRampToValueAtTime(v, t + secs);
+  }
+  function arm(d) {
+    // buffer the next track now; cross into it FADE seconds before this one ends
+    nxt = make(order[(idx + 1) % order.length]);
+    d.el.addEventListener("timeupdate", function tick() {
+      if (d.handed || !d.el.duration) return;
+      if (d.el.duration - d.el.currentTime <= FADE) { d.handed = true; d.el.removeEventListener("timeupdate", tick); advance(); }
+    });
+    d.el.addEventListener("ended", function () { if (!d.handed) { d.handed = true; advance(); } });
+    d.el.addEventListener("error", function () { if (!d.handed) { d.handed = true; advance(); } });
+  }
+  function advance() {
+    var old = cur; idx = (idx + 1) % order.length; cur = nxt || make(order[idx]); nxt = null;
+    if (old) { fadeTo(old, 0, FADE); setTimeout(function () { try { old.el.pause(); old.el.src = ""; } catch (e) {} }, FADE * 1000 + 200); }
+    play(cur);
+  }
+  function play(d) {
+    arm(d);
+    var p = d.el.play();
+    if (p && p.then) p.then(function () { waiting = false; paint(); fadeTo(d, GAIN, FADE); })
+                      .catch(function () { waiting = true; paint(); });
+    else { fadeTo(d, GAIN, FADE); }
+  }
+  function start() {
+    if (started || !on || !order.length) return;
+    started = true;
+    var AC = window.AudioContext || window.webkitAudioContext;
+    ctx = ctx || new AC();
+    if (ctx.state === "suspended") ctx.resume().catch(function () {});
+    cur = make(order[idx]); play(cur);
+  }
+  function gesture() {
+    if (!on) return;
+    if (ctx && ctx.state === "suspended") ctx.resume().catch(function () {});
+    if (!started) start();
+    else if (waiting && cur) { var p = cur.el.play(); if (p && p.then) p.then(function () { waiting = false; paint(); fadeTo(cur, GAIN, FADE); }).catch(function () {}); }
+  }
+  ["pointerdown", "keydown", "touchstart"].forEach(function (ev) { window.addEventListener(ev, gesture, { passive: true }); });
+
+  btn.addEventListener("click", function (e) {
+    e.stopPropagation();
+    on = !on; try { localStorage.setItem(PREF, on ? "on" : "off"); } catch (err) {}
+    if (on) { if (!started) start(); else if (cur) { if (cur.el.paused) cur.el.play().catch(function () {}); fadeTo(cur, GAIN, FADE); } }
+    else if (cur) { fadeTo(cur, 0, FADE); setTimeout(function () { if (!on && cur) cur.el.pause(); }, FADE * 1000 + 100); }
+    paint();
+  });
+  document.addEventListener("visibilitychange", function () { if (!document.hidden && on && cur && cur.el.paused && !waiting) cur.el.play().catch(function () {}); });
+
+  paint();
+  fetch("/audio/playlist.json").then(function (r) { return r.json(); }).then(function (list) {
+    tracks = list.filter(function (t) { return t && t.src; });
+    order = seedShuffle(tracks, daySeed());
+    var now = new Date(); idx = order.length ? Math.floor((now.getHours() * 60 + now.getMinutes()) / 20) % order.length : 0;
+    window.__ambient = function () { return { on: on, started: started, waiting: waiting, index: idx, track: order[idx] && order[idx].title, count: order.length }; };
+    if (on) start(); /* allowed on return visits where the site has earned autoplay; otherwise the first tap */
+  }).catch(function () { btn.hidden = true; });
 })();
 </script>
 </body>
