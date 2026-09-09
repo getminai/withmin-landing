@@ -355,7 +355,7 @@
   [data-phase="golden"] .disc-tip { top: calc(44% + clamp(88px, 11vw, 150px) + 14px); left: 70%; }
   [data-phase="dusk"] .disc-tip { top: calc(58% + clamp(88px, 11vw, 150px) + 14px); left: 74%; }
   [data-phase="night"] .disc-tip { top: calc(12% + clamp(64px, 7vw, 96px) + 14px); left: 70%; transform: translateX(calc(clamp(64px, 7vw, 96px) / 2 - 50%)); }
-  @media (max-width: 760px) { .disc-tip { left: 58%; top: calc(12% + clamp(88px, 11vw, 150px) + 12px); } [data-phase="night"] .disc-tip { left: 58%; } }
+  @media (max-width: 760px) { .disc-tip, [data-phase] .disc-tip { left: 66%; top: calc(9% + clamp(88px, 11vw, 150px) + 12px); } [data-phase="night"] .disc-tip { top: calc(9% + clamp(64px, 7vw, 96px) + 12px); } }
   [data-weather="rain"] .disc, [data-weather="snow"] .disc { opacity: .35; }
   [data-weather="cloudy"] .disc { opacity: .6; }
 
@@ -436,6 +436,11 @@
   @media (max-width: 760px) {
     /* the phone shows the middle of the skyline at a readable size */
     .city { width: 230%; left: -65%; }
+  }
+  @media (max-width: 760px) and (max-height: 700px) {
+    /* a short phone: a slightly smaller skyline, so the words clear it */
+    .city { width: 200%; left: -50%; }
+    [data-mode="life"] .copy { padding-top: 132px; }
   }
 
   /* people: small enough to be part of the place, present enough to be the
@@ -588,7 +593,11 @@
     .copy::before { content: ""; position: absolute; inset: 0; z-index: -1;
       background: linear-gradient(to top, oklch(from var(--sky-low) l c h / .92) 0%, oklch(from var(--sky-low) l c h / .7) 45%, transparent 80%); transition: background var(--fade); }
     [data-phase="night"] .copy::before, [data-phase="dusk"] .copy::before { background: linear-gradient(to top, oklch(from var(--sky-top) l c h / .92) 0%, oklch(from var(--sky-top) l c h / .7) 45%, transparent 80%); }
-    .disc { left: 58%; top: 12%; }
+    /* life on a phone: the words sit in the sky, under the sun, and the city
+       keeps the bottom of the screen to itself. no veil over the skyline. */
+    [data-mode="life"] .copy { align-content: start; padding-top: clamp(150px, 19vh, 180px); padding-bottom: 0; }
+    [data-mode="life"] .copy::before { content: none; }
+    .disc, [data-phase] .disc { left: 66%; top: 9%; }
     h1 { font-size: clamp(32px, 9.4vw, 44px); max-width: none; }
   }
 
