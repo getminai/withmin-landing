@@ -1,24 +1,25 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-phase="day" data-weather="clear" data-mode="life">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>min. | Specialist AI for your money and your life</title>
-<meta name="description" content="min. quant is an intelligence that accompanies you through the markets. min. life is an intelligence that accompanies you through life. Two specialists from min. Pick a door.">
+<title>min. | An intelligence that accompanies you through life</title>
+<meta name="description" content="min. is a friend who texts. It knows your week, remembers what you tell it, and lives quietly in the background. Also available for the markets.">
 <link rel="canonical" href="https://withmin.ai/">
+<meta name="theme-color" content="#f6efe4">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="min.">
-<meta property="og:title" content="min. | Specialists, not chatbots">
-<meta property="og:description" content="min. quant accompanies you through the markets. min. life accompanies you through your life. Pick a door.">
+<meta property="og:title" content="min. | An intelligence that accompanies you through life">
+<meta property="og:description" content="A friend who texts. Knows your week, remembers what you tell it, lives quietly in the background.">
 <meta property="og:url" content="https://withmin.ai/">
 <meta property="og:image" content="https://withmin.ai/assets/og-home.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="min. Specialists, not chatbots.">
+<meta property="og:image:alt" content="min. An intelligence that accompanies you through life.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@ericzizhouwangx">
-<meta name="twitter:title" content="min. | Specialists, not chatbots">
-<meta name="twitter:description" content="min. quant accompanies you through the markets. min. life accompanies you through your life. Pick a door.">
+<meta name="twitter:title" content="min. | An intelligence that accompanies you through life">
+<meta name="twitter:description" content="A friend who texts. Knows your week, remembers what you tell it, lives quietly in the background.">
 <meta name="twitter:image" content="https://withmin.ai/assets/og-home.png">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
@@ -26,274 +27,472 @@
   "sameAs":["https://x.com/ericzizhouwangx","https://www.linkedin.com/in/zizhouwang"]},
  {"@type":"WebSite","@id":"https://withmin.ai/#site","url":"https://withmin.ai/","name":"min.",
   "publisher":{"@id":"https://withmin.ai/#org"}},
+ {"@type":"SoftwareApplication","name":"min. life","applicationCategory":"LifestyleApplication",
+  "operatingSystem":"Web","url":"https://life.withmin.ai",
+  "description":"An intelligence that accompanies you through life.",
+  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
  {"@type":"SoftwareApplication","name":"min. quant","applicationCategory":"FinanceApplication",
   "operatingSystem":"Web","url":"https://quant.withmin.ai",
   "description":"An intelligence that accompanies you through the markets.",
-  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
- {"@type":"SoftwareApplication","name":"min. life","applicationCategory":"ProductivityApplication",
-  "operatingSystem":"Web","url":"https://life.withmin.ai",
-  "description":"An intelligence that accompanies you through life.",
   "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}
 ]}
 </script>
 <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/assets/favicon-512.png" sizes="512x512" type="image/png">
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
-<link rel="preload" href="/assets/Geist-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/assets/Fraunces-600.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="/assets/GeistMono-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/Geist-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/Geist-500.woff2" as="font" type="font/woff2" crossorigin>
 <style>
-  @font-face { font-family: "Geist"; font-weight: 400; font-display: swap;
-               src: url("/assets/Geist-400.woff2") format("woff2"); }
-  @font-face { font-family: "Geist"; font-weight: 500; font-display: swap;
-               src: url("/assets/Geist-500.woff2") format("woff2"); }
-  @font-face { font-family: "Geist"; font-weight: 600; font-display: swap;
-               src: url("/assets/Geist-600.woff2") format("woff2"); }
-  @font-face { font-family: "Geist Mono"; font-weight: 400; font-display: swap;
-               src: url("/assets/GeistMono-400.woff2") format("woff2"); }
-  /* The life product's own display face. It is here for the same reason the
-     grid and the mono are: each half is rendered in its product's real
-     language, not in a neutral one. */
-  @font-face { font-family: "Fraunces"; font-weight: 600; font-display: swap;
-               src: url("/assets/Fraunces-600.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 400; font-display: swap; src: url("/assets/Geist-400.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 500; font-display: swap; src: url("/assets/Geist-500.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 600; font-display: swap; src: url("/assets/Geist-600.woff2") format("woff2"); }
+  @font-face { font-family: "Fraunces"; font-weight: 600; font-display: swap; src: url("/assets/Fraunces-600.woff2") format("woff2"); }
 
+  /* ------------------------------------------------------------------
+     The page is a place, and the place has weather.
+
+     Everything visual keys off three attributes on <html>, set by the script
+     at the bottom from the visitor's own clock and, when it can be had
+     without asking permission, the sky over their head:
+
+       data-phase    dawn | day | golden | dusk | night
+       data-weather  clear | cloudy | rain | snow
+       data-cold     present when it is genuinely cold out
+
+     The tokens below are the whole palette. One accent, the window light,
+     is the same colour in every scene so the page always feels like the
+     same house. Nothing here is a photo: a photo cannot start raining.
+     ------------------------------------------------------------------ */
   :root {
-    --bg: #07080b; --panel: #0e1015; --line: rgba(255,255,255,.09);
-    --line-strong: rgba(255,255,255,.16);
-    --text: #e9ecf1; --dim: #98a0af; --dimmer: #626a79; --accent: #4da3ff;
-    --sans: "Geist", -apple-system, "Segoe UI", sans-serif;
-    --mono: "Geist Mono", ui-monospace, Menlo, monospace;
-    --serif: "Fraunces", Georgia, "Times New Roman", serif;
-    --r-panel: 8px; --r-ctl: 3px;
+    --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --glow: oklch(0.84 0.13 62);          /* the light in the window, the only accent */
+    --glow-deep: oklch(0.72 0.15 55);
+    --ink-on-glow: oklch(0.24 0.05 300);
+    --r: 22px;                              /* one radius for everything soft */
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
+    --fade: 1600ms;
+
+    /* day, clear: the default and what search engines see */
+    --p-sky-top: oklch(0.86 0.06 235);
+    --p-sky-mid: oklch(0.92 0.045 210);
+    --p-sky-low: oklch(0.96 0.045 85);
+    --p-hill-far: oklch(0.80 0.10 145);
+    --p-hill-mid: oklch(0.70 0.13 142);
+    --p-hill-near: oklch(0.58 0.13 140);
+    --p-haze: oklch(0.97 0.03 85 / .55);
+    --p-cloud: oklch(0.99 0.01 85 / .85);
+    --text: oklch(0.27 0.05 275);
+    --dim: oklch(0.27 0.05 275 / .66);
+    --bg: oklch(0.975 0.02 85);
+    --surface: oklch(0.995 0.01 85);
+    --line: oklch(0.27 0.05 275 / .10);
+    --bubble: oklch(0.93 0.02 85);
+    --bubble-ink: oklch(0.27 0.05 275);
+    --scrim: oklch(0.97 0.03 85 / 0);
+    /* live tokens: the phase sets the --p-* base, the weather derives from it */
+    --sky-top: var(--p-sky-top);
+    --sky-mid: var(--p-sky-mid);
+    --sky-low: var(--p-sky-low);
+    --hill-far: var(--p-hill-far);
+    --hill-mid: var(--p-hill-mid);
+    --hill-near: var(--p-hill-near);
+    --haze: var(--p-haze);
+    --cloud: var(--p-cloud);
   }
+  [data-phase="dawn"] {
+    --p-sky-top: oklch(0.78 0.08 300);
+    --p-sky-mid: oklch(0.88 0.08 20);
+    --p-sky-low: oklch(0.94 0.09 70);
+    --p-hill-far: oklch(0.72 0.07 160);
+    --p-hill-mid: oklch(0.62 0.10 150);
+    --p-hill-near: oklch(0.50 0.11 145);
+    --p-haze: oklch(0.95 0.06 60 / .5);
+  }
+  [data-phase="golden"] {
+    --p-sky-top: oklch(0.80 0.08 320);
+    --p-sky-mid: oklch(0.88 0.11 40);
+    --p-sky-low: oklch(0.92 0.14 65);
+    --p-hill-far: oklch(0.74 0.10 130);
+    --p-hill-mid: oklch(0.62 0.12 135);
+    --p-hill-near: oklch(0.48 0.11 140);
+    --p-haze: oklch(0.93 0.10 60 / .5);
+  }
+  [data-phase="dusk"] {
+    --p-sky-top: oklch(0.36 0.09 290);
+    --p-sky-mid: oklch(0.58 0.11 330);
+    --p-sky-low: oklch(0.80 0.12 45);
+    --p-hill-far: oklch(0.52 0.08 165);
+    --p-hill-mid: oklch(0.42 0.09 160);
+    --p-hill-near: oklch(0.32 0.08 155);
+    --p-haze: oklch(0.80 0.10 40 / .35);
+    --p-cloud: oklch(0.85 0.05 330 / .7);
+    --text: oklch(0.97 0.02 85);
+    --dim: oklch(0.97 0.02 85 / .7);
+    --bg: oklch(0.30 0.06 290);
+    --surface: oklch(0.34 0.06 290);
+    --line: oklch(0.97 0.02 85 / .12);
+    --bubble: oklch(0.40 0.06 290);
+    --bubble-ink: oklch(0.97 0.02 85);
+  }
+  [data-phase="night"] {
+    --p-sky-top: oklch(0.20 0.06 285);
+    --p-sky-mid: oklch(0.28 0.07 295);
+    --p-sky-low: oklch(0.38 0.08 305);
+    --p-hill-far: oklch(0.36 0.07 170);
+    --p-hill-mid: oklch(0.29 0.07 165);
+    --p-hill-near: oklch(0.22 0.06 160);
+    --p-haze: oklch(0.45 0.08 300 / .35);
+    --p-cloud: oklch(0.55 0.05 300 / .5);
+    --text: oklch(0.97 0.02 85);
+    --dim: oklch(0.97 0.02 85 / .68);
+    --bg: oklch(0.22 0.05 285);
+    --surface: oklch(0.26 0.05 285);
+    --line: oklch(0.97 0.02 85 / .12);
+    --bubble: oklch(0.32 0.05 285);
+    --bubble-ink: oklch(0.97 0.02 85);
+  }
+  /* weather sits on top of the time of day: it greys the sky, keeps the ground.
+     Each rule reads the phase's --p-* base and writes the live token, never the
+     other way round: a token defined in terms of itself is a cycle, and the
+     browser drops it silently, which is how the snow scene lost its hills. */
+  [data-weather="cloudy"] {
+    --sky-top: oklch(from var(--p-sky-top) calc(l + .02) calc(c * .45) h);
+    --sky-mid: oklch(from var(--p-sky-mid) l calc(c * .4) h);
+    --sky-low: oklch(from var(--p-sky-low) l calc(c * .5) h);
+    --cloud: oklch(from var(--p-cloud) l c h / .95); }
+  [data-weather="rain"] {
+    --sky-top: oklch(from var(--p-sky-top) calc(l - .06) calc(c * .35) 240);
+    --sky-mid: oklch(from var(--p-sky-mid) calc(l - .05) calc(c * .35) 225);
+    --sky-low: oklch(from var(--p-sky-low) calc(l - .03) calc(c * .4) 200);
+    --hill-far: oklch(from var(--p-hill-far) l calc(c * .7) h);
+    --hill-mid: oklch(from var(--p-hill-mid) l calc(c * .75) h);
+    --haze: oklch(from var(--p-haze) l calc(c * .4) 220);
+    --cloud: oklch(from var(--p-cloud) calc(l - .08) calc(c * .5) 240); }
+  /* snow: pale lavender sky, white ground with a step of tone per hill so the
+     land still reads as land, and the tree stays an evergreen */
+  [data-weather="snow"] {
+    --sky-top: oklch(from var(--p-sky-top) calc(l + .02) calc(c * .35) 285);
+    --sky-mid: oklch(from var(--p-sky-mid) calc(l + .01) calc(c * .3) 290);
+    --sky-low: oklch(from var(--p-sky-low) l calc(c * .3) 300);
+    --hill-far: oklch(from var(--p-hill-far) calc(l + .14) calc(c * .18) 290);
+    --hill-mid: oklch(from var(--p-hill-mid) calc(l + .19) calc(c * .16) 290);
+    --hill-near: oklch(from var(--p-hill-near) calc(l + .26) calc(c * .12) 290);
+    --haze: oklch(from var(--p-haze) l calc(c * .3) 290);
+    --evergreen: oklch(0.42 0.09 160); }
+  [data-weather="snow"][data-phase="night"] { --hill-far: oklch(0.55 0.03 290); --hill-mid: oklch(0.62 0.03 290); --hill-near: oklch(0.70 0.03 290); --evergreen: oklch(0.34 0.07 160); }
+  [data-weather="snow"] .crown { background: var(--evergreen); filter: none; }
+
   * { box-sizing: border-box; }
-  html { -webkit-text-size-adjust: 100%; }
-  body { margin: 0; background: var(--bg); color: var(--text);
-         font: 15.5px/1.6 var(--sans); overflow-x: hidden;
-         -webkit-font-smoothing: antialiased; }
-  .grain { position: fixed; inset: 0; pointer-events: none; z-index: 60; opacity: .03;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  html { color-scheme: light; scroll-behavior: smooth; }
+  [data-phase="dusk"], [data-phase="night"] { color-scheme: dark; }
+  body { margin: 0; font-family: var(--sans); color: var(--text); background: var(--bg);
+         -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+         transition: background var(--fade) var(--ease), color var(--fade) var(--ease); }
+  a { color: inherit; text-decoration: none; }
+  ::selection { background: var(--glow); color: var(--ink-on-glow); }
 
-  /* ------------------------------------------------------------------ */
-  /* The split. Two specialists, two worlds, one seam down the middle.    */
-  /* ------------------------------------------------------------------ */
-  .split { display: flex; min-height: 100dvh; position: relative; }
-  @media (max-width: 820px) { .split { flex-direction: column; } }
+  /* film grain, fixed and inert, so the gradients never read as plastic */
+  .grain { position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .32; mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>"); }
 
-  .half { position: relative; flex: 1 1 50%; min-width: 0; overflow: hidden;
-          text-decoration: none; display: flex; align-items: flex-end;
-          transition: flex-grow .55s cubic-bezier(.22,1,.28,1); }
-  @media (max-width: 820px) { .half { min-height: 50dvh; } }
-  /* Hovering a door opens it wider. The page answers the choice you are
-     already making with the cursor. */
-  @media (min-width: 821px) and (hover: hover) {
-    .split:has(.half:hover) .half { flex-grow: .82; }
-    .split .half:hover { flex-grow: 1.36; }
-  }
-  .half:focus-visible { outline: 2px solid #fff; outline-offset: -6px; }
+  /* ================================================================ HERO */
+  .scene { position: relative; min-height: 100dvh; overflow: hidden; isolation: isolate; }
+  .sky { position: absolute; inset: 0; z-index: 0;
+         background: linear-gradient(to bottom, var(--sky-top) 0%, var(--sky-mid) 48%, var(--sky-low) 100%);
+         transition: background var(--fade) var(--ease); }
 
-  /* A scrim in each world's own base color, so the copy always has ground
-     under it wherever the graphic happens to land. */
-  .half::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0;
-                 height: 62%; z-index: 2; pointer-events: none; }
-  .quant::after { background: linear-gradient(to top, #07080b 18%,
-                  rgba(7,8,11,.86) 44%, transparent 100%); }
-  .life::after { background: linear-gradient(to top, oklch(0.84 0.13 52 / .62),
-                 oklch(0.84 0.13 52 / .18) 52%, transparent 100%); }
+  /* the sun and the moon share one disc; the phase decides which it is and where */
+  .disc { position: absolute; z-index: 1; width: clamp(88px, 11vw, 150px); aspect-ratio: 1; border-radius: 50%;
+          left: 66%; top: 18%; background: oklch(0.97 0.09 85);
+          box-shadow: 0 0 60px 24px oklch(0.96 0.10 80 / .55), 0 0 140px 70px oklch(0.94 0.10 75 / .22);
+          transition: top var(--fade) var(--ease), left var(--fade) var(--ease), background var(--fade), box-shadow var(--fade), opacity var(--fade); }
+  [data-phase="dawn"] .disc { top: 46%; left: 72%; background: oklch(0.93 0.13 60); }
+  [data-phase="golden"] .disc { top: 44%; left: 70%; background: oklch(0.92 0.14 55); box-shadow: 0 0 70px 30px oklch(0.90 0.14 50 / .6), 0 0 180px 90px oklch(0.88 0.13 45 / .3); }
+  [data-phase="dusk"] .disc { top: 58%; left: 74%; background: oklch(0.86 0.15 45); box-shadow: 0 0 60px 26px oklch(0.84 0.15 40 / .45); }
+  [data-phase="night"] .disc { top: 12%; left: 70%; width: clamp(64px, 7vw, 96px); background: oklch(0.96 0.03 90);
+          box-shadow: 0 0 40px 14px oklch(0.95 0.03 90 / .35), inset -18px -10px 0 0 oklch(0.30 0.07 295); }
+  [data-weather="rain"] .disc, [data-weather="snow"] .disc { opacity: .35; }
+  [data-weather="cloudy"] .disc { opacity: .6; }
 
-  .h-inner { position: relative; z-index: 3; width: 100%;
-             padding: clamp(30px, 5vw, 68px); }
-  .h-name { font-size: clamp(30px, 4.4vw, 60px); line-height: 1;
-            letter-spacing: -.045em; margin: 0; }
-  .h-hook { font-size: clamp(15px, 1.5vw, 19px); margin: 16px 0 0; max-width: 34ch; }
-  .h-go { display: inline-flex; align-items: center; gap: 9px; margin-top: clamp(20px, 3vh, 30px);
-          font-family: var(--mono); font-size: 12px; letter-spacing: .06em;
-          text-transform: uppercase; padding: 11px 18px; border-radius: var(--r-ctl);
-          transition: background .2s, border-color .2s, color .2s, transform .2s; }
-  .h-go svg { transition: transform .2s; }
-  .half:hover .h-go svg { transform: translateX(4px); }
-
-  /* --- cool half: the quant's world --- */
-  .quant { background: #07080b; color: var(--text); }
-  .quant .grid { position: absolute; inset: 0; z-index: 1;
+  /* stars: two layers of dots so the twinkle is out of phase */
+  .stars, .stars::after { position: absolute; inset: 0; z-index: 1; opacity: 0; transition: opacity var(--fade) var(--ease);
     background-image:
-      linear-gradient(to right, rgba(255,255,255,.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(255,255,255,.05) 1px, transparent 1px);
-    background-size: 52px 52px;
-    -webkit-mask-image: radial-gradient(ellipse 92% 72% at 50% 12%, black, transparent 82%);
-    mask-image: radial-gradient(ellipse 92% 72% at 50% 12%, black, transparent 82%); }
-  .quant .beam { position: absolute; inset: 0; z-index: 1;
-    background: radial-gradient(ellipse 70% 52% at 62% 6%, rgba(77,163,255,.16), transparent 64%); }
-  /* A real return curve, not decoration: the same series the quant page plots,
-     a fund's cumulative net return from Nov 2000 to Jun 2008. */
-  .quant .curve { position: absolute; left: 0; right: 0; top: 24%; z-index: 2;
-                  width: 100%; height: 46%; }
-  .quant .curve path { fill: none; stroke: var(--accent); stroke-width: 2;
-                       stroke-linecap: round; stroke-linejoin: round;
-                       filter: drop-shadow(0 0 10px rgba(77,163,255,.45)); }
-  .quant .curve .under { fill: url(#qfade); stroke: none; }
-  .quant .h-name { font-family: var(--sans); font-weight: 600; }
-  .quant .h-name i { font-style: normal; color: var(--accent); }
-  .quant .h-name span { color: var(--dim); font-weight: 500; }
-  .quant .h-hook { color: var(--dim); }
-  .quant .h-go { border: 1px solid var(--line-strong); color: var(--text);
-                 background: rgba(14,16,21,.7); }
-  .quant:hover .h-go { border-color: var(--accent); background: rgba(77,163,255,.12);
-                       color: #cfe4ff; }
-  .quant .tape { position: absolute; top: 0; left: 0; right: 0; z-index: 2;
-                 display: flex; gap: 26px; padding: 22px clamp(30px, 5vw, 68px);
-                 font-family: var(--mono); font-size: 11.5px; color: var(--dimmer);
-                 letter-spacing: .04em; }
-  .quant .tape b { color: #7fb7f5; font-weight: 400; }
-  /* The disclaimer sits on the door it applies to. Only this half is
-     financial, so the fine print lives here rather than in the sitewide
-     footer, in the same mono voice as the tape above it.
-     OUT OF FLOW on purpose: .half is align-items:flex-end, so a fourth
-     in-flow child makes .h-inner taller and shoves the name, hook and CTA
-     upward — leaving this door misaligned with the life one. Parked in
-     .h-inner's own bottom padding, it costs the layout nothing. */
-  .quant .h-fine { position: absolute; left: clamp(30px, 5vw, 68px);
-                   bottom: clamp(9px, 1.4vh, 16px); margin: 0; max-width: 42ch;
-                   font-family: var(--mono); font-size: 10px; letter-spacing: .04em;
-                   color: var(--dimmer); }
+      radial-gradient(1.4px 1.4px at 12% 18%, #fff 60%, transparent 62%),
+      radial-gradient(1.2px 1.2px at 23% 9%, #fff 60%, transparent 62%),
+      radial-gradient(1.6px 1.6px at 31% 26%, #fff 60%, transparent 62%),
+      radial-gradient(1.1px 1.1px at 44% 13%, #fff 60%, transparent 62%),
+      radial-gradient(1.3px 1.3px at 52% 29%, #fff 60%, transparent 62%),
+      radial-gradient(1.7px 1.7px at 8% 36%, #fff 60%, transparent 62%),
+      radial-gradient(1.2px 1.2px at 61% 7%, #fff 60%, transparent 62%),
+      radial-gradient(1.5px 1.5px at 84% 24%, #fff 60%, transparent 62%),
+      radial-gradient(1.1px 1.1px at 92% 11%, #fff 60%, transparent 62%),
+      radial-gradient(1.4px 1.4px at 38% 40%, #fff 60%, transparent 62%),
+      radial-gradient(1.2px 1.2px at 76% 38%, #fff 60%, transparent 62%),
+      radial-gradient(1.3px 1.3px at 18% 48%, #fff 60%, transparent 62%),
+      radial-gradient(1.5px 1.5px at 57% 44%, #fff 60%, transparent 62%),
+      radial-gradient(1.1px 1.1px at 95% 41%, #fff 60%, transparent 62%),
+      radial-gradient(1.2px 1.2px at 3% 22%, #fff 60%, transparent 62%),
+      radial-gradient(1.4px 1.4px at 48% 4%, #fff 60%, transparent 62%),
+      radial-gradient(1.3px 1.3px at 69% 20%, #fff 60%, transparent 62%),
+      radial-gradient(1.2px 1.2px at 27% 34%, #fff 60%, transparent 62%);
+    background-repeat: no-repeat; }
+  .stars::after { content: ""; background-position: 3% 5%; animation: twinkle 5.5s ease-in-out infinite alternate; }
+  [data-phase="night"] .stars, [data-phase="dusk"] .stars { opacity: .9; }
+  [data-phase="dusk"] .stars { opacity: .35; }
+  html:is([data-phase="night"], [data-phase="dusk"]):is([data-weather="rain"], [data-weather="cloudy"], [data-weather="snow"]) .stars { opacity: .12; }
+  @keyframes twinkle { from { opacity: .35; } to { opacity: 1; } }
 
-  /* --- warm half: the life world, at golden hour --- */
-  .life { color: oklch(0.28 0.05 265);
-    background: linear-gradient(180deg,
-      oklch(0.55 0.12 288) 0%, oklch(0.68 0.15 42) 52%, oklch(0.79 0.16 46) 100%); }
-  .life .sun { position: absolute; z-index: 1; left: 62%; top: 46%;
-    width: min(46vw, 420px); aspect-ratio: 1; transform: translate(-50%, -50%);
-    background: radial-gradient(circle,
-      oklch(0.99 0.05 92) 0%, oklch(0.95 0.09 82 / .55) 32%, oklch(0.9 0.12 66 / .18) 54%, transparent 72%);
-    border-radius: 50%; }
-  .life .haze { position: absolute; inset: 0; z-index: 1;
-    background:
-      radial-gradient(ellipse 60% 26% at 22% 78%, oklch(1 0.02 80 / .45), transparent 66%),
-      radial-gradient(ellipse 48% 22% at 80% 88%, oklch(1 0.02 85 / .38), transparent 68%); }
-  /* Cloud forms, drifting the way the product's own sky does. Soft and
-     blurred so they read as weather, not as circles someone forgot to style. */
-  .life .orb { position: absolute; z-index: 2; border-radius: 999px;
-    background: oklch(1 0.02 88 / .30); filter: blur(26px); }
-  .life .o1 { width: min(38vw, 300px); height: 84px; left: 6%; top: 26%; }
-  .life .o2 { width: min(26vw, 190px); height: 54px; left: 62%; top: 17%;
-              background: oklch(1 0.02 88 / .22); }
-  .life .h-name { font-family: var(--serif); font-weight: 600;
-                  color: oklch(0.99 0.01 90); text-shadow: 0 2px 20px oklch(0.4 0.08 40 / .35); }
-  .life .h-name span { color: oklch(0.99 0.02 85 / .78); }
-  .life .h-hook { color: oklch(0.28 0.04 40 / .82); }
-  .life .h-go { border: 1px solid oklch(1 0 0 / .5); border-radius: 999px;
-                background: oklch(1 0.01 85 / .5); color: oklch(0.3 0.05 262);
-                backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
-                text-transform: none; letter-spacing: .02em; font-size: 12.5px; }
-  .life:hover .h-go { background: oklch(1 0.01 85 / .82); border-color: #fff; }
-  .life .weather { position: absolute; top: 0; right: 0; z-index: 2;
-                   padding: 22px clamp(30px, 5vw, 68px); font-size: 12.5px;
-                   color: oklch(0.99 0.02 85 / .8); }
+  /* clouds: soft blurred shapes that take the whole hero to cross */
+  .cloud { position: absolute; z-index: 2; height: 46px; border-radius: 999px; background: var(--cloud); filter: blur(10px);
+           transition: background var(--fade), opacity var(--fade); will-change: transform; }
+  .cloud::before, .cloud::after { content: ""; position: absolute; border-radius: 50%; background: inherit; }
+  .cloud::before { width: 55%; aspect-ratio: 1; left: 12%; top: -55%; }
+  .cloud::after  { width: 42%; aspect-ratio: 1; right: 14%; top: -35%; }
+  .c1 { width: min(34vw, 340px); left: -8%; top: 14%; opacity: .75; animation: drift 140s linear infinite; }
+  .c2 { width: min(22vw, 220px); left: 36%; top: 8%;  opacity: .55; animation: drift 190s linear infinite; animation-delay: -60s; }
+  .c3 { width: min(28vw, 280px); left: 58%; top: 30%; opacity: .5;  animation: drift 160s linear infinite; animation-delay: -110s; }
+  [data-weather="clear"] .c3 { opacity: .22; }
+  [data-weather="cloudy"] .cloud, [data-weather="rain"] .cloud, [data-weather="snow"] .cloud { opacity: .95; height: 60px; }
+  @keyframes drift { from { transform: translateX(-30vw); } to { transform: translateX(130vw); } }
 
-  @media (prefers-reduced-motion: no-preference) {
-    .life .orb { animation: bob 9s ease-in-out infinite; }
-    .life .o2 { animation-duration: 12s; animation-delay: -3s; }
-    @keyframes bob { 50% { transform: translateY(-16px); } }
-    .quant .curve path { stroke-dasharray: 1600; stroke-dashoffset: 1600;
-                         animation: draw 2.1s cubic-bezier(.4,0,.2,1) .25s forwards; }
-    .quant .curve .under { opacity: 0; animation: fadein .9s ease 1.7s forwards; }
-    @keyframes draw { to { stroke-dashoffset: 0; } }
-    @keyframes fadein { to { opacity: 1; } }
-    .seam-mark, .h-inner > * { animation: rise .7s cubic-bezier(.16,1,.3,1) both; }
-    .h-inner > *:nth-child(2) { animation-delay: .07s; }
-    .h-inner > *:nth-child(3) { animation-delay: .14s; }
-    .h-inner > *:nth-child(4) { animation-delay: .21s; }
-    @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+  /* rain and snow are one repeating layer each, moved with transform only */
+  .rain, .snow { position: absolute; inset: -10% 0 0 0; z-index: 4; opacity: 0; pointer-events: none;
+                 transition: opacity var(--fade) var(--ease); will-change: transform; }
+  .rain { background-image: repeating-linear-gradient(112deg, transparent 0 22px, oklch(0.9 0.03 230 / .28) 22px 23px, transparent 23px 60px);
+          background-size: 60px 60px; animation: pour 0.9s linear infinite; }
+  [data-weather="rain"] .rain { opacity: 1; }
+  @keyframes pour { from { transform: translate3d(0,-60px,0); } to { transform: translate3d(-20px,60px,0); } }
+  .snow { background-image:
+      radial-gradient(2.5px 2.5px at 10% 10%, #fff 50%, transparent 52%),
+      radial-gradient(2px 2px at 30% 40%, #fff 50%, transparent 52%),
+      radial-gradient(3px 3px at 50% 20%, #fff 50%, transparent 52%),
+      radial-gradient(2px 2px at 70% 60%, #fff 50%, transparent 52%),
+      radial-gradient(2.5px 2.5px at 90% 30%, #fff 50%, transparent 52%),
+      radial-gradient(2px 2px at 20% 80%, #fff 50%, transparent 52%),
+      radial-gradient(3px 3px at 60% 90%, #fff 50%, transparent 52%),
+      radial-gradient(2px 2px at 80% 5%, #fff 50%, transparent 52%);
+    background-size: 240px 240px; animation: fall 14s linear infinite; }
+  [data-weather="snow"] .snow { opacity: .9; }
+  @keyframes fall { from { transform: translate3d(0,-240px,0); } to { transform: translate3d(40px,240px,0); } }
+
+  /* the ground: three hills, one house, one tree. all geometry. */
+  .ground { position: absolute; inset: auto 0 0 0; height: 46%; z-index: 3; pointer-events: none; }
+  .hill { position: absolute; bottom: -30%; border-radius: 50%; transition: background var(--fade) var(--ease); }
+  .h-far  { left: -20%; width: 90%; height: 90%; background: var(--hill-far); }
+  .h-mid  { left: 35%; width: 95%; height: 80%; background: var(--hill-mid); }
+  .h-near { left: -35%; width: 120%; height: 66%; bottom: -34%; background: var(--hill-near); }
+  .haze { position: absolute; inset: auto 0 0 0; height: 60%; z-index: 4; pointer-events: none;
+          background: linear-gradient(to top, var(--haze), transparent); transition: background var(--fade); }
+
+  .house { position: absolute; z-index: 5; left: 61%; bottom: 25%; width: clamp(70px, 8.4vw, 118px); pointer-events: none;
+           transition: transform var(--fade) var(--ease); }
+  .roof { width: 100%; aspect-ratio: 2 / 0.9; background: oklch(0.42 0.06 30); clip-path: polygon(50% 0, 100% 100%, 0 100%); border-radius: 4px; }
+  [data-phase="night"] .roof, [data-phase="dusk"] .roof { background: oklch(0.28 0.05 30); }
+  .walls { width: 82%; margin: -2px auto 0; aspect-ratio: 1 / 0.78; background: oklch(0.95 0.03 80); border-radius: 0 0 8px 8px; position: relative; }
+  [data-phase="night"] .walls, [data-phase="dusk"] .walls { background: oklch(0.72 0.03 80); }
+  .window { position: absolute; left: 22%; top: 24%; width: 26%; aspect-ratio: 1; border-radius: 4px; background: var(--glow);
+            box-shadow: 0 0 0 0 var(--glow); transition: box-shadow var(--fade), opacity var(--fade); }
+  .door { position: absolute; right: 18%; bottom: 0; width: 22%; height: 52%; background: oklch(0.42 0.06 30); border-radius: 6px 6px 0 0; }
+  /* the light comes on when it is dark or wet or cold: someone is home */
+  [data-phase="night"] .window, [data-phase="dusk"] .window, [data-weather="rain"] .window, [data-weather="snow"] .window, [data-cold] .window {
+    box-shadow: 0 0 18px 6px oklch(from var(--glow) l c h / .55), 0 0 60px 22px oklch(from var(--glow) l c h / .25);
+    animation: hearth 4.5s ease-in-out infinite alternate; }
+  [data-phase="day"] .window:not([data-weather="rain"] *) { opacity: .55; }
+  @keyframes hearth { from { filter: brightness(.96); } to { filter: brightness(1.08); } }
+  .chimney { position: absolute; z-index: 5; left: 66.5%; bottom: calc(25% + clamp(62px, 7.4vw, 104px)); width: clamp(8px, .9vw, 13px); height: clamp(14px, 1.6vw, 22px); background: oklch(0.42 0.06 30); border-radius: 2px 2px 0 0; }
+  [data-phase="night"] .chimney, [data-phase="dusk"] .chimney { background: oklch(0.28 0.05 30); }
+  .smoke { position: absolute; left: 50%; bottom: 100%; width: 10px; height: 10px; border-radius: 50%; background: oklch(0.95 0.01 85 / .5);
+           opacity: 0; filter: blur(2px); }
+  [data-weather="rain"] .smoke, [data-weather="snow"] .smoke, [data-cold] .smoke, [data-phase="night"] .smoke { animation: puff 6s ease-out infinite; }
+  .smoke:nth-child(2) { animation-delay: -2s; } .smoke:nth-child(3) { animation-delay: -4s; }
+  @keyframes puff { 0% { opacity: 0; transform: translate(-50%, 0) scale(.6); } 20% { opacity: .55; } 100% { opacity: 0; transform: translate(-30%, -70px) scale(2.2); } }
+
+  .tree { position: absolute; z-index: 5; left: 74%; bottom: 23%; width: clamp(46px, 5.6vw, 80px); pointer-events: none; }
+  .crown { width: 100%; aspect-ratio: 1; border-radius: 50%; background: var(--hill-near); filter: brightness(1.15); transition: background var(--fade); }
+  .crown::before { content: ""; position: absolute; left: 18%; top: -18%; width: 64%; aspect-ratio: 1; border-radius: 50%; background: inherit; }
+  .trunk { width: 14%; height: 34%; margin: -8% auto 0; background: oklch(0.42 0.06 30); border-radius: 3px; }
+
+  /* fireflies, only at night and only when it is clear */
+  .fly { position: absolute; z-index: 6; width: 5px; height: 5px; border-radius: 50%; background: var(--glow);
+         box-shadow: 0 0 10px 3px oklch(from var(--glow) l c h / .5); opacity: 0; pointer-events: none; }
+  [data-phase="night"][data-weather="clear"] .fly { animation: glow 6s ease-in-out infinite; }
+  .f1 { left: 52%; bottom: 30%; animation-delay: 0s !important; } .f2 { left: 58%; bottom: 34%; animation-delay: -2s !important; }
+  .f3 { left: 81%; bottom: 29%; animation-delay: -3.5s !important; } .f4 { left: 45%; bottom: 36%; animation-delay: -5s !important; }
+  @keyframes glow { 0%, 100% { opacity: 0; transform: translate(0,0); } 35% { opacity: .9; } 50% { transform: translate(8px,-14px); } 70% { opacity: .2; } }
+
+  /* the words sit in the open air on the left; on a phone they get a soft scrim */
+  .copy { position: relative; z-index: 10; min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center;
+          padding: clamp(84px, 12vh, 120px) clamp(22px, 6vw, 84px) clamp(120px, 22vh, 220px);
+          max-width: min(100%, 720px); }
+  .top { position: absolute; z-index: 11; top: 0; left: 0; right: 0; display: flex; align-items: center; justify-content: space-between;
+         padding: clamp(18px, 3vh, 28px) clamp(22px, 6vw, 84px); height: 72px; }
+  .wordmark { font-family: var(--serif); font-weight: 600; font-size: 28px; letter-spacing: -.01em; line-height: 1; }
+  .wordmark i { font-style: normal; color: var(--glow-deep); }
+  [data-phase="night"] .wordmark i, [data-phase="dusk"] .wordmark i { color: var(--glow); }
+  .why { font-size: 14.5px; font-weight: 500; color: var(--dim); padding: 8px 2px; border-bottom: 1px solid transparent; transition: color .3s, border-color .3s; }
+  .why:hover { color: var(--text); border-color: currentColor; }
+
+  /* Life / Invest: one control, life first */
+  .seg { display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; margin: 0 0 clamp(22px, 4vh, 34px);
+         background: oklch(from var(--text) l c h / .08); border: 1px solid oklch(from var(--text) l c h / .10);
+         backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); width: max-content; }
+  .seg button { appearance: none; border: 0; background: transparent; color: var(--dim); font: 500 14px/1 var(--sans); letter-spacing: .01em;
+                padding: 9px 16px; border-radius: 999px; cursor: pointer; transition: color .3s var(--ease), background .3s var(--ease), transform .15s; }
+  .seg button:active { transform: scale(.97); }
+  .seg button[aria-pressed="true"] { background: var(--surface); color: var(--text); box-shadow: 0 2px 10px oklch(from var(--text) l c h / .10); }
+  .seg button:focus-visible { outline: 2px solid var(--glow-deep); outline-offset: 2px; }
+
+  h1 { font-family: var(--serif); font-weight: 600; letter-spacing: -.015em; line-height: 1.04; margin: 0 0 clamp(16px, 2.6vh, 22px);
+       font-size: clamp(40px, 5.6vw, 72px); text-wrap: balance; max-width: 12ch; }
+  h1 em { font-style: italic; }
+  .lede { font-size: clamp(17px, 1.35vw, 20px); line-height: 1.5; color: var(--dim); margin: 0 0 clamp(26px, 4vh, 36px); max-width: 44ch; text-wrap: pretty;
+          transition: opacity .6s var(--ease); }
+  .lede.swap { opacity: 0; }
+  .ctas { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .cta { display: inline-flex; align-items: center; gap: 10px; background: var(--glow); color: var(--ink-on-glow); font-weight: 600; font-size: 16px;
+         padding: 15px 24px; border-radius: 999px; box-shadow: 0 10px 30px oklch(from var(--glow) l c h / .35), inset 0 1px 0 oklch(1 0 0 / .5);
+         transition: transform .25s var(--ease), box-shadow .25s var(--ease); white-space: nowrap; }
+  .cta:hover { transform: translateY(-2px); box-shadow: 0 16px 40px oklch(from var(--glow) l c h / .45), inset 0 1px 0 oklch(1 0 0 / .5); }
+  .cta:active { transform: translateY(0) scale(.98); }
+  .cta:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+  .cta .arrow { display: inline-block; transition: transform .25s var(--ease); }
+  .cta:hover .arrow { transform: translateX(3px); }
+  .fine { font-size: 13px; color: var(--dim); margin: 14px 0 0; }
+  [data-mode="life"] [data-for="invest"], [data-mode="invest"] [data-for="life"] { display: none; }
+
+  @media (max-width: 760px) {
+    .copy { align-content: end; padding-bottom: clamp(90px, 16vh, 140px); max-width: 100%; }
+    .copy::before { content: ""; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(to top, oklch(from var(--sky-low) l c h / .92) 0%, oklch(from var(--sky-low) l c h / .7) 45%, transparent 80%); transition: background var(--fade); }
+    [data-phase="night"] .copy::before, [data-phase="dusk"] .copy::before { background: linear-gradient(to top, oklch(from var(--sky-top) l c h / .92) 0%, oklch(from var(--sky-top) l c h / .7) 45%, transparent 80%); }
+    .disc { left: 58%; top: 12%; }
+    .house { left: 64%; bottom: 42%; width: 64px; } .chimney { left: 69%; bottom: calc(42% + 56px); width: 8px; height: 13px; } .tree { left: 84%; bottom: 40%; width: 44px; }
+    .ground { height: 40%; }
+    .f1, .f2, .f3, .f4 { bottom: 42%; }
+    h1 { font-size: clamp(32px, 9.4vw, 44px); max-width: none; }
   }
 
-  /* The brand sits on the seam: one company, two specialists spreading from it. */
-  .seam-mark { position: absolute; z-index: 5; left: 50%; top: 26px;
-               transform: translateX(-50%); display: flex; align-items: center;
-               gap: 10px; padding: 9px 16px; border-radius: var(--r-ctl);
-               background: rgba(7,8,11,.62); border: 1px solid rgba(255,255,255,.14);
-               backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-               font-weight: 600; font-size: 17px; letter-spacing: -.02em;
-               color: #fff; text-decoration: none; }
-  .seam-mark i { font-style: normal; color: var(--accent); }
-  .seam-mark em { font-style: normal; font-family: var(--mono); font-size: 10.5px;
-                  letter-spacing: .1em; text-transform: uppercase;
-                  color: rgba(255,255,255,.78); font-weight: 400; }
-  @media (max-width: 820px) {
-    .seam-mark { top: 18px; }
-    .quant .tape, .life .weather { font-size: 11px; padding-left: 22px; padding-right: 22px; }
-    .quant .curve { top: 16%; height: 34%; }
-  }
+  /* ================================================================ BELOW */
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 clamp(22px, 6vw, 84px); }
+  section { padding: clamp(72px, 12vh, 132px) 0; }
+  h2 { font-family: var(--serif); font-weight: 600; letter-spacing: -.012em; line-height: 1.1; font-size: clamp(30px, 3.6vw, 46px); margin: 0 0 14px; text-wrap: balance; }
+  .sub { font-size: clamp(16px, 1.2vw, 18px); line-height: 1.55; color: var(--dim); max-width: 56ch; margin: 0; text-wrap: pretty; }
 
-  /* ------------------------------------------------------------------ */
-  /* Below the doors: why there are two of them.                          */
-  /* ------------------------------------------------------------------ */
-  /* Below the doors there is only the footer. The split is the page. */
-  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 28px; }
-  footer { border-top: 1px solid var(--line); padding: 40px 0 58px; }
-  .f-top { display: flex; flex-wrap: wrap; gap: 30px 60px; justify-content: space-between; }
-  .wordmark { font-weight: 600; font-size: 20px; letter-spacing: -.02em;
-              color: var(--text); text-decoration: none; }
-  .wordmark i { font-style: normal; color: var(--accent); }
-  .f-cols { display: flex; flex-wrap: wrap; gap: 30px 56px; }
-  .f-col h4 { font-family: var(--mono); font-size: 11px; letter-spacing: .1em;
-              text-transform: uppercase; color: var(--dimmer); font-weight: 400;
-              margin: 0 0 12px; }
-  .f-col a { display: block; color: var(--dim); text-decoration: none; font-size: 14px;
-             padding: 4px 0; transition: color .15s; }
-  .f-col a:hover { color: var(--text); }
+  /* the product is a thread of texts, so the preview is a thread of texts:
+     these three are the shapes min. actually sends, in the words it uses */
+  .thread { display: grid; gap: 10px; max-width: 460px; margin: 40px 0 0; }
+  .msg { padding: 12px 16px; border-radius: var(--r); background: var(--bubble); color: var(--bubble-ink); font-size: 16px; line-height: 1.4;
+         width: fit-content; max-width: 88%; border-bottom-left-radius: 6px; box-shadow: 0 1px 0 oklch(from var(--text) l c h / .05); }
+  .msg.you { justify-self: end; background: var(--glow); color: var(--ink-on-glow); border-bottom-left-radius: var(--r); border-bottom-right-radius: 6px; }
+  .msg.gap { margin-top: 14px; }
+  .when { font-size: 12.5px; color: var(--dim); text-align: center; margin: 6px 0 2px; }
+
+  .two { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
+  @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
+
+  .quiet { border-top: 1px solid var(--line); }
+  .quiet .wrap { max-width: 760px; }
+  .quiet p { font-family: var(--serif); font-weight: 600; font-size: clamp(24px, 2.6vw, 34px); line-height: 1.25; letter-spacing: -.01em; margin: 0; text-wrap: balance; }
+  .quiet p span { color: var(--glow-deep); } [data-phase="night"] .quiet p span, [data-phase="dusk"] .quiet p span { color: var(--glow); }
+
+  footer { border-top: 1px solid var(--line); padding: 40px 0 56px; }
+  .f-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; flex-wrap: wrap; }
+  .f-cols { display: flex; gap: clamp(40px, 8vw, 96px); }
+  .f-col { display: grid; gap: 8px; font-size: 14.5px; }
+  .f-col h4 { margin: 0 0 4px; font: 500 12.5px/1 var(--sans); letter-spacing: .02em; color: var(--dim); }
+  .f-col a { color: var(--text); opacity: .8; transition: opacity .2s; } .f-col a:hover { opacity: 1; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cloud, .rain, .snow, .stars::after, .window, .smoke, .fly { animation: none !important; }
+    .rain, .snow { opacity: 0 !important; }
+    *, *::before, *::after { transition-duration: .01ms !important; }
+    html { scroll-behavior: auto; }
+  }
 </style>
 </head>
 <body>
-<div class="grain"></div>
+<div class="grain" aria-hidden="true"></div>
 
-<div class="split">
-  <a class="seam-mark" href="/about">min<i>.</i> <em>why</em></a>
+<header class="scene">
+  <div class="sky" aria-hidden="true"></div>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="disc" aria-hidden="true"></div>
+  <div class="cloud c1" aria-hidden="true"></div>
+  <div class="cloud c2" aria-hidden="true"></div>
+  <div class="cloud c3" aria-hidden="true"></div>
+  <div class="ground" aria-hidden="true">
+    <div class="hill h-far"></div>
+    <div class="hill h-mid"></div>
+    <div class="hill h-near"></div>
+  </div>
+  <div class="haze" aria-hidden="true"></div>
+  <div class="chimney" aria-hidden="true"><span class="smoke"></span><span class="smoke"></span><span class="smoke"></span></div>
+  <div class="house" aria-hidden="true">
+    <div class="roof"></div>
+    <div class="walls"><span class="window"></span><span class="door"></span></div>
+  </div>
+  <div class="tree" aria-hidden="true"><div class="crown"></div><div class="trunk"></div></div>
+  <span class="fly f1" aria-hidden="true"></span><span class="fly f2" aria-hidden="true"></span>
+  <span class="fly f3" aria-hidden="true"></span><span class="fly f4" aria-hidden="true"></span>
+  <div class="rain" aria-hidden="true"></div>
+  <div class="snow" aria-hidden="true"></div>
 
-  <a class="half quant" href="/quant">
-    <span class="grid"></span>
-    <span class="beam"></span>
-    <span class="tape" id="mkt"></span>
-    <svg class="curve" viewBox="0 0 1200 200" preserveAspectRatio="none" aria-hidden="true">
-      <defs>
-        <linearGradient id="qfade" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#4da3ff" stop-opacity=".22"/>
-          <stop offset="100%" stop-color="#4da3ff" stop-opacity="0"/>
-        </linearGradient>
-      </defs>
-      <path class="under" d="M0,182 L75,174 L150,164 L225,162 L300,155 L375,141 L450,124 L525,120 L600,115 L675,103 L750,96 L825,105 L900,115 L975,110 L1050,69 L1125,41 L1200,14 L1200,200 L0,200 Z"/>
-      <path d="M0,182 L75,174 L150,164 L225,162 L300,155 L375,141 L450,124 L525,120 L600,115 L675,103 L750,96 L825,105 L900,115 L975,110 L1050,69 L1125,41 L1200,14"/>
-    </svg>
-    <div class="h-inner">
-      <p class="h-name">min<i>.</i> <span>quant</span></p>
-      <p class="h-hook">An intelligence that accompanies you through the markets.</p>
-      <span class="h-go">Run an idea
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M5 12h13M12 5l7 7-7 7"/>
-        </svg>
-      </span>
-      <p class="h-fine">Research tooling, not financial advice.</p>
+  <nav class="top">
+    <a class="wordmark" href="/">min<i>.</i></a>
+    <a class="why" href="/about">why</a>
+  </nav>
+
+  <div class="copy">
+    <div class="seg" role="group" aria-label="Which min.">
+      <button type="button" data-mode="life" aria-pressed="true">Life</button>
+      <button type="button" data-mode="invest" aria-pressed="false">Invest</button>
     </div>
-  </a>
 
-  <a class="half life" href="https://life.withmin.ai">
-    <span class="sun"></span>
-    <span class="haze"></span>
-    <span class="orb o1"></span>
-    <span class="orb o2"></span>
-    <span class="weather" id="now"></span>
-    <div class="h-inner">
-      <p class="h-name">min<i>.</i> <span>life</span></p>
-      <p class="h-hook">An intelligence that accompanies you through life.</p>
-      <span class="h-go">See today
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-             stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M5 12h13M12 5l7 7-7 7"/>
-        </svg>
-      </span>
+    <div data-for="life">
+      <h1>An intelligence that accompanies you through <em>life</em>.</h1>
+      <p class="lede" id="lede">A friend who texts. Knows your week, remembers what you tell it, and lives quietly in the background.</p>
+      <div class="ctas">
+        <a class="cta" href="https://life.withmin.ai">Meet min. <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </div>
     </div>
-  </a>
-</div>
+
+    <div data-for="invest">
+      <h1>An intelligence that accompanies you through the <em>markets</em>.</h1>
+      <p class="lede">Hand it an idea in plain words. It researches, tests, and tells you what it found, honestly.</p>
+      <div class="ctas">
+        <a class="cta" href="https://quant.withmin.ai">Run an idea <span class="arrow" aria-hidden="true">&rarr;</span></a>
+      </div>
+      <p class="fine">Research tooling, not financial advice.</p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section>
+    <div class="wrap two">
+      <div>
+        <h2>It texts. That is the whole app.</h2>
+        <p class="sub">No feed, nothing to open, nothing to check. A number in your phone, and someone on the other end who was there yesterday.</p>
+      </div>
+      <div class="thread" aria-label="A few texts from min.">
+        <p class="when">Tuesday</p>
+        <p class="msg">how'd the 9:30 go, or did it move again</p>
+        <p class="msg you">moved. again.</p>
+        <p class="msg">of course it did</p>
+        <p class="when">Saturday</p>
+        <p class="msg gap">ok it's 3pm, the dead zone. what are you doing</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="quiet">
+    <div class="wrap">
+      <p>The best technology is the kind you forget is there. min. is built to be that: <span>around</span>, not in the way.</p>
+    </div>
+  </section>
+</main>
 
 <div class="wrap">
   <footer>
@@ -302,8 +501,8 @@
       <div class="f-cols">
         <div class="f-col">
           <h4>Companions</h4>
-          <a href="/quant">min. quant</a>
           <a href="https://life.withmin.ai">min. life</a>
+          <a href="/quant">min. quant</a>
         </div>
         <div class="f-col">
           <h4>Legal</h4>
@@ -316,23 +515,116 @@
 </div>
 
 <script>
-  /* Both corner labels are computed, never typed: the quant half shows whether
-     the US market is actually open right now, the life half shows the visitor's
-     own day and hour. If anything here throws, the labels stay empty rather
-     than showing a number nobody measured. */
-  try {
-    var now = new Date();
-    var et = new Date(now.toLocaleString("en-US", {timeZone: "America/New_York"}));
-    var day = et.getDay(), mins = et.getHours() * 60 + et.getMinutes();
-    var open = day > 0 && day < 6 && mins >= 570 && mins < 960;
-    document.getElementById("mkt").innerHTML =
-      "NEW YORK " + (open ? "<b>OPEN</b>" : "<b>CLOSED</b>");
-    var h = now.getHours();
-    var part = h < 5 ? "night" : h < 12 ? "morning" : h < 17 ? "afternoon"
-             : h < 21 ? "evening" : "night";
-    document.getElementById("now").textContent =
-      now.toLocaleDateString(undefined, {weekday: "long"}) + " " + part;
-  } catch (e) {}
+/* The scene is decided from what the visitor's browser already knows (the
+   clock) and what can be fetched without asking for anything (a coarse IP
+   location, then the current sky over it). Nothing prompts, nothing is
+   stored, and if either lookup fails the page is simply a clear day.
+   ?scene=rain-night and friends force a scene, for looking at it. */
+(function () {
+  var root = document.documentElement;
+  var lede = document.getElementById("lede");
+
+  function phaseFor(h) {
+    if (h < 5) return "night";
+    if (h < 7) return "dawn";
+    if (h < 17) return "day";
+    if (h < 19.5) return "golden";
+    if (h < 21) return "dusk";
+    return "night";
+  }
+  function weatherFor(code) {
+    if (code <= 1) return "clear";
+    if (code <= 3 || (code >= 45 && code <= 48)) return "cloudy";
+    if ((code >= 71 && code <= 77) || code === 85 || code === 86) return "snow";
+    if (code >= 51) return "rain";
+    return "clear";
+  }
+
+  /* one line under the headline changes with the weather, the way a friend's
+     first text would. short, and never about the page itself. */
+  var LINES = {
+    "rain":   "Raining where you are. Come in. min. is a friend who texts, and it knows your week.",
+    "snow":   "Cold out there. min. is a friend who texts, knows your week, and keeps things warm.",
+    "cloudy": "Grey where you are. min. is a friend who texts, knows your week, and stays in the background.",
+    "night":  "Late where you are. min. is a friend who texts, knows your week, and leaves the light on.",
+    "dawn":   "Early where you are. min. is a friend who texts, knows your week, and won't make a fuss.",
+    "golden": "Good light where you are. min. is a friend who texts, knows your week, and lives in the background.",
+    "dusk":   "Evening where you are. min. is a friend who texts, knows your week, and leaves the light on.",
+    "day":    "A friend who texts. Knows your week, remembers what you tell it, and lives quietly in the background."
+  };
+
+  function apply(phase, weather, cold, animate) {
+    root.setAttribute("data-phase", phase);
+    root.setAttribute("data-weather", weather);
+    if (cold) root.setAttribute("data-cold", ""); else root.removeAttribute("data-cold");
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute("content", (phase === "night" || phase === "dusk") ? "#2a2440" : "#f6efe4");
+    var line = LINES[weather !== "clear" ? weather : phase] || LINES.day;
+    if (!lede || lede.textContent === line) return;
+    if (!animate) { lede.textContent = line; return; }
+    lede.classList.add("swap");
+    setTimeout(function () { lede.textContent = line; lede.classList.remove("swap"); }, 600);
+  }
+
+  var now = new Date();
+  var phase = phaseFor(now.getHours() + now.getMinutes() / 60);
+
+  var forced = /[?&]scene=([a-z-]+)/.exec(location.search);
+  if (forced) {
+    var parts = forced[1].split("-");
+    var w = "clear", p = phase, c = false;
+    parts.forEach(function (x) {
+      if (["clear","cloudy","rain","snow"].indexOf(x) >= 0) w = x;
+      else if (["dawn","day","golden","dusk","night"].indexOf(x) >= 0) p = x;
+      else if (x === "cold") c = true;
+    });
+    apply(p, w, c || w === "snow", false);
+    return;
+  }
+
+  apply(phase, "clear", false, false);
+
+  if (!window.fetch || !window.AbortController) return;
+  var ctl = new AbortController();
+  var timer = setTimeout(function () { ctl.abort(); }, 3500);
+  fetch("https://get.geojs.io/v1/ip/geo.json", { signal: ctl.signal })
+    .then(function (r) { return r.json(); })
+    .then(function (g) {
+      var lat = parseFloat(g.latitude), lon = parseFloat(g.longitude);
+      if (!isFinite(lat) || !isFinite(lon)) throw new Error("no coords");
+      return fetch("https://api.open-meteo.com/v1/forecast?latitude=" + lat.toFixed(2) + "&longitude=" + lon.toFixed(2) +
+                   "&current=temperature_2m,weather_code,is_day", { signal: ctl.signal }).then(function (r) { return r.json(); });
+    })
+    .then(function (m) {
+      var cur = m && m.current; if (!cur) return;
+      var weather = weatherFor(Number(cur.weather_code));
+      var cold = Number(cur.temperature_2m) < 8;
+      /* the sky knows whether it is day where they are better than a clock does at the edges */
+      var p = phase;
+      if (cur.is_day === 0 && (p === "day" || p === "golden")) p = "dusk";
+      if (cur.is_day === 1 && p === "night") p = "dawn";
+      apply(p, weather, cold, true);
+    })
+    .catch(function () { /* a clear day, then */ })
+    .then(function () { clearTimeout(timer); });
+})();
+
+/* Life is the door most people are here for; Invest is one tap away and remembered. */
+(function () {
+  var root = document.documentElement;
+  var buttons = document.querySelectorAll(".seg button");
+  function set(mode, persist) {
+    root.setAttribute("data-mode", mode);
+    buttons.forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-mode") === mode)); });
+    if (persist) { try { localStorage.setItem("min.mode", mode); } catch (e) {} }
+  }
+  var wanted = location.hash === "#invest" ? "invest" : null;
+  if (!wanted) { try { wanted = localStorage.getItem("min.mode"); } catch (e) {} }
+  if (wanted === "invest") set("invest", false);
+  buttons.forEach(function (b) {
+    b.addEventListener("click", function () { set(b.getAttribute("data-mode"), true); });
+  });
+})();
 </script>
 </body>
 </html>
