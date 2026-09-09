@@ -31,6 +31,8 @@
   /* The same world as the home page, at a clear afternoon: the tokens are the
      home page's day values, fixed. The skyline is the same drawing. */
   :root {
+    /* the people: a few clothing colours by day, silhouettes after dark */
+    --c1: oklch(0.72 0.14 30); --c2: oklch(0.66 0.11 200); --c3: oklch(0.80 0.12 85); --c4: oklch(0.62 0.10 300); --skin: oklch(0.80 0.06 60);
     --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
     --sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
     --glow: oklch(0.84 0.13 62); --glow-deep: oklch(0.72 0.15 55); --ink-on-glow: oklch(0.24 0.05 300);
@@ -82,7 +84,14 @@
   .city .cityglow { opacity: var(--cityglow); }
   .city .pod { offset-path: path("M300,318 C520,300 700,336 900,312 S1240,286 1400,300"); offset-rotate: auto; animation: ride 46s linear infinite; }
   @keyframes ride { from { offset-distance: 0%; } to { offset-distance: 100%; } }
-  .haze { position: absolute; inset: auto 0 0 0; height: 60%; z-index: 4; pointer-events: none; background: linear-gradient(to top, var(--haze), transparent); }
+  /* people: small enough to be part of the place, present enough to be the point */
+  .people .p { transition: fill var(--fade); }
+  .people .walk1 { animation: stroll 42s ease-in-out infinite alternate; }
+  .people .walk2 { animation: stroll 50s ease-in-out infinite alternate-reverse; }
+  .people .walk3 { animation: stroll 36s ease-in-out infinite alternate; }
+  @keyframes stroll { from { translate: 0 0; } to { translate: 120px 0; } }
+  @media (prefers-reduced-motion: reduce) { .people .walk1, .people .walk2, .people .walk3 { animation: none; } }
+  .haze { position: absolute; inset: auto 0 0 0; height: 60%; z-index: 2; pointer-events: none; background: linear-gradient(to top, var(--haze), transparent); }
   @media (max-width: 760px) {
     .city { width: 230%; left: -65%; }
     .ground { height: clamp(180px, 30vh, 300px); }
@@ -409,6 +418,42 @@
   <rect x="1377" y="470" width="6" height="24" rx="3" fill="var(--trunk)"/>
   <circle cx="1380" cy="462" r="19" fill="var(--leaf-2)"/>
   <circle cx="1370" cy="468" r="13" fill="var(--leaf-2)"/>
+  <g class="people" aria-hidden="true">
+  <g class="p" transform="translate(48,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c2)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(62,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c2)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(128,494)"><rect x="-4.6" y="-14.3" width="9.2" height="14.3" rx="4.6" fill="var(--c3)"/><circle cx="0" cy="-18.0" r="4.4" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(143,494)"><rect x="-2.6" y="-8.1" width="5.2" height="8.1" rx="2.6" fill="var(--c4)"/><circle cx="0" cy="-9.9" r="2.5" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(230,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c2)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(292,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c3)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(306,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c4)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p walk1" transform="translate(390,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c4)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p walk1" transform="translate(404,494)"><rect x="-6" y="-6" width="12" height="6" rx="3" fill="var(--c4)"/><circle cx="7" cy="-7.5" r="2.4" fill="var(--c4)"/><rect x="-4" y="-1" width="2" height="2" fill="var(--c4)"/><rect x="2" y="-1" width="2" height="2" fill="var(--c4)"/></g>
+  <rect x="506" y="487" width="28" height="3.5" rx="1.7" fill="var(--tower-2)"/><rect x="508" y="490.5" width="2" height="3.5" fill="var(--tower-2)"/><rect x="530" y="490.5" width="2" height="3.5" fill="var(--tower-2)"/>
+  <g class="p" transform="translate(512,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c3)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(528,494)"><rect x="-4.0" y="-12.4" width="8.0" height="12.4" rx="4.0" fill="var(--c1)"/><circle cx="0" cy="-15.6" r="3.8" fill="var(--skin)"/></g>
+  <g class="p walk2" transform="translate(660,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c3)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(736,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c4)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(750,494)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c3)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(838,494)"><rect x="-4.6" y="-14.3" width="9.2" height="14.3" rx="4.6" fill="var(--c4)"/><circle cx="0" cy="-18.0" r="4.4" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(905,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c1)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(920,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c4)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(1010,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c3)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(1084,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c3)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(1099,494)"><rect x="-2.6" y="-8.1" width="5.2" height="8.1" rx="2.6" fill="var(--c2)"/><circle cx="0" cy="-9.9" r="2.5" fill="var(--skin)"/></g>
+  <g class="p walk3" transform="translate(1188,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c1)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(1262,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c1)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(1276,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c3)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(1360,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c3)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(600,483)"><rect x="-2.6" y="-8.1" width="5.2" height="8.1" rx="2.6" fill="var(--c2)"/><circle cx="0" cy="-9.9" r="2.5" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(624,483)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c1)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(1136,326)"><rect x="-2.2" y="-6.8" width="4.4" height="6.8" rx="2.2" fill="var(--c3)"/><circle cx="0" cy="-8.3" r="2.1" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(1166,326)"><rect x="-2.2" y="-6.8" width="4.4" height="6.8" rx="2.2" fill="var(--c1)"/><circle cx="0" cy="-8.3" r="2.1" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(898,401)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c3)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(946,401)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c2)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(958,401)"><rect x="-2.2" y="-6.8" width="4.4" height="6.8" rx="2.2" fill="var(--c3)"/><circle cx="0" cy="-8.3" r="2.1" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(300,440)"><rect x="-2.6" y="-8.1" width="5.2" height="8.1" rx="2.6" fill="var(--c3)"/><circle cx="0" cy="-9.9" r="2.5" fill="var(--skin)"/></g>
+  <g class="p" transform="translate(322,440)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c1)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
+  </g>
 </svg>
     <div class="haze"></div>
   </div>
