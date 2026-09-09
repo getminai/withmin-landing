@@ -84,33 +84,28 @@
   .city .cityglow { opacity: var(--cityglow); }
   .city .pod { offset-path: path("M300,318 C520,300 700,336 900,312 S1240,286 1400,300"); offset-rotate: auto; animation: ride 46s linear infinite; }
   @keyframes ride { from { offset-distance: 0%; } to { offset-distance: 100%; } }
-  /* people: small enough to be part of the place, present enough to be the point.
-     everyone has somewhere to be or someone to talk to: walkers cross the
-     promenade at their own pace and turn back, a dog runs ahead and waits, a
-     child hops, friends lean in and nod, someone stands and watches the river.
-     all transform-only, all off under reduced motion. */
+  /* people: small enough to be part of the place, present enough to be the
+     point. nobody is on a timer: each walker has one of six errands (go
+     somewhere, stop, turn, wander back another way), on a duration and phase
+     of their own, set inline; a couple share theirs so they stay together; the
+     dog has its own. pivots are pinned to the figure (fill-box), or a body
+     leaning in conversation would swing around the middle of the city and
+     leave its head behind. all transform-only, all off under reduced motion. */
   .people .p { transition: fill var(--fade); }
-  .people .go-a   { animation: go-a 44s ease-in-out infinite alternate; }
-  .people .go-a-r { animation: go-a 44s ease-in-out infinite alternate-reverse; }
-  .people .go-b   { animation: go-b 38s ease-in-out infinite alternate; }
-  .people .go-b-r { animation: go-b 38s ease-in-out infinite alternate-reverse; }
-  .people .go-c   { animation: go-c 60s ease-in-out infinite alternate; }
-  .people .go-c-r { animation: go-c 60s ease-in-out infinite alternate-reverse; }
-  .people .dogrun { animation: dogrun 60s ease-in-out infinite alternate; }
-  .people .cross  { animation: cross 22s ease-in-out infinite alternate; }
-  .people .cross-r{ animation: cross 22s ease-in-out infinite alternate-reverse; }
-  .people .drift  { animation: drift 30s ease-in-out infinite alternate; }
-  .people .drift-r{ animation: drift 30s ease-in-out infinite alternate-reverse; }
-  @keyframes go-a { to { translate: 150px 0; } }
-  @keyframes go-b { to { translate: -110px 0; } }
-  @keyframes go-c { to { translate: 210px 0; } }
-  @keyframes dogrun { 0% { translate: 0 0; } 30% { translate: 210px 0; } 100% { translate: 210px 0; } }
-  @keyframes cross { to { translate: 34px 0; } }
-  @keyframes drift { to { translate: 26px 0; } }
-  .people .bob > * { animation: bob .72s ease-in-out infinite; }
+  .people .p > * { transform-box: fill-box; transform-origin: 50% 100%; }
+  @keyframes r1 { 0% { translate: 0 0; animation-timing-function: ease-in-out; } 22% { translate: 92px 0; animation-timing-function: linear; } 36% { translate: 92px 0; animation-timing-function: ease-in-out; } 61% { translate: -34px 0; animation-timing-function: linear; } 74% { translate: -34px 0; animation-timing-function: ease-in-out; } 100% { translate: 0 0; } }
+  @keyframes r2 { 0% { translate: 0 0; animation-timing-function: ease-in-out; } 31% { translate: -138px 0; animation-timing-function: linear; } 44% { translate: -138px 0; animation-timing-function: ease-in-out; } 72% { translate: 42px 0; animation-timing-function: linear; } 80% { translate: 42px 0; animation-timing-function: ease-in-out; } 100% { translate: 0 0; } }
+  @keyframes r3 { 0% { translate: 0 0; animation-timing-function: ease-in-out; } 14% { translate: 40px 0; animation-timing-function: linear; } 26% { translate: 40px 0; animation-timing-function: ease-in-out; } 55% { translate: 168px 0; animation-timing-function: linear; } 69% { translate: 168px 0; animation-timing-function: ease-in-out; } 100% { translate: 0 0; } }
+  @keyframes r4 { 0% { translate: 0 0; animation-timing-function: linear; } 12% { translate: 0 0; animation-timing-function: ease-in-out; } 42% { translate: -72px 0; animation-timing-function: linear; } 64% { translate: -72px 0; animation-timing-function: ease-in-out; } 86% { translate: 58px 0; animation-timing-function: ease-in-out; } 100% { translate: 0 0; } }
+  @keyframes r5 { 0% { translate: 0 0; animation-timing-function: ease-in-out; } 46% { translate: 122px 0; animation-timing-function: ease-in-out; } 58% { translate: 98px 0; animation-timing-function: linear; } 68% { translate: 98px 0; animation-timing-function: ease-in-out; } 82% { translate: 126px 0; animation-timing-function: ease-in-out; } 100% { translate: 0 0; } }
+  @keyframes r6 { 0% { translate: 0 0; animation-timing-function: ease-in-out; } 24% { translate: -52px 0; animation-timing-function: linear; } 34% { translate: -52px 0; animation-timing-function: ease-in-out; } 52% { translate: -176px 0; animation-timing-function: linear; } 66% { translate: -176px 0; animation-timing-function: ease-in-out; } 100% { translate: 0 0; } }
+  @keyframes rdog { 0% { translate: 0 0; animation-timing-function: ease-out; } 9% { translate: 150px 0; animation-timing-function: linear; } 30% { translate: 150px 0; animation-timing-function: ease-in-out; } 40% { translate: 60px 0; animation-timing-function: linear; } 55% { translate: 60px 0; animation-timing-function: ease-out; } 63% { translate: 210px 0; animation-timing-function: linear; } 84% { translate: 210px 0; animation-timing-function: ease-in-out; } 100% { translate: 0 0; } }
+  @keyframes s1 { 0% { translate: 0 0; animation-timing-function: ease-in-out; } 30% { translate: 22px 0; animation-timing-function: linear; } 55% { translate: 22px 0; animation-timing-function: ease-in-out; } 100% { translate: 0 0; } }
+  @keyframes s2 { 0% { translate: 0 0; animation-timing-function: linear; } 20% { translate: 0 0; animation-timing-function: ease-in-out; } 50% { translate: -18px 0; animation-timing-function: linear; } 70% { translate: -18px 0; animation-timing-function: ease-in-out; } 100% { translate: 0 0; } }
+  .people .bob > * { animation: bob var(--bob, .72s) ease-in-out infinite; }
   .people .hop > * { animation: hop 1.3s ease-in-out infinite; }
   .people .chat > circle { animation: nod 3.1s ease-in-out infinite; }
-  .people .chat > rect { transform-origin: 50% 100%; animation: lean 5.2s ease-in-out infinite alternate; }
+  .people .chat > rect { animation: lean 5.2s ease-in-out infinite alternate; }
   .people .look > circle { animation: nod 7s ease-in-out infinite; }
   .people .late > * { animation-delay: -1.7s; }
   @keyframes bob { 50% { transform: translateY(-1.1px); } }
@@ -446,40 +441,40 @@
   <circle cx="1380" cy="462" r="19" fill="var(--leaf-2)"/>
   <circle cx="1370" cy="468" r="13" fill="var(--leaf-2)"/>
   <g class="people" aria-hidden="true">
-  <g class="p go-a bob" transform="translate(48,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c2)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
-  <g class="p go-a bob" transform="translate(62,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c2)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
-  <g class="p go-b bob" transform="translate(128,494)"><rect x="-4.6" y="-14.3" width="9.2" height="14.3" rx="4.6" fill="var(--c3)"/><circle cx="0" cy="-18.0" r="4.4" fill="var(--skin)"/></g>
-  <g class="p go-b hop" transform="translate(143,494)"><rect x="-2.6" y="-8.1" width="5.2" height="8.1" rx="2.6" fill="var(--c4)"/><circle cx="0" cy="-9.9" r="2.5" fill="var(--skin)"/></g>
-  <g class="p look" transform="translate(230,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c2)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
-  <g class="p chat" transform="translate(292,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c3)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
-  <g class="p chat late" transform="translate(306,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c4)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
-  <g class="p go-c bob" transform="translate(390,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c4)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
-  <g class="p dogrun" transform="translate(404,494)"><rect x="-6" y="-6" width="12" height="6" rx="3" fill="var(--c4)"/><circle cx="7" cy="-7.5" r="2.4" fill="var(--c4)"/><rect x="-4" y="-1" width="2" height="2" fill="var(--c4)"/><rect x="2" y="-1" width="2" height="2" fill="var(--c4)"/></g>
+  <g class="p bob" style="animation:r3 38s linear infinite;animation-delay:-27s;--bob:.84s" transform="translate(48,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c4)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p bob" style="animation:r3 38s linear infinite;animation-delay:-27s;--bob:.7s" transform="translate(62,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c3)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
+  <g class="p bob" style="animation:r5 58s linear infinite;animation-delay:-25s;--bob:.76s" transform="translate(128,494)"><rect x="-4.6" y="-14.3" width="9.2" height="14.3" rx="4.6" fill="var(--c1)"/><circle cx="0" cy="-18.0" r="4.4" fill="var(--skin)"/></g>
+  <g class="p hop" style="animation:r5 58s linear infinite;animation-delay:-25s;--bob:.58s" transform="translate(143,494)"><rect x="-2.6" y="-8.1" width="5.2" height="8.1" rx="2.6" fill="var(--c1)"/><circle cx="0" cy="-9.9" r="2.5" fill="var(--skin)"/></g>
+  <g class="p look" style="--bob:.7s" transform="translate(230,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c1)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p chat" style="--bob:.84s" transform="translate(292,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c4)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
+  <g class="p chat late" style="--bob:.7s" transform="translate(306,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c1)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p bob" style="animation:r5 61s linear infinite;animation-delay:-14s;--bob:.84s" transform="translate(390,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c2)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p" style="animation:rdog 56s linear infinite;animation-delay:-22s" transform="translate(404,494)"><rect x="-6" y="-6" width="12" height="6" rx="3" fill="var(--c4)"/><circle cx="7" cy="-7.5" r="2.4" fill="var(--c4)"/><rect x="-4" y="-1" width="2" height="2" fill="var(--c4)"/><rect x="2" y="-1" width="2" height="2" fill="var(--c4)"/></g>
   <rect x="506" y="487" width="28" height="3.5" rx="1.7" fill="var(--tower-2)"/><rect x="508" y="490.5" width="2" height="3.5" fill="var(--tower-2)"/><rect x="530" y="490.5" width="2" height="3.5" fill="var(--tower-2)"/>
-  <g class="p chat" transform="translate(512,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c3)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
-  <g class="p chat late" transform="translate(528,494)"><rect x="-4.0" y="-12.4" width="8.0" height="12.4" rx="4.0" fill="var(--c1)"/><circle cx="0" cy="-15.6" r="3.8" fill="var(--skin)"/></g>
-  <g class="p go-b-r bob" transform="translate(660,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c3)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
-  <g class="p go-a-r bob" transform="translate(736,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c4)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
-  <g class="p go-a-r hop" transform="translate(750,494)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c3)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
-  <g class="p look late" transform="translate(838,494)"><rect x="-4.6" y="-14.3" width="9.2" height="14.3" rx="4.6" fill="var(--c4)"/><circle cx="0" cy="-18.0" r="4.4" fill="var(--skin)"/></g>
-  <g class="p go-c-r bob" transform="translate(905,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c1)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
-  <g class="p go-c-r bob" transform="translate(920,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c4)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
-  <g class="p chat" transform="translate(1010,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c3)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
-  <g class="p go-b bob" transform="translate(1084,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c3)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
-  <g class="p go-b hop late" transform="translate(1099,494)"><rect x="-2.6" y="-8.1" width="5.2" height="8.1" rx="2.6" fill="var(--c2)"/><circle cx="0" cy="-9.9" r="2.5" fill="var(--skin)"/></g>
-  <g class="p go-a bob" transform="translate(1188,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c1)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
-  <g class="p chat late" transform="translate(1262,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c1)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
-  <g class="p chat" transform="translate(1276,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c3)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
-  <g class="p go-c-r bob" transform="translate(1360,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c3)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
-  <g class="p cross bob" transform="translate(600,505)"><rect x="-2.6" y="-8.1" width="5.2" height="8.1" rx="2.6" fill="var(--c2)"/><circle cx="0" cy="-9.9" r="2.5" fill="var(--skin)"/></g>
-  <g class="p cross-r bob" transform="translate(624,505)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c1)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
-  <g class="p chat" transform="translate(1136,326)"><rect x="-2.2" y="-6.8" width="4.4" height="6.8" rx="2.2" fill="var(--c3)"/><circle cx="0" cy="-8.3" r="2.1" fill="var(--skin)"/></g>
-  <g class="p chat late" transform="translate(1166,326)"><rect x="-2.2" y="-6.8" width="4.4" height="6.8" rx="2.2" fill="var(--c1)"/><circle cx="0" cy="-8.3" r="2.1" fill="var(--skin)"/></g>
-  <g class="p drift bob" transform="translate(898,401)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c3)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
-  <g class="p chat" transform="translate(946,401)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c2)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
-  <g class="p chat late" transform="translate(958,401)"><rect x="-2.2" y="-6.8" width="4.4" height="6.8" rx="2.2" fill="var(--c3)"/><circle cx="0" cy="-8.3" r="2.1" fill="var(--skin)"/></g>
-  <g class="p drift-r bob" transform="translate(300,440)"><rect x="-2.6" y="-8.1" width="5.2" height="8.1" rx="2.6" fill="var(--c3)"/><circle cx="0" cy="-9.9" r="2.5" fill="var(--skin)"/></g>
-  <g class="p look" transform="translate(322,440)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c1)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
+  <g class="p chat" style="--bob:.64s" transform="translate(512,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c4)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
+  <g class="p chat late" style="--bob:.84s" transform="translate(528,494)"><rect x="-4.0" y="-12.4" width="8.0" height="12.4" rx="4.0" fill="var(--c1)"/><circle cx="0" cy="-15.6" r="3.8" fill="var(--skin)"/></g>
+  <g class="p bob" style="animation:r3 78s linear infinite;animation-delay:-22s;--bob:.84s" transform="translate(660,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c3)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p bob" style="animation:r5 46s linear infinite;animation-delay:-15s;--bob:.64s" transform="translate(736,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c1)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
+  <g class="p hop" style="animation:r5 46s linear infinite;animation-delay:-15s;--bob:.58s" transform="translate(750,494)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c3)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
+  <g class="p look late" style="--bob:.84s" transform="translate(838,494)"><rect x="-4.6" y="-14.3" width="9.2" height="14.3" rx="4.6" fill="var(--c3)"/><circle cx="0" cy="-18.0" r="4.4" fill="var(--skin)"/></g>
+  <g class="p bob" style="animation:r4 66s linear infinite;animation-delay:-34s;--bob:.58s" transform="translate(905,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c3)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p bob" style="animation:r4 66s linear infinite;animation-delay:-34s;--bob:.7s" transform="translate(920,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c2)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
+  <g class="p chat" style="--bob:.76s" transform="translate(1010,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c2)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p bob" style="animation:r6 41s linear infinite;animation-delay:-49s;--bob:.84s" transform="translate(1084,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c4)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
+  <g class="p hop" style="animation:r6 41s linear infinite;animation-delay:-49s;--bob:.7s" transform="translate(1099,494)"><rect x="-2.6" y="-8.1" width="5.2" height="8.1" rx="2.6" fill="var(--c3)"/><circle cx="0" cy="-9.9" r="2.5" fill="var(--skin)"/></g>
+  <g class="p bob" style="animation:r2 69s linear infinite;animation-delay:-59s;--bob:.7s" transform="translate(1188,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c3)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p chat late" style="--bob:.76s" transform="translate(1262,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c1)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p chat" style="--bob:.84s" transform="translate(1276,494)"><rect x="-4.4" y="-13.6" width="8.8" height="13.6" rx="4.4" fill="var(--c3)"/><circle cx="0" cy="-17.2" r="4.2" fill="var(--skin)"/></g>
+  <g class="p bob" style="animation:r4 50s linear infinite;animation-delay:-60s;--bob:.84s" transform="translate(1360,494)"><rect x="-4.2" y="-13.0" width="8.4" height="13.0" rx="4.2" fill="var(--c2)"/><circle cx="0" cy="-16.4" r="4.0" fill="var(--skin)"/></g>
+  <g class="p bob" style="animation:s1 74s linear infinite;animation-delay:-53s;--bob:.76s" transform="translate(600,505)"><rect x="-2.6" y="-8.1" width="5.2" height="8.1" rx="2.6" fill="var(--c2)"/><circle cx="0" cy="-9.9" r="2.5" fill="var(--skin)"/></g>
+  <g class="p bob" style="animation:s2 50s linear infinite;animation-delay:-38s;--bob:.76s" transform="translate(624,505)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c2)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
+  <g class="p chat" style="--bob:.64s" transform="translate(1136,326)"><rect x="-2.2" y="-6.8" width="4.4" height="6.8" rx="2.2" fill="var(--c1)"/><circle cx="0" cy="-8.3" r="2.1" fill="var(--skin)"/></g>
+  <g class="p chat late" style="--bob:.58s" transform="translate(1166,326)"><rect x="-2.2" y="-6.8" width="4.4" height="6.8" rx="2.2" fill="var(--c1)"/><circle cx="0" cy="-8.3" r="2.1" fill="var(--skin)"/></g>
+  <g class="p bob" style="animation:s2 66s linear infinite;animation-delay:-52s;--bob:.76s" transform="translate(898,401)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c4)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
+  <g class="p chat" style="--bob:.58s" transform="translate(946,401)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c3)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
+  <g class="p chat late" style="--bob:.84s" transform="translate(958,401)"><rect x="-2.2" y="-6.8" width="4.4" height="6.8" rx="2.2" fill="var(--c3)"/><circle cx="0" cy="-8.3" r="2.1" fill="var(--skin)"/></g>
+  <g class="p bob" style="animation:s2 74s linear infinite;animation-delay:-51s;--bob:.58s" transform="translate(300,440)"><rect x="-2.6" y="-8.1" width="5.2" height="8.1" rx="2.6" fill="var(--c3)"/><circle cx="0" cy="-9.9" r="2.5" fill="var(--skin)"/></g>
+  <g class="p look" style="--bob:.64s" transform="translate(322,440)"><rect x="-2.4" y="-7.4" width="4.8" height="7.4" rx="2.4" fill="var(--c2)"/><circle cx="0" cy="-9.1" r="2.3" fill="var(--skin)"/></g>
   </g>
 </svg>
     <div class="haze"></div>
