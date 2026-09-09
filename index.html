@@ -553,6 +553,39 @@
 
   /* the product is a thread of texts, so the preview is a thread of texts:
      these three are the shapes min. actually sends, in the words it uses */
+  /* the wall: seven moments from different days, in the space one thread used.
+     three loose columns that overlap by a hand's width, each card at a slight
+     angle and drifting a touch, every card opaque so the one on top reads and
+     the one beneath is a shape; any card comes forward, straight, under the
+     hand. on a phone they become a row to swipe, so the page gets no taller. */
+  .two.wide { grid-template-columns: .6fr 1.4fr; }
+  .wall { position: relative; height: 840px; margin: 8px 0 0; max-width: 620px; }
+  .card { position: absolute; width: 224px; padding: 13px 13px 15px; border-radius: 22px; display: grid; gap: 7px;
+          background-color: var(--surface);
+          background-image: linear-gradient(160deg, oklch(from var(--sky-top) l c h / .32), oklch(from var(--sky-low) l c h / .32));
+          box-shadow: 0 10px 30px oklch(from var(--text) l c h / .12), inset 0 1px 0 oklch(1 0 0 / .35);
+          transition: transform .45s var(--ease), box-shadow .45s var(--ease), z-index 0s .2s; }
+  [data-mode="invest"] .card { background-image: none; }
+  .card .when { margin: 0 0 1px; }
+  .card .msg { font-size: 14px; padding: 8px 12px; max-width: 92%; }
+  .card .gif { width: min(150px, 78%); }
+  .card:hover { transform: rotate(0deg) translateY(-4px) scale(1.03) !important; z-index: 20; box-shadow: 0 18px 44px oklch(from var(--text) l c h / .2), inset 0 1px 0 oklch(1 0 0 / .35); transition-delay: 0s; }
+  .c1 { left: 0px;   top: 0px;   transform: rotate(-2.2deg); z-index: 3; animation: bob-a 9s ease-in-out infinite; }
+  .c5 { left: 8px;   top: 318px; transform: rotate(1.4deg);  z-index: 4; animation: bob-b 13s ease-in-out infinite; animation-delay: -6s; }
+  .c2 { left: 196px; top: 26px;  transform: rotate(1.6deg);  z-index: 5; animation: bob-b 11s ease-in-out infinite; }
+  .c3 { left: 186px; top: 262px; transform: rotate(-1.3deg); z-index: 6; animation: bob-a 10s ease-in-out infinite; animation-delay: -4s; }
+  .c7 { left: 204px; top: 560px; transform: rotate(-1.8deg); z-index: 7; animation: bob-a 8.5s ease-in-out infinite; animation-delay: -1s; }
+  .c6 { left: 362px; top: 0px;   transform: rotate(2deg);    z-index: 2; animation: bob-b 9.5s ease-in-out infinite; animation-delay: -3s; }
+  .c4 { left: 358px; top: 268px; transform: rotate(-2.1deg); z-index: 5; animation: bob-a 12s ease-in-out infinite; animation-delay: -2s; }
+  @keyframes bob-a { 50% { translate: 0 -5px; } }
+  @keyframes bob-b { 50% { translate: 0 5px; } }
+  @media (max-width: 1000px) { .two.wide { grid-template-columns: 1fr; } }
+  @media (max-width: 760px) {
+    .wall { height: auto; max-width: none; display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 0 18px; margin: 0 -22px; padding-left: 22px; scrollbar-width: none; }
+    .wall::-webkit-scrollbar { display: none; }
+    .card { position: static; flex: 0 0 236px; scroll-snap-align: start; transform: none !important; animation: none !important; }
+  }
+  @media (prefers-reduced-motion: reduce) { .card { animation: none !important; } }
   .thread { display: grid; gap: 10px; max-width: 460px; margin: 40px 0 0; padding: 22px; border-radius: 28px;
             background: linear-gradient(160deg, oklch(from var(--sky-top) l c h / .35), oklch(from var(--sky-low) l c h / .35)); }
   [data-mode="invest"] .thread { background: oklch(from var(--surface) l c h / .6); }
@@ -1053,23 +1086,19 @@
 
 <main>
   <section data-for="life">
-    <div class="wrap two">
+    <div class="wrap two wide">
       <div>
         <h2>It texts. That is the whole app.</h2>
         <p class="sub">No feed, nothing to open, nothing to check. A number in your phone, and someone on the other end who was there yesterday.</p>
       </div>
-      <div class="thread" aria-label="A few texts from min.">
-        <p class="when">Tuesday</p>
-        <p class="msg">how'd the 9:30 go, or did it move again</p>
-        <p class="msg you">moved. again.</p>
-        <p class="msg">of course it did</p>
-        <img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzdzNwYzhza3d5cDBxbHh1YWxkazZzMGV5eW9yc3FkajUwbTFqeTA4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hyyV7pnbE0FqLNBAzs/200.gif" width="240" height="200" alt="Season 5 No GIF by The Office" loading="lazy" decoding="async">
-        <p class="when">Thursday</p>
-        <p class="msg you">SHE WALKED. across the whole living room</p>
-        <img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async">
-        <p class="msg">SHE'S MOBILE. lock the cabinets<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p>
-        <p class="when">Saturday</p>
-        <p class="msg">and how are you doing. not the meeting. not the tiny walker. you.</p>
+      <div class="wall" aria-label="A few texts from min., from different days">
+        <div class="card c1"><p class="when">Tuesday</p><p class="msg">how'd the 9:30 go, or did it move again</p><p class="msg you">moved. again.</p><p class="msg">of course it did</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzdzNwYzhza3d5cDBxbHh1YWxkazZzMGV5eW9yc3FkajUwbTFqeTA4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hyyV7pnbE0FqLNBAzs/200.gif" width="240" height="200" alt="Season 5 No GIF by The Office" loading="lazy" decoding="async"></div>
+        <div class="card c2"><p class="when">Thursday</p><p class="msg you">SHE WALKED. across the whole living room</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async"><p class="msg">SHE'S MOBILE. lock the cabinets<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
+        <div class="card c3"><p class="when">Monday</p><p class="msg you">I GOT THE JOB</p><p class="msg">FUCKKKK YES</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzbjFma2RjeHpscHVmeWUxdzYydm9rajhzNWFsNTcxZzlmam42ZzZ4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/DfLwM9kttDFEQ/200.gif" width="200" height="200" alt="leonardo dicaprio cheers GIF" loading="lazy" decoding="async"><p class="msg">i knew it. i KNEW it.</p></div>
+        <div class="card c4"><p class="when">Wednesday</p><p class="msg">rough one?</p><p class="msg you">yeah</p><p class="msg">ok. i'm here. no advice unless you want it.</p></div>
+        <div class="card c5"><p class="when">Friday</p><p class="msg">your mom lands sunday, 11:40. want me to keep saturday night clear</p><p class="msg you">yes pls</p><p class="msg">done. she still take her coffee black?</p></div>
+        <div class="card c6"><p class="when">Sunday</p><p class="msg">saw this and thought of you</p><img class="gif" src="https://media0.giphy.com/media/v1.Y2lkPTU3M2EwM2MzejhzangyNjRtN2J3ZGEzbnkzbzY0Yzg3dGtxcXlmdWxhamJ5amN5aiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tQAApm4PMOpiM/200.gif" width="266" height="200" alt="Hold My Hand Otter GIF" loading="lazy" decoding="async"><p class="msg you">that is literally me</p></div>
+        <div class="card c7"><p class="when">Tuesday</p><p class="msg">you eat?</p><p class="msg you">...no</p><p class="msg">go eat. i'll wait.</p></div>
       </div>
     </div>
   </section>
