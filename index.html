@@ -334,13 +334,13 @@
   /* the sun and the moon share one disc; the phase decides which it is and where */
   /* the sun and the moon are a button: a tap moves the weather along */
   .cloud { pointer-events: none; }
-  .disc { position: absolute; z-index: 6; width: clamp(88px, 11vw, 150px); aspect-ratio: 1; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
+  .disc { position: absolute; z-index: 2; /* behind the skyline: a sun sets behind buildings, not in front of them */ width: clamp(88px, 11vw, 150px); aspect-ratio: 1; border-radius: 50%; border: 0; padding: 0; cursor: pointer;
           left: 66%; top: 18%; background: oklch(0.97 0.09 85);
           box-shadow: 0 0 60px 24px oklch(0.96 0.10 80 / .55), 0 0 140px 70px oklch(0.94 0.10 75 / .22);
           transition: top var(--fade) var(--ease), left var(--fade) var(--ease), background var(--fade), box-shadow var(--fade), opacity var(--fade); }
   [data-phase="dawn"] .disc { top: 46%; left: 72%; background: oklch(0.93 0.13 60); }
   [data-phase="golden"] .disc { top: 44%; left: 70%; background: oklch(0.92 0.14 55); box-shadow: 0 0 70px 30px oklch(0.90 0.14 50 / .6), 0 0 180px 90px oklch(0.88 0.13 45 / .3); }
-  [data-phase="dusk"] .disc { top: 58%; left: 74%; background: oklch(0.86 0.15 45); box-shadow: 0 0 60px 26px oklch(0.84 0.15 40 / .45); }
+  [data-phase="dusk"] .disc { top: 44%; left: 74%; background: oklch(0.86 0.15 45); box-shadow: 0 0 60px 26px oklch(0.84 0.15 40 / .45); }
   [data-phase="night"] .disc { top: 12%; left: 70%; width: clamp(64px, 7vw, 96px); background: oklch(0.96 0.03 90);
           box-shadow: 0 0 40px 14px oklch(0.95 0.03 90 / .35), inset -18px -10px 0 0 oklch(0.30 0.07 295); }
   .disc:hover { filter: brightness(1.04); }
@@ -353,7 +353,7 @@
   .disc-tip.show { opacity: 1; }
   [data-phase="dawn"] .disc-tip { top: calc(46% + clamp(88px, 11vw, 150px) + 14px); left: 72%; }
   [data-phase="golden"] .disc-tip { top: calc(44% + clamp(88px, 11vw, 150px) + 14px); left: 70%; }
-  [data-phase="dusk"] .disc-tip { top: calc(58% + clamp(88px, 11vw, 150px) + 14px); left: 74%; }
+  [data-phase="dusk"] .disc-tip { top: calc(44% + clamp(88px, 11vw, 150px) + 14px); left: 74%; }
   [data-phase="night"] .disc-tip { top: calc(12% + clamp(64px, 7vw, 96px) + 14px); left: 70%; transform: translateX(calc(clamp(64px, 7vw, 96px) / 2 - 50%)); }
   @media (max-width: 760px) { .disc-tip, [data-phase] .disc-tip { left: 66%; top: calc(9% + clamp(88px, 11vw, 150px) + 12px); } [data-phase="night"] .disc-tip { top: calc(9% + clamp(64px, 7vw, 96px) + 12px); } }
   [data-weather="rain"] .disc, [data-weather="snow"] .disc { opacity: .35; }
