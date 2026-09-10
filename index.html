@@ -400,13 +400,9 @@
   [data-weather="cloudy"] .cloud, [data-weather="rain"] .cloud, [data-weather="snow"] .cloud { opacity: .95; height: 60px; }
   @keyframes drift { from { transform: translateX(-30vw); } to { transform: translateX(130vw); } }
 
-  /* rain and snow are one repeating layer each, moved with transform only */
-  .rain, .snow { position: absolute; inset: -10% 0 0 0; z-index: 4; opacity: 0; pointer-events: none;
+  /* snow is one repeating layer, moved with transform only (the rain layer is gone: it stuttered) */
+  .snow { position: absolute; inset: -10% 0 0 0; z-index: 4; opacity: 0; pointer-events: none;
                  transition: opacity var(--fade) var(--ease); will-change: transform; }
-  .rain { background-image: repeating-linear-gradient(112deg, transparent 0 22px, oklch(0.9 0.03 230 / .28) 22px 23px, transparent 23px 60px);
-          background-size: 60px 60px; animation: pour 0.9s linear infinite; }
-  [data-weather="rain"] .rain { opacity: 1; }
-  @keyframes pour { from { transform: translate3d(0,-60px,0); } to { transform: translate3d(-20px,60px,0); } }
   .snow { background-image:
       radial-gradient(2.5px 2.5px at 10% 10%, #fff 50%, transparent 52%),
       radial-gradient(2px 2px at 30% 40%, #fff 50%, transparent 52%),
@@ -522,13 +518,31 @@
   @keyframes lanternhalo { from { opacity: .18; } to { opacity: .36; } }
   @media (prefers-reduced-motion: reduce) { .people .p, .people .p > *, .people .swing, .people .run, .people .climb, .people .slidekid, .people .dog .face-r, .people .dog .face-l, .people .night-only circle { animation: none !important; }
   .people .dog .face-l { visibility: hidden !important; } }
-  /* fireflies, only at night and only when it is clear */
+  /* fireflies: a night thing, over the parks. many of them, each with its own drift
+     and its own clock, so the meadow never repeats. clear nights get all of them,
+     cloudy nights fewer, and a clear dusk gets the first few as the light goes. */
   .fly { position: absolute; z-index: 6; width: 5px; height: 5px; border-radius: 50%; background: var(--glow);
-         box-shadow: 0 0 10px 3px oklch(from var(--glow) l c h / .5); opacity: 0; pointer-events: none; }
-  [data-phase="night"][data-weather="clear"] .fly { animation: glow 6s ease-in-out infinite; }
-  .f1 { left: 12%; bottom: 8%; animation-delay: 0s !important; } .f2 { left: 24%; bottom: 12%; animation-delay: -2s !important; }
-  .f3 { left: 74%; bottom: 7%; animation-delay: -3.5s !important; } .f4 { left: 90%; bottom: 11%; animation-delay: -5s !important; }
-  @keyframes glow { 0%, 100% { opacity: 0; transform: translate(0,0); } 35% { opacity: .9; } 50% { transform: translate(8px,-14px); } 70% { opacity: .2; } }
+         box-shadow: 0 0 14px 5px oklch(from var(--glow) l c h / .55); opacity: 0; pointer-events: none; }
+  [data-phase="night"]:is([data-weather="clear"], [data-weather="cloudy"]) .fly,
+  [data-phase="dusk"][data-weather="clear"] .fly:nth-child(-n+6 of .fly) { animation: glow 6s ease-in-out infinite; }
+  [data-phase="night"][data-weather="cloudy"] .fly:nth-child(n+9 of .fly) { animation: none; }
+  .f1 { left: 2.3%; bottom: 6.8%; width: 7px; height: 7px; --dx: -11px; --dy: -13px; animation-delay: -5.9s !important; animation-duration: 4.8s !important; }
+  .f2 { left: 9.5%; bottom: 15.9%; width: 6px; height: 6px; --dx: -12px; --dy: -11px; animation-delay: -1.9s !important; animation-duration: 4.8s !important; }
+  .f3 { left: 13.6%; bottom: 10.1%; width: 5px; height: 5px; --dx: 6px; --dy: -18px; animation-delay: -7.4s !important; animation-duration: 5.0s !important; }
+  .f4 { left: 21.7%; bottom: 5.7%; width: 5px; height: 5px; --dx: -13px; --dy: -16px; animation-delay: -5.3s !important; animation-duration: 4.7s !important; }
+  .f5 { left: 29.0%; bottom: 8.5%; width: 6px; height: 6px; --dx: 3px; --dy: -21px; animation-delay: -1.3s !important; animation-duration: 5.0s !important; }
+  .f6 { left: 34.4%; bottom: 6.2%; width: 5px; height: 5px; --dx: 3px; --dy: -19px; animation-delay: -5.1s !important; animation-duration: 5.3s !important; }
+  .f7 { left: 38.1%; bottom: 5.7%; width: 6px; height: 6px; --dx: 10px; --dy: -13px; animation-delay: -1.9s !important; animation-duration: 7.2s !important; }
+  .f8 { left: 45.8%; bottom: 16.1%; width: 5px; height: 5px; --dx: 8px; --dy: -20px; animation-delay: -3.3s !important; animation-duration: 5.5s !important; }
+  .f9 { left: 51.0%; bottom: 11.9%; width: 6px; height: 6px; --dx: -5px; --dy: -17px; animation-delay: -4.7s !important; animation-duration: 8.0s !important; }
+  .f10 { left: 60.1%; bottom: 6.4%; width: 5px; height: 5px; --dx: 1px; --dy: -14px; animation-delay: -3.8s !important; animation-duration: 7.5s !important; }
+  .f11 { left: 62.5%; bottom: 13.0%; width: 6px; height: 6px; --dx: -4px; --dy: -19px; animation-delay: -6.9s !important; animation-duration: 6.8s !important; }
+  .f12 { left: 69.9%; bottom: 11.0%; width: 5px; height: 5px; --dx: -6px; --dy: -15px; animation-delay: -7.2s !important; animation-duration: 4.8s !important; }
+  .f13 { left: 77.4%; bottom: 5.8%; width: 7px; height: 7px; --dx: 7px; --dy: -21px; animation-delay: -6.6s !important; animation-duration: 5.7s !important; }
+  .f14 { left: 82.5%; bottom: 13.6%; width: 6px; height: 6px; --dx: -3px; --dy: -10px; animation-delay: -8.0s !important; animation-duration: 5.9s !important; }
+  .f15 { left: 89.3%; bottom: 10.9%; width: 5px; height: 5px; --dx: -2px; --dy: -14px; animation-delay: -2.0s !important; animation-duration: 5.6s !important; }
+  .f16 { left: 96.7%; bottom: 11.0%; width: 6px; height: 6px; --dx: 14px; --dy: -10px; animation-delay: -1.5s !important; animation-duration: 6.1s !important; }
+  @keyframes glow { 0%, 100% { opacity: 0; transform: translate(0,0); } 35% { opacity: 1; } 50% { transform: translate(var(--dx, 8px), var(--dy, -14px)); } 70% { opacity: .25; } }
 
   /* the words sit in the open air on the left; on a phone they get a soft scrim */
   .copy { position: relative; z-index: 10; min-height: 100dvh; display: grid; grid-template-columns: minmax(0, 1fr); align-content: center;
@@ -1096,7 +1110,12 @@
   <div class="haze" aria-hidden="true"></div>
   <span class="fly f1" aria-hidden="true"></span><span class="fly f2" aria-hidden="true"></span>
   <span class="fly f3" aria-hidden="true"></span><span class="fly f4" aria-hidden="true"></span>
-  <div class="rain" aria-hidden="true"></div>
+  <span class="fly f5" aria-hidden="true"></span><span class="fly f6" aria-hidden="true"></span>
+  <span class="fly f7" aria-hidden="true"></span><span class="fly f8" aria-hidden="true"></span>
+  <span class="fly f9" aria-hidden="true"></span><span class="fly f10" aria-hidden="true"></span>
+  <span class="fly f11" aria-hidden="true"></span><span class="fly f12" aria-hidden="true"></span>
+  <span class="fly f13" aria-hidden="true"></span><span class="fly f14" aria-hidden="true"></span>
+  <span class="fly f15" aria-hidden="true"></span><span class="fly f16" aria-hidden="true"></span>
   <div class="snow" aria-hidden="true"></div>
 
   <div class="market grid" aria-hidden="true"></div>
@@ -1265,7 +1284,8 @@
     if (code <= 1) return "clear";
     if (code <= 3 || (code >= 45 && code <= 48)) return "cloudy";
     if ((code >= 71 && code <= 77) || code === 85 || code === 86) return "snow";
-    if (code >= 51) return "rain";
+    /* rain reads as a cloudy sky: the rain layer stuttered and is gone (Eric, 2026-09-09) */
+    if (code >= 51) return "cloudy";
     return "clear";
   }
 
@@ -1281,9 +1301,9 @@
   var now = new Date();
   var phase = phaseFor(now.getHours() + now.getMinutes() / 60);
 
-  /* a tap on the sun or the moon walks the weather: clear, cloudy, rain, snow.
+  /* a tap on the sun or the moon walks the weather: clear, cloudy, snow.
      once they've touched it, the sky over their head stops overriding it. */
-  var ORDER = ["clear", "cloudy", "rain", "snow"], WORD = { clear: "clear", cloudy: "cloudy", rain: "rain", snow: "snow" };
+  var ORDER = ["clear", "cloudy", "snow"], WORD = { clear: "clear", cloudy: "cloudy", snow: "snow" };
   var disc = document.getElementById("disc"), tip = document.getElementById("disc-tip"), tipTimer = null, touched = false;
   if (disc) disc.addEventListener("click", function () {
     touched = true;
@@ -1301,7 +1321,7 @@
     var parts = forced[1].split("-");
     var w = "clear", p = phase, c = false;
     parts.forEach(function (x) {
-      if (["clear","cloudy","rain","snow"].indexOf(x) >= 0) w = x;
+      if (["clear","cloudy","snow"].indexOf(x) >= 0) w = x;
       else if (["dawn","day","golden","dusk","night"].indexOf(x) >= 0) p = x;
       else if (x === "cold") c = true;
     });
