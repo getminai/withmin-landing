@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Text messages from min. | How to opt in</title>
+<meta name="description" content="How to sign up for text messages from min. — the step-by-step opt-in, what min. sends, sample messages, message frequency, message and data rates, STOP and HELP.">
+<link rel="canonical" href="https://withmin.ai/sms">
+<meta name="theme-color" content="#f6efe4">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="min.">
+<meta property="og:title" content="Text messages from min.">
+<meta property="og:description" content="How to opt in to text messages from min., and what it sends.">
+<meta property="og:url" content="https://withmin.ai/sms">
+<meta property="og:image" content="https://withmin.ai/assets/og-home.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Text messages from min.">
+<meta name="twitter:description" content="How to opt in to text messages from min., and what it sends.">
+<meta name="twitter:image" content="https://withmin.ai/assets/og-home.png">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/Fraunces-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/Geist-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face { font-family: "Geist"; font-weight: 400; font-display: swap; src: url("/assets/Geist-400.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 500; font-display: swap; src: url("/assets/Geist-500.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 600; font-display: swap; src: url("/assets/Geist-600.woff2") format("woff2"); }
+  @font-face { font-family: "Geist Mono"; font-weight: 400; font-display: swap; src: url("/assets/GeistMono-400.woff2") format("woff2"); }
+  @font-face { font-family: "Fraunces"; font-weight: 600; font-display: swap; src: url("/assets/Fraunces-600.woff2") format("woff2"); }
+
+  /* the home page's afternoon, on paper: same ink, same warmth, no city */
+  :root {
+    --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+    --glow: oklch(0.84 0.13 62); --glow-deep: oklch(0.72 0.15 55); --ink-on-glow: oklch(0.24 0.05 300);
+    --text: oklch(0.27 0.05 275); --dim: oklch(0.27 0.05 275 / .70); --dimmer: oklch(0.27 0.05 275 / .48);
+    --bg: oklch(0.975 0.02 85); --surface: oklch(0.99 0.012 85); --line: oklch(0.27 0.05 275 / .10);
+    --pledge: oklch(0.96 0.045 85);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.6 var(--sans); color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  ::selection { background: var(--glow); color: var(--ink-on-glow); }
+  .grain { position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .32; mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>"); }
+  .top { display: flex; align-items: center; justify-content: space-between; padding: clamp(18px, 3vh, 28px) clamp(22px, 6vw, 84px); height: 72px; }
+  .wordmark { font-family: var(--serif); font-weight: 600; font-size: 28px; letter-spacing: -.01em; line-height: 1; text-decoration: none; }
+  .wordmark i { font-style: normal; color: var(--glow-deep); }
+  .back { font-size: 14.5px; font-weight: 500; color: var(--dim); padding: 8px 2px; text-decoration: none; border-bottom: 1px solid transparent; transition: color .3s, border-color .3s; }
+  .back:hover { color: var(--text); border-color: currentColor; }
+  main { padding: clamp(24px, 6vh, 64px) clamp(22px, 6vw, 84px) clamp(64px, 10vh, 110px); max-width: 760px; }
+  h1 { font-family: var(--serif); font-weight: 600; letter-spacing: -.015em; line-height: 1; margin: 0 0 12px; font-size: clamp(44px, 6vw, 72px); }
+  h1 i { font-style: normal; color: var(--glow-deep); }
+  .updated { font-family: var(--mono); font-size: 12px; color: var(--dimmer); margin: 0 0 clamp(26px, 4vh, 40px); }
+  main p { color: var(--dim); margin: 0; text-wrap: pretty; }
+  main p + p { margin-top: 14px; }
+  main b { color: var(--text); font-weight: 500; }
+  main a { color: var(--text); text-decoration-color: var(--glow-deep); text-underline-offset: 3px; }
+  .pledge { background: var(--pledge); border: 1px solid var(--line); border-radius: 18px; padding: clamp(20px, 3vw, 28px); margin: 0 0 28px; }
+  .pledge .big { font-family: var(--serif); font-weight: 600; letter-spacing: -.012em; line-height: 1.2; font-size: clamp(20px, 2.2vw, 26px); color: var(--text); text-wrap: balance; }
+  .pledge .big span { color: var(--glow-deep); }
+  .lead { font-size: clamp(17px, 1.3vw, 19px); }
+  section { border-top: 1px solid var(--line); margin-top: 30px; padding-top: 24px; }
+  .kicker { font-family: var(--mono); font-size: 11px; color: var(--dimmer); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 12px; }
+  ul { margin: 12px 0 0; padding-left: 20px; color: var(--dim); }
+  li { margin-top: 8px; text-wrap: pretty; }
+  li + li { margin-top: 10px; }
+  footer { padding: 28px clamp(22px, 6vw, 84px) 40px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; border-top: 1px solid var(--line); font-size: 14.5px; }
+  footer nav { display: flex; gap: 22px; }
+  footer nav a { text-decoration: none; opacity: .8; } footer nav a:hover { opacity: 1; }
+  ol { margin: 12px 0 0; padding-left: 22px; color: var(--dim); }
+  ol li { margin-top: 8px; }
+  .sample { border-left: 3px solid var(--line); padding-left: 14px; margin-top: 14px; }
+  .sample .lbl { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--dimmer); margin: 0 0 4px; }
+  .sample .txt { font-family: var(--mono); font-size: 13px; line-height: 1.65; color: var(--text); margin: 0; }
+  .bignum { font-family: var(--serif); font-weight: 600; font-size: clamp(26px, 3.2vw, 36px); color: var(--text); text-decoration: none; display: inline-block; margin-top: 4px; }
+</style>
+</head>
+
+<body>
+<div class="grain" aria-hidden="true"></div>
+<nav class="top">
+  <a class="wordmark" href="/">min<i>.</i></a>
+  <a class="back" href="/">Back to home</a>
+</nav>
+<main>
+  <h1>Text messages<i>.</i></h1>
+  <p class="updated">last updated 2026-09-11</p>
+
+  <div class="pledge">
+    <p class="big">min. is an AI life companion you talk to by text.</p>
+    <p style="margin-top:14px">It messages from
+    <a class="bignum" href="sms:+14156293650">+1 (415) 629-3650</a></p>
+  </div>
+
+  <p class="lead">This page is the call-to-action for min.&rsquo;s text messaging: exactly
+  how a person signs up, what min. sends them, and how they stop. The opt-in form
+  itself lives on the product at
+  <a href="https://life.withmin.ai/sms">life.withmin.ai/sms</a>.</p>
+
+  <section>
+    <p class="kicker">How to sign up</p>
+    <p>There are exactly two ways to opt in, and you choose one of them yourself.</p>
+    <p style="margin-top:18px"><b>Option 1 &mdash; the form on
+    <a href="https://life.withmin.ai/sms">life.withmin.ai/sms</a>.</b></p>
+    <ol>
+      <li>Open <a href="https://life.withmin.ai/sms">life.withmin.ai/sms</a>.</li>
+      <li>Enter your own mobile phone number in the field.</li>
+      <li>Read the consent text and tick the checkbox beside it. It is unchecked by
+      default, and the button stays disabled until you tick it yourself.</li>
+      <li>Press &ldquo;Text me a code&rdquo;. min. texts a 6-digit code to that number.</li>
+      <li>Type the code back into the form. That proves the number is yours, and you
+      are opted in.</li>
+    </ol>
+    <p style="margin-top:18px"><b>Option 2 &mdash; text min. first.</b> Send any message
+    to <a href="sms:+14156293650">+1 (415) 629-3650</a> from your own phone. Starting the
+    conversation is itself the opt-in, and min. replies to that number and no other.</p>
+  </section>
+
+  <section>
+    <p class="kicker">Consent is one-to-one</p>
+    <ul>
+      <li>You give consent for <b>your own number only</b>. There is no way to submit
+      someone else&rsquo;s number and have min. text them.</li>
+      <li>Consent is <b>never shared, sold, rented, or forwarded</b> to any third party,
+      affiliate, or partner, and no third party can opt you in on our behalf.</li>
+      <li>Consent is <b>never implied or bundled</b>. Ticking the box is a separate,
+      affirmative act; it is pre-checked nowhere, and it is not required to create an
+      account, sign in, or use min. on the web.</li>
+      <li>We buy no phone lists and import no numbers. Every number min. texts was
+      entered by the person holding that phone, or texted min. first.</li>
+      <li>The code step verifies consent: min. only keeps texting a number once
+      someone has proved they hold that phone.</li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="kicker">What min. sends</p>
+    <ul>
+      <li>Account and sign-in codes, when you ask for one.</li>
+      <li>Replies to messages you send min.</li>
+      <li>Occasional check-ins about your own calendar, inbox, or to-do list &mdash; the
+      things you connected min. to.</li>
+    </ul>
+    <p style="margin-top:14px">Conversational only. No marketing, no promotions, no
+    third-party advertising, and nothing on behalf of anyone else &mdash; ever.</p>
+  </section>
+
+  <section>
+    <p class="kicker">Sample messages</p>
+    <div class="sample">
+      <p class="lbl">Sign-in code (sent when you ask for one)</p>
+      <p class="txt">min.: 418 205 is your sign-in code. It expires in 10 minutes. Reply STOP to opt out, HELP for help.</p>
+    </div>
+    <div class="sample">
+      <p class="lbl">Reply to something you sent min.</p>
+      <p class="txt">min.: your mom lands Sunday 11:40am. Want me to keep Saturday night clear? Reply STOP to opt out.</p>
+    </div>
+    <div class="sample">
+      <p class="lbl">Check-in about your own calendar or inbox</p>
+      <p class="txt">min.: the lease renewal you flagged is due Friday. Want me to draft the reply? Msg freq may vary. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="kicker">Frequency, rates, and opting out</p>
+    <p><b>Message frequency may vary. Message and data rates may apply.</b> Reply
+    <b>STOP</b> at any time to opt out and the messages stop immediately. Reply
+    <b>HELP</b> for help, or email <a href="mailto:hello@withmin.ai">hello@withmin.ai</a>.
+    Carriers are not liable for delayed or undelivered messages.</p>
+    <p><b>We will not share or sell your mobile information for marketing or promotional
+    purposes.</b> No mobile information is shared with third parties or affiliates for
+    their own marketing. Your number is shared only with the text-messaging provider that
+    carries the messages on our behalf, which cannot use it for anything else.</p>
+    <p>Full detail in our <a href="/privacy">Privacy Policy</a> and
+    <a href="/terms">Terms</a>.</p>
+  </section>
+</main>
+<footer>
+  <a class="wordmark" href="/">min<i>.</i></a>
+  <nav><a href="/about">Why</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="/sms">Texts</a></nav>
+</footer>
+</body>
+</html>

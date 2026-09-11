@@ -3,14 +3,15 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>min. | An intelligence that accompanies you through life</title>
-<meta name="description" content="min. Always there. Knows your life, and the people in it. A friend who texts. Also available for the markets.">
+<title>min. | An AI life companion that accompanies you through life</title>
+<meta name="description" content="min. is an AI life companion you text like a person. It keeps up with your calendar, your inbox and the people in your life, and checks in when something matters. Text +1 (415) 629-3650 to start.">
+<meta name="keywords" content="AI life companion, AI companion app, AI assistant you can text, personal AI assistant, AI that remembers your life, AI friend that texts">
 <link rel="canonical" href="https://withmin.ai/">
 <meta name="theme-color" content="#f6efe4">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="min.">
-<meta property="og:title" content="min. | An intelligence that accompanies you through life">
-<meta property="og:description" content="Always there. Knows your life, and the people in it.">
+<meta property="og:title" content="min. | An AI life companion that accompanies you through life">
+<meta property="og:description" content="An AI life companion you text like a person. Always there. Knows your life, and the people in it.">
 <meta property="og:url" content="https://withmin.ai/">
 <meta property="og:image" content="https://withmin.ai/assets/og-home.png">
 <meta property="og:image:width" content="1200">
@@ -18,18 +19,21 @@
 <meta property="og:image:alt" content="min. An intelligence that accompanies you through life.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:creator" content="@ericzizhouwangx">
-<meta name="twitter:title" content="min. | An intelligence that accompanies you through life">
-<meta name="twitter:description" content="Always there. Knows your life, and the people in it.">
+<meta name="twitter:title" content="min. | An AI life companion that accompanies you through life">
+<meta name="twitter:description" content="An AI life companion you text like a person. Always there. Knows your life, and the people in it.">
 <meta name="twitter:image" content="https://withmin.ai/assets/og-home.png">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
  {"@type":"Organization","@id":"https://withmin.ai/#org","name":"min.","url":"https://withmin.ai/",
+  "description":"min. is an AI life companion you text like a person.",
+  "contactPoint":[{"@type":"ContactPoint","contactType":"customer support","telephone":"+14156293650","areaServed":"US","availableLanguage":["English"]}],
   "sameAs":["https://x.com/ericzizhouwangx","https://www.linkedin.com/in/zizhouwang"]},
  {"@type":"WebSite","@id":"https://withmin.ai/#site","url":"https://withmin.ai/","name":"min.",
   "publisher":{"@id":"https://withmin.ai/#org"}},
  {"@type":"SoftwareApplication","name":"min. life","applicationCategory":"LifestyleApplication",
-  "operatingSystem":"Web","url":"https://life.withmin.ai",
-  "description":"An intelligence that accompanies you through life.",
+  "url":"https://life.withmin.ai",
+  "operatingSystem":"Web, iOS, Android, SMS",
+  "description":"An AI life companion that keeps up with your calendar, your inbox and the people in your life. Text +1 (415) 629-3650 to start.",
   "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}},
  {"@type":"SoftwareApplication","name":"min. quant","applicationCategory":"FinanceApplication",
   "operatingSystem":"Web","url":"https://quant.withmin.ai",
@@ -606,7 +610,17 @@
   .cta:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
   .cta .arrow { display: inline-block; transition: transform .25s var(--ease); }
   .cta:hover .arrow { transform: translateX(3px); }
+  /* The quiet second action. The number is the primary CTA now, so opening the
+     app in a browser sits beside it as a link rather than a button. */
+  .cta-ghost { display: inline-flex; align-items: center; gap: 8px; font-weight: 500; font-size: 15px; color: var(--dim);
+               border-bottom: 1px solid oklch(from var(--dim) l c h / .35); padding-bottom: 2px; transition: color .25s var(--ease), border-color .25s var(--ease); }
+  .cta-ghost:hover { color: var(--text); border-color: oklch(from var(--text) l c h / .5); }
   .fine { font-size: 13px; color: var(--dim); margin: 14px 0 0; }
+  /* The 10DLC call-to-action disclosure. Every clause here is required next to
+     a number a carrier campaign collects on, and it has to read the same as
+     the one on life.withmin.ai. Small, but never hidden. */
+  .sms-fine { font-size: 12px; line-height: 1.55; color: var(--dim); margin: 16px 0 0; max-width: 52ch; opacity: .9; }
+  .sms-fine a { text-decoration: underline; text-underline-offset: 2px; }
   [data-mode="life"] [data-for="invest"], [data-mode="invest"] [data-for="life"] { display: none; }
 
   @media (max-width: 760px) {
@@ -1157,10 +1171,12 @@
 
     <div data-for="life">
       <h1>An intelligence that accompanies you through <em>life</em>.</h1>
-      <p class="lede" id="lede">Always there. Knows your life, and the people in it.</p>
+      <p class="lede" id="lede">Always there. Knows your life, and the people in it. Text it like a person &mdash; it answers from the same number.</p>
       <div class="ctas">
-        <a class="cta" href="https://life.withmin.ai">Meet min. <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="cta" href="sms:+14156293650">Text +1 (415) 629-3650 <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <a class="cta-ghost" href="https://life.withmin.ai">or open it in a browser</a>
       </div>
+      <p class="sms-fine">By texting this number you agree to receive text messages from min. Message frequency may vary. Message and data rates may apply. Reply <strong>STOP</strong> to opt out or <strong>HELP</strong> for help. We will not share or sell your mobile information for marketing or promotional purposes. See <a href="/sms">how the opt-in works</a>, our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</p>
     </div>
 
     <div data-for="invest">
@@ -1238,7 +1254,9 @@
         <p class="sub">But it doesn&rsquo;t have to be.</p>
         <p class="sub">Hope comes from people with the time and headspace to think, create, love, and care for one another.</p>
         <p class="sub">The future is still ours to build. And it can be better.</p>
-        <div class="ctas"><a class="cta" href="https://life.withmin.ai">Meet min. <span class="arrow" aria-hidden="true">&rarr;</span></a></div>
+        <div class="ctas"><a class="cta" href="sms:+14156293650">Text +1 (415) 629-3650 <span class="arrow" aria-hidden="true">&rarr;</span></a>
+          <a class="cta-ghost" href="https://life.withmin.ai">or open it in a browser</a></div>
+        <p class="sms-fine">By texting this number you agree to receive text messages from min. Message frequency may vary. Message and data rates may apply. Reply <strong>STOP</strong> to opt out or <strong>HELP</strong> for help. We will not share or sell your mobile information for marketing or promotional purposes. See <a href="/sms">how the opt-in works</a>, our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</p>
       </div>
       <div data-for="invest">
         <h2>Hand it an idea.</h2>
@@ -1263,6 +1281,7 @@
           <h4>Legal</h4>
           <a href="/privacy">Privacy</a>
           <a href="/terms">Terms</a>
+          <a href="/sms">Text messages</a>
         </div>
       </div>
     </div>
