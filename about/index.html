@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Why | min.</title>
-<meta name="description" content="The future should feel like this: technology in the background, people in the foreground. min. is an intelligence that stays with you through life.">
+<title>Why min. exists, and who builds it | min.</title>
+<meta name="description" content="Why min. exists, and who builds it: Eric Wang, founder of Siege AI, Inc. in Chatsworth, California. How to reach him.">
 <link rel="canonical" href="https://withmin.ai/about">
 <meta name="theme-color" content="#f6efe4">
 <meta property="og:type" content="website">
@@ -170,9 +170,30 @@
   }
   @media (prefers-reduced-motion: reduce) { .city .train { animation: none; } }
 
-  footer { padding: 28px clamp(22px, 6vw, 84px) 40px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; border-top: 1px solid var(--line); font-size: 14.5px; }
+  footer { padding: 28px clamp(22px, 6vw, 84px) 40px; display: flex; justify-content: space-between; align-items: center; gap: 24px 24px; flex-wrap: wrap; border-top: 1px solid var(--line); font-size: 14.5px; }
   footer nav { display: flex; gap: 22px; }
   footer nav a { opacity: .8; } footer nav a:hover { opacity: 1; }
+  /* Who the company actually is. A carrier reviewing our messaging campaign
+     opens this page to confirm a real business exists behind the brand, so the
+     legal name, the registered address, a phone number, an email and a named
+     human have to be here in plain readable text — not an image, not a form. */
+  .company { position: relative; z-index: 10; padding: clamp(40px, 7vh, 72px) clamp(22px, 6vw, 84px) clamp(30px, 5vh, 50px); max-width: 760px; border-top: 1px solid var(--line); margin-top: clamp(30px, 6vh, 60px); }
+  .company h2 { font-family: var(--serif); font-weight: 600; letter-spacing: -.012em; font-size: clamp(24px, 2.6vw, 32px); margin: 0 0 6px; }
+  .company .legal { color: var(--dim); margin: 0 0 26px; font-size: 15.5px; }
+  .company dl { display: grid; grid-template-columns: max-content 1fr; gap: 10px 26px; margin: 0; align-items: baseline; }
+  @media (max-width: 560px) { .company dl { grid-template-columns: 1fr; gap: 2px 0; } .company dd { margin-bottom: 14px; } }
+  .company dt { font-family: ui-monospace, Menlo, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+  .company dd { margin: 0; color: var(--text); font-size: 15.5px; line-height: 1.5; }
+  .company dd a { color: var(--text); text-decoration: underline; text-decoration-color: var(--glow-deep); text-underline-offset: 3px; }
+  .company .bio { color: var(--dim); font-size: 15.5px; line-height: 1.6; margin: 0 0 14px; max-width: 62ch; text-wrap: pretty; }
+  .company dl { margin-top: 24px; }
+  /* The company, in every footer. A carrier confirming the business should find
+     the legal name, address and a reachable human on whatever page they open. */
+  .f-company { display: block; width: 100%; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line);
+               font-size: 13px; line-height: 1.6; color: var(--dim); }
+  .f-company b { color: var(--text); font-weight: 500; }
+  .f-company a { color: var(--dim); text-decoration: underline; text-underline-offset: 2px; }
+  .f-company a:hover { color: var(--text); }
 </style>
 </head>
 <body>
@@ -591,9 +612,47 @@
     <div class="haze"></div>
   </div>
 </header>
+
+<section class="company" id="founder">
+  <h2>The founder</h2>
+  <p class="legal">Eric Wang &mdash; founder, Siege AI, Inc.</p>
+  <p class="bio">min. is built by one person. I started it because the tools meant
+  to help us keep up with our lives had all become things to check &mdash; another
+  feed, another inbox, another badge asking for attention it had not earned. I
+  wanted the opposite: something that already knows what your week looks like and
+  who is in it, that you reach the way you reach anyone you are close to, by
+  texting it, and that speaks first only when there is something worth saying.</p>
+  <p class="bio">If you use min. and something about it is wrong, write to me. The
+  address below reaches me, not a queue.</p>
+  <dl>
+    <dt>Founder</dt>
+    <dd>Eric Wang</dd>
+
+    <dt>LinkedIn</dt>
+    <dd><a href="https://www.linkedin.com/in/zizhouwang" rel="me noopener" target="_blank">linkedin.com/in/zizhouwang</a></dd>
+
+    <dt>X</dt>
+    <dd><a href="https://x.com/ericzizhouwangx" rel="me noopener" target="_blank">@ericzizhouwangx</a></dd>
+
+    <dt>Email</dt>
+    <dd><a href="mailto:hello@withmin.ai">hello@withmin.ai</a></dd>
+
+    <dt>Phone</dt>
+    <dd><a href="tel:+14088963638">+1 (408) 896-3638</a></dd>
+
+    <dt>Company</dt>
+    <dd>Siege AI, Inc. &mdash; 20024 Tuba St, Chatsworth, CA 91311, United States</dd>
+  </dl>
+</section>
 <footer>
   <a class="wordmark" href="/">min<i>.</i></a>
   <nav><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
+  <div class="f-company">
+    <b>Siege AI, Inc.</b> &middot; 20024 Tuba St, Chatsworth, CA 91311, United States &middot;
+    <a href="tel:+14088963638">+1 (408) 896-3638</a> &middot;
+    <a href="mailto:hello@withmin.ai">hello@withmin.ai</a> &middot;
+    founded by <a href="/about#founder">Eric Wang</a>
+  </div>
 </footer>
 <script>if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) document.querySelectorAll("svg.city").forEach(function (c) { try { c.pauseAnimations(); } catch (e) {} });</script>
 </body>

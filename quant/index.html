@@ -272,6 +272,13 @@
     .s-quote { font-size: clamp(26px, 7.5vw, 34px); }
     .sec-title { font-size: clamp(23px, 6.5vw, 28px); }
   }
+  /* The company, in every footer. A carrier confirming the business should find
+     the legal name, address and a reachable human on whatever page they open. */
+  .f-company { display: block; width: 100%; margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line);
+               font-size: 13px; line-height: 1.6; color: var(--dim); }
+  .f-company b { color: var(--text); font-weight: 500; }
+  .f-company a { color: var(--dim); text-decoration: underline; text-underline-offset: 2px; }
+  .f-company a:hover { color: var(--text); }
 </style>
 </head>
 <body>
@@ -418,6 +425,12 @@
     <a class="wordmark" href="/">min<i>.</i></a>
     <span class="fine">Research tooling, not financial advice. Trading runs in a sandbox until you connect a brokerage.</span>
     <span class="f-nav"><a href="/privacy">Privacy</a><a href="/terms">Terms</a><a href="https://quant.withmin.ai">Sign in</a></span>
+  <div class="f-company">
+    <b>Siege AI, Inc.</b> &middot; 20024 Tuba St, Chatsworth, CA 91311, United States &middot;
+    <a href="tel:+14088963638">+1 (408) 896-3638</a> &middot;
+    <a href="mailto:hello@withmin.ai">hello@withmin.ai</a> &middot;
+    founded by <a href="/about#founder">Eric Wang</a>
+  </div>
   </footer>
 </div>
 

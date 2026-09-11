@@ -25,9 +25,16 @@
 <meta name="twitter:image" content="https://withmin.ai/assets/og-home.png">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
- {"@type":"Organization","@id":"https://withmin.ai/#org","name":"min.","url":"https://withmin.ai/",
-  "description":"min. is an AI life companion you text like a person.",
-  "contactPoint":[{"@type":"ContactPoint","contactType":"customer support","telephone":"+14156293650","areaServed":"US","availableLanguage":["English"]}],
+ {"@type":"Organization","@id":"https://withmin.ai/#org","name":"Siege AI, Inc.","alternateName":"min.",
+  "legalName":"Siege AI, Inc.","url":"https://withmin.ai/","email":"hello@withmin.ai","telephone":"+14088963638",
+  "description":"Siege AI, Inc. makes min., an AI life companion you text like a person.",
+  "address":{"@type":"PostalAddress","streetAddress":"20024 Tuba St","addressLocality":"Chatsworth",
+   "addressRegion":"CA","postalCode":"91311","addressCountry":"US"},
+  "founder":{"@type":"Person","name":"Eric Wang","sameAs":"https://www.linkedin.com/in/zizhouwang"},
+  "contactPoint":[{"@type":"ContactPoint","contactType":"customer support","telephone":"+14088963638",
+   "email":"hello@withmin.ai","areaServed":"US","availableLanguage":["English"]},
+   {"@type":"ContactPoint","contactType":"technical support","telephone":"+14156293650",
+   "contactOption":"SMS","areaServed":"US","availableLanguage":["English"]}],
   "sameAs":["https://x.com/ericzizhouwangx","https://www.linkedin.com/in/zizhouwang"]},
  {"@type":"WebSite","@id":"https://withmin.ai/#site","url":"https://withmin.ai/","name":"min.",
   "publisher":{"@id":"https://withmin.ai/#org"}},
@@ -315,6 +322,15 @@
   .f-col h4 { order: -2; }
   [data-mode="invest"] .f-col a[href="/quant"] { order: -1; }
   .f-fine { font-size: 13px; color: var(--dim); margin: 22px 0 0; }
+  /* The company, under the wordmark, on every page. A carrier confirming the
+     business should find the legal name, address and a reachable human without
+     hunting for the right page — and the space beside the wordmark was empty. */
+  .f-id { display: grid; gap: 14px; align-content: start; }
+  .f-company { font-style: normal; font-size: 13px; line-height: 1.65; color: var(--dim); max-width: 34ch; }
+  .f-company b { color: var(--text); font-weight: 500; }
+  .f-company a { color: var(--dim); text-decoration: underline; text-underline-offset: 2px; }
+  .f-company a:hover { color: var(--text); }
+
 
   html.below .scene { display: none; } /* ?below=1: the page without its hero, for previews */
   * { box-sizing: border-box; }
@@ -1271,7 +1287,17 @@
 <div class="wrap">
   <footer>
     <div class="f-top">
-      <a class="wordmark" href="/">min<i>.</i></a>
+      <div class="f-id">
+        <a class="wordmark" href="/">min<i>.</i></a>
+        <address class="f-company">
+          <b>Siege AI, Inc.</b><br>
+          20024 Tuba St<br>
+          Chatsworth, CA 91311, United States<br>
+          <a href="tel:+14088963638">+1 (408) 896-3638</a><br>
+          <a href="mailto:hello@withmin.ai">hello@withmin.ai</a><br>
+          Founded by <a href="/about#founder">Eric Wang</a>
+        </address>
+      </div>
       <div class="f-cols">
         <div class="f-col">
           <h4>Companions</h4>
