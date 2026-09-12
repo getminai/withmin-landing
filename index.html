@@ -715,6 +715,54 @@
   [data-phase="night"] .card .msg, [data-phase="dusk"] .card .msg, [data-mode="invest"] .card .msg { background: oklch(from var(--bubble) calc(l + .06) c h); }
   [data-phase="night"] .card .msg.you, [data-phase="dusk"] .card .msg.you, [data-mode="invest"] .card .msg.you { background: var(--glow); }
   .card .gif { width: min(150px, 78%); }
+
+  /* ---------------------------------------------------------------- ROOMS
+     Each card wears the app it happened in.
+     Eric: the icon alone was not enough — "we want it to explicitly show that
+     it's a different app each one". So the card takes that app's surface and
+     its bubble colours, which is what you actually recognise from across a
+     room: Telegram's pale green reply on blue-grey, WhatsApp's green on warm
+     paper, Discord's dark channel with no bubbles at all, iMessage blue.
+     Phase-independent on purpose — an app looks like itself at every hour, so
+     these come AFTER the night/dusk rules and override them. */
+  .card .when { display: flex; align-items: center; gap: 6px; font-size: 11px; }
+  .card .when .app { font-weight: 700; letter-spacing: .01em; color: var(--app); }
+  .card .when .day { margin-left: auto; opacity: .55; }
+  .card .room-i { width: 12px; height: 12px; margin: 0; opacity: 1; color: var(--app); }
+
+  .card[data-app="telegram"] { --app: #229ED9; background: #EDF3F7; }
+  .card[data-app="telegram"] .msg,
+  [data-phase] .card[data-app="telegram"] .msg { background: #fff; color: #222; }
+  .card[data-app="telegram"] .msg.you,
+  [data-phase] .card[data-app="telegram"] .msg.you { background: #EFFDDE; color: #222; }
+
+  .card[data-app="whatsapp"] { --app: #25D366; background: #ECE5DD; }
+  .card[data-app="whatsapp"] .msg,
+  [data-phase] .card[data-app="whatsapp"] .msg { background: #fff; color: #222; }
+  .card[data-app="whatsapp"] .msg.you,
+  [data-phase] .card[data-app="whatsapp"] .msg.you { background: #D9FDD3; color: #222; }
+
+  /* Discord is the one that is not bubbles at all — flat lines in a dark
+     channel. Squaring the corners is most of the recognition. */
+  .card[data-app="discord"] { --app: #949CF7; background: #313338; border-color: #1e1f22;
+                              color: #dbdee1; }
+  .card[data-app="discord"] .msg,
+  [data-phase] .card[data-app="discord"] .msg { background: transparent; color: #dbdee1;
+                              border-radius: 4px; padding: 3px 4px; max-width: 100%; }
+  .card[data-app="discord"] .msg.you,
+  [data-phase] .card[data-app="discord"] .msg.you { background: transparent; color: #fff; font-weight: 600; }
+  .card[data-app="discord"] .when .day { color: #b5bac1; }
+  /* Discord has no left/right split: everything is one column of lines, which
+     is half of why it does not look like a texting app. */
+  .card[data-app="discord"] .msg.you { justify-self: start; }
+  .card[data-app="discord"] .gif { border-radius: 6px; }
+
+  .card[data-app="text"] { --app: #34C759; background: #fff; }
+  .card[data-app="text"] .msg,
+  [data-phase] .card[data-app="text"] .msg { background: #E9E9EB; color: #111; }
+  .card[data-app="text"] .msg.you,
+  [data-phase] .card[data-app="text"] .msg.you { background: #0B84FF; color: #fff; }
+
   .card:hover, .card:focus-within, .card.front { transform: rotate(0deg) translateY(-6px) scale(1.04) !important; z-index: 20; animation-play-state: paused;
     box-shadow: 0 26px 56px oklch(from var(--text) l c h / .26), 0 3px 8px oklch(from var(--text) l c h / .1); }
   .k1 { left: 0px;   top: 0px;   transform: rotate(-2.2deg); z-index: 3; animation: bob-a 9s ease-in-out infinite; }
@@ -1263,13 +1311,13 @@
         <p class="sub">No feed, nothing to open, nothing to check. Wherever you already message people &mdash; and someone on the other end who was there yesterday.</p>
       </div>
       <div class="wall" aria-label="A few texts from min., from different days">
-        <div class="card k1"><p class="when">Tuesday <svg class="room-i" role="img" aria-label="Telegram"><use href="#i-telegram"/></svg></p><p class="msg">how'd the 9:30 go, or did it move again</p><p class="msg you">moved. again.</p><p class="msg">of course it did</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzdzNwYzhza3d5cDBxbHh1YWxkazZzMGV5eW9yc3FkajUwbTFqeTA4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hyyV7pnbE0FqLNBAzs/200.gif" width="240" height="200" alt="Season 5 No GIF by The Office" loading="lazy" decoding="async"></div>
-        <div class="card k2"><p class="when">Thursday <svg class="room-i" role="img" aria-label="Text"><use href="#i-sms"/></svg></p><p class="msg you">SHE WALKED. across the whole living room</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async"><p class="msg">SHE'S MOBILE. lock the cabinets<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
-        <div class="card k3"><p class="when">Monday <svg class="room-i" role="img" aria-label="Discord"><use href="#i-discord"/></svg></p><p class="msg you">I GOT THE JOB</p><p class="msg">FUCKKKK YES</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzbjFma2RjeHpscHVmeWUxdzYydm9rajhzNWFsNTcxZzlmam42ZzZ4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/DfLwM9kttDFEQ/200.gif" width="200" height="200" alt="leonardo dicaprio cheers GIF" loading="lazy" decoding="async"><p class="msg">i knew it. i KNEW it.</p></div>
-        <div class="card k4"><p class="when">Wednesday <svg class="room-i" role="img" aria-label="Text"><use href="#i-sms"/></svg></p><p class="msg">rough one?</p><p class="msg you">yeah</p><p class="msg">ok. i'm here. no advice unless you want it.</p></div>
-        <div class="card k5"><p class="when">Friday <svg class="room-i" role="img" aria-label="Telegram"><use href="#i-telegram"/></svg></p><p class="msg">your mom lands sunday, 11:40. want me to keep saturday night clear</p><p class="msg you">yes pls</p><p class="msg">done. she still take her coffee black?</p></div>
-        <div class="card k6"><p class="when">Sunday <svg class="room-i" role="img" aria-label="Discord"><use href="#i-discord"/></svg></p><p class="msg">saw this and thought of you</p><img class="gif" src="https://media0.giphy.com/media/v1.Y2lkPTU3M2EwM2MzejhzangyNjRtN2J3ZGEzbnkzbzY0Yzg3dGtxcXlmdWxhamJ5amN5aiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tQAApm4PMOpiM/200.gif" width="266" height="200" alt="Hold My Hand Otter GIF" loading="lazy" decoding="async"><p class="msg you">that is literally me</p></div>
-        <div class="card k7"><p class="when">Tuesday <svg class="room-i" role="img" aria-label="Text"><use href="#i-sms"/></svg></p><p class="msg">you eat?</p><p class="msg you">...no</p><p class="msg">go eat. i'll wait.</p></div>
+        <div class="card k1" data-app="telegram"><p class="when"><svg class="room-i" role="img" aria-label="Telegram"><use href="#i-telegram"/></svg><span class="app">Telegram</span><span class="day">Tuesday</span></p><p class="msg">how'd the 9:30 go, or did it move again</p><p class="msg you">moved. again.</p><p class="msg">of course it did</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzdzNwYzhza3d5cDBxbHh1YWxkazZzMGV5eW9yc3FkajUwbTFqeTA4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hyyV7pnbE0FqLNBAzs/200.gif" width="240" height="200" alt="Season 5 No GIF by The Office" loading="lazy" decoding="async"></div>
+        <div class="card k2" data-app="text"><p class="when"><svg class="room-i" role="img" aria-label="Text"><use href="#i-sms"/></svg><span class="app">Text</span><span class="day">Thursday</span></p><p class="msg you">SHE WALKED. across the whole living room</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async"><p class="msg">SHE'S MOBILE. lock the cabinets<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
+        <div class="card k3" data-app="discord"><p class="when"><svg class="room-i" role="img" aria-label="Discord"><use href="#i-discord"/></svg><span class="app">Discord</span><span class="day">Monday</span></p><p class="msg you">I GOT THE JOB</p><p class="msg">FUCKKKK YES</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzbjFma2RjeHpscHVmeWUxdzYydm9rajhzNWFsNTcxZzlmam42ZzZ4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/DfLwM9kttDFEQ/200.gif" width="200" height="200" alt="leonardo dicaprio cheers GIF" loading="lazy" decoding="async"><p class="msg">i knew it. i KNEW it.</p></div>
+        <div class="card k4" data-app="whatsapp"><p class="when"><svg class="room-i" role="img" aria-label="WhatsApp"><use href="#i-whatsapp"/></svg><span class="app">WhatsApp</span><span class="day">Wednesday</span></p><p class="msg">rough one?</p><p class="msg you">yeah</p><p class="msg">ok. i'm here. no advice unless you want it.</p></div>
+        <div class="card k5" data-app="telegram"><p class="when"><svg class="room-i" role="img" aria-label="Telegram"><use href="#i-telegram"/></svg><span class="app">Telegram</span><span class="day">Friday</span></p><p class="msg">your mom lands sunday, 11:40. want me to keep saturday night clear</p><p class="msg you">yes pls</p><p class="msg">done. she still take her coffee black?</p></div>
+        <div class="card k6" data-app="discord"><p class="when"><svg class="room-i" role="img" aria-label="Discord"><use href="#i-discord"/></svg><span class="app">Discord</span><span class="day">Sunday</span></p><p class="msg">saw this and thought of you</p><img class="gif" src="https://media0.giphy.com/media/v1.Y2lkPTU3M2EwM2MzejhzangyNjRtN2J3ZGEzbnkzbzY0Yzg3dGtxcXlmdWxhamJ5amN5aiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tQAApm4PMOpiM/200.gif" width="266" height="200" alt="Hold My Hand Otter GIF" loading="lazy" decoding="async"><p class="msg you">that is literally me</p></div>
+        <div class="card k7" data-app="text"><p class="when"><svg class="room-i" role="img" aria-label="Text"><use href="#i-sms"/></svg><span class="app">Text</span><span class="day">Tuesday</span></p><p class="msg">you eat?</p><p class="msg you">...no</p><p class="msg">go eat. i'll wait.</p></div>
       </div>
     </div>
   </section>
