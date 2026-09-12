@@ -642,21 +642,38 @@
   .rooms a { color: var(--text); border-bottom: 1px solid oklch(from var(--dim) l c h / .35);
              padding-bottom: 1px; transition: border-color .25s var(--ease); white-space: nowrap; }
   .rooms a:hover { border-color: oklch(from var(--text) l c h / .6); }
-  /* The other rooms, as real actions rather than a footnote.
-     Outlined instead of filled: three solid buttons make none of them the
-     answer, and the number is still the answer. */
-  .cta-alt { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; color: var(--text);
-             padding: 13px 20px; border-radius: 999px; border: 1px solid oklch(from var(--dim) l c h / .45);
-             background: oklch(from var(--bg) l c h / .35); backdrop-filter: blur(6px);
-             transition: transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
-             white-space: nowrap; }
-  .cta-alt:hover { transform: translateY(-2px); border-color: oklch(from var(--text) l c h / .55);
-                   background: oklch(from var(--bg) l c h / .6); }
-  .cta-alt:active { transform: translateY(0) scale(.98); }
-  .cta-alt:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
-  /* The handle someone types to find min. Dimmer than the platform name, so
-     the pill reads as one thing rather than two. */
-  .cta-alt .at { font-weight: 500; color: var(--dim); }
+  /* The other rooms, as marks rather than words.
+     Three labelled pills made the row read as a list of brand names and pushed
+     the number — which IS the answer — into being one item among four. A mark
+     is the thing itself: you recognise Telegram faster than you read the word,
+     and the row collapses to three equal circles that sit UNDER the number
+     instead of competing with it. Equal to each other, smaller than the text
+     button, and never a wordmark. */
+  /* The three travel together. Left loose in the row, a narrow screen kept
+     one of them up beside the number and dropped the other two, which reads as
+     a button that got left behind rather than a set. */
+  .room-row { display: flex; align-items: center; gap: 12px; }
+  .room-btn { display: inline-flex; align-items: center; justify-content: center;
+              width: 52px; height: 52px; border-radius: 999px; color: var(--dim);
+              border: 1px solid oklch(from var(--dim) l c h / .45);
+              background: oklch(from var(--bg) l c h / .35); backdrop-filter: blur(6px);
+              transition: transform .25s var(--ease), color .25s var(--ease),
+                          border-color .25s var(--ease), background .25s var(--ease); }
+  .room-btn svg { width: 23px; height: 23px; display: block; }
+  /* Colour only on approach: at rest the row is one quiet material, and the
+     brand arrives as the reward for reaching toward it. */
+  .room-btn:hover { transform: translateY(-2px); color: var(--brand);
+                    border-color: oklch(from var(--brand) l c h / .55);
+                    background: oklch(from var(--brand) l c h / .1); }
+  .room-btn:active { transform: translateY(0) scale(.96); }
+  .room-btn:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+  .room-btn.tg { --brand: oklch(.62 .14 245); }
+  .room-btn.wa { --brand: oklch(.72 .18 150); }
+  .room-btn.dc { --brand: oklch(.58 .17 275); }
+
+  /* On a card, the room is a mark beside the day — the thread is the subject,
+     so this stays quiet and never becomes a badge. */
+  .room-i { width: 13px; height: 13px; vertical-align: -2px; margin-left: 7px; opacity: .5; }
   .fine { font-size: 13px; color: var(--dim); margin: 14px 0 0; }
   /* The 10DLC call-to-action disclosure. Every clause here is required next to
      a number a carrier campaign collects on, and it has to read the same as
@@ -703,8 +720,6 @@
   .card .when { margin: 0 0 1px; }
   /* Which room that exchange happened in. Quieter than the day, because the
      point is that it does not matter — it is the same min. either way. */
-  .room { padding-left: 6px; opacity: .65; }
-  .room::before { content: "· "; }
   .card .msg { font-size: 14px; padding: 8px 12px; max-width: 92%; background: oklch(from var(--bubble) calc(l - .035) calc(c + .01) h); }
   .card .msg.you { background: var(--glow); }
   [data-phase="night"] .card .msg, [data-phase="dusk"] .card .msg, [data-mode="invest"] .card .msg { background: oklch(from var(--bubble) calc(l + .06) c h); }
@@ -768,6 +783,16 @@
 </style>
 </head>
 <body>
+<!-- Channel marks, defined once and referenced by <use>. Brand glyphs only:
+     no wordmarks, no colour baked in — they take currentColor so the same
+     symbol works in a pill, on a card, light or dark. -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <symbol id="i-telegram" viewBox="0 0 24 24"><path fill="currentColor" d="M21.9 4.3 18.6 19.1c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 12.6l-4.8-1.5c-1-.3-1.1-1 .2-1.5l18.8-7.2c.9-.3 1.6.2 1.5 1.9Z"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.2 0-.4 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3c-.3.3-.9.9-.9 2.1s.9 2.5 1 2.6c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="i-discord" viewBox="0 0 24 24"><path fill="currentColor" d="M19.3 5.4A16.9 16.9 0 0 0 15.1 4l-.3.5a12.6 12.6 0 0 1 3.7 1.9 17.8 17.8 0 0 0-12.9 0A12.6 12.6 0 0 1 9.3 4.5L9 4a16.9 16.9 0 0 0-4.2 1.4C2 9.5 1.3 13.5 1.6 17.4a17 17 0 0 0 5.2 2.6l.9-1.6a11 11 0 0 1-1.7-.8l.4-.3a12.2 12.2 0 0 0 11.2 0l.4.3a11 11 0 0 1-1.7.8l.9 1.6a17 17 0 0 0 5.2-2.6c.4-4.5-.7-8.5-2.9-12ZM8.7 15c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.9.9 1.8 2c0 1.1-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.9.9 1.8 2c0 1.1-.8 2-1.8 2Z"/></symbol>
+  <symbol id="i-sms" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3c-5 0-9 3.3-9 7.4 0 2.3 1.3 4.4 3.4 5.7-.2.8-.7 2.1-1.4 3 0 0 2.4-.4 4.3-1.8.9.2 1.8.3 2.7.3 5 0 9-3.3 9-7.2S17 3 12 3Z"/></symbol>
+</svg>
+
 <div class="grain" aria-hidden="true"></div>
 
 <header class="scene">
@@ -1220,9 +1245,11 @@
       <p class="lede" id="lede">Your AI life companion. Always there, knows your life and the people in it.</p>
       <div class="ctas">
         <a class="cta" href="sms:+14156293650">Text +1 (415) 629-3650 <span class="arrow" aria-hidden="true">&rarr;</span></a>
-        <a class="cta-alt" href="https://t.me/withminbot">Telegram <span class="at">@withminbot</span></a>
-        <a class="cta-alt" href="https://wa.me/14156293650">WhatsApp <span class="at">+1 (415) 629-3650</span></a>
-        <a class="cta-alt" href="https://discord.com/users/1548381718451589150">Discord <span class="at">min.#9855</span></a>
+        <div class="room-row">
+          <a class="room-btn tg" href="https://t.me/withminbot" aria-label="Telegram" title="Telegram"><svg><use href="#i-telegram"/></svg></a>
+          <a class="room-btn wa" href="https://wa.me/14156293650" aria-label="WhatsApp" title="WhatsApp"><svg><use href="#i-whatsapp"/></svg></a>
+          <a class="room-btn dc" href="https://discord.com/users/1548381718451589150" aria-label="Discord" title="Discord"><svg><use href="#i-discord"/></svg></a>
+        </div>
       </div>
       <p class="sms-fine">By texting this number you agree to receive SMS text messages from min. Message frequency may vary. Message and data rates may apply. Reply <strong>STOP</strong> to opt out. Reply <strong>HELP</strong> for help. We will not share or sell your mobile information for marketing or promotional purposes. See <a href="/sms">how the opt-in works</a>, our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</p>
       <p class="rooms">One conversation, whichever room you say it in &mdash; or <a href="https://life.withmin.ai">open it in a browser</a>.</p>
@@ -1247,13 +1274,13 @@
         <p class="sub">No feed, nothing to open, nothing to check. Wherever you already message people &mdash; and someone on the other end who was there yesterday.</p>
       </div>
       <div class="wall" aria-label="A few texts from min., from different days">
-        <div class="card k1"><p class="when">Tuesday <span class="room">Telegram</span></p><p class="msg">how'd the 9:30 go, or did it move again</p><p class="msg you">moved. again.</p><p class="msg">of course it did</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzdzNwYzhza3d5cDBxbHh1YWxkazZzMGV5eW9yc3FkajUwbTFqeTA4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hyyV7pnbE0FqLNBAzs/200.gif" width="240" height="200" alt="Season 5 No GIF by The Office" loading="lazy" decoding="async"></div>
-        <div class="card k2"><p class="when">Thursday <span class="room">Text</span></p><p class="msg you">SHE WALKED. across the whole living room</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async"><p class="msg">SHE'S MOBILE. lock the cabinets<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
-        <div class="card k3"><p class="when">Monday <span class="room">Discord</span></p><p class="msg you">I GOT THE JOB</p><p class="msg">FUCKKKK YES</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzbjFma2RjeHpscHVmeWUxdzYydm9rajhzNWFsNTcxZzlmam42ZzZ4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/DfLwM9kttDFEQ/200.gif" width="200" height="200" alt="leonardo dicaprio cheers GIF" loading="lazy" decoding="async"><p class="msg">i knew it. i KNEW it.</p></div>
-        <div class="card k4"><p class="when">Wednesday <span class="room">Text</span></p><p class="msg">rough one?</p><p class="msg you">yeah</p><p class="msg">ok. i'm here. no advice unless you want it.</p></div>
-        <div class="card k5"><p class="when">Friday <span class="room">Telegram</span></p><p class="msg">your mom lands sunday, 11:40. want me to keep saturday night clear</p><p class="msg you">yes pls</p><p class="msg">done. she still take her coffee black?</p></div>
-        <div class="card k6"><p class="when">Sunday <span class="room">Discord</span></p><p class="msg">saw this and thought of you</p><img class="gif" src="https://media0.giphy.com/media/v1.Y2lkPTU3M2EwM2MzejhzangyNjRtN2J3ZGEzbnkzbzY0Yzg3dGtxcXlmdWxhamJ5amN5aiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tQAApm4PMOpiM/200.gif" width="266" height="200" alt="Hold My Hand Otter GIF" loading="lazy" decoding="async"><p class="msg you">that is literally me</p></div>
-        <div class="card k7"><p class="when">Tuesday <span class="room">Text</span></p><p class="msg">you eat?</p><p class="msg you">...no</p><p class="msg">go eat. i'll wait.</p></div>
+        <div class="card k1"><p class="when">Tuesday <svg class="room-i" role="img" aria-label="Telegram"><use href="#i-telegram"/></svg></p><p class="msg">how'd the 9:30 go, or did it move again</p><p class="msg you">moved. again.</p><p class="msg">of course it did</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzdzNwYzhza3d5cDBxbHh1YWxkazZzMGV5eW9yc3FkajUwbTFqeTA4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hyyV7pnbE0FqLNBAzs/200.gif" width="240" height="200" alt="Season 5 No GIF by The Office" loading="lazy" decoding="async"></div>
+        <div class="card k2"><p class="when">Thursday <svg class="room-i" role="img" aria-label="Text"><use href="#i-sms"/></svg></p><p class="msg you">SHE WALKED. across the whole living room</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async"><p class="msg">SHE'S MOBILE. lock the cabinets<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
+        <div class="card k3"><p class="when">Monday <svg class="room-i" role="img" aria-label="Discord"><use href="#i-discord"/></svg></p><p class="msg you">I GOT THE JOB</p><p class="msg">FUCKKKK YES</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzbjFma2RjeHpscHVmeWUxdzYydm9rajhzNWFsNTcxZzlmam42ZzZ4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/DfLwM9kttDFEQ/200.gif" width="200" height="200" alt="leonardo dicaprio cheers GIF" loading="lazy" decoding="async"><p class="msg">i knew it. i KNEW it.</p></div>
+        <div class="card k4"><p class="when">Wednesday <svg class="room-i" role="img" aria-label="Text"><use href="#i-sms"/></svg></p><p class="msg">rough one?</p><p class="msg you">yeah</p><p class="msg">ok. i'm here. no advice unless you want it.</p></div>
+        <div class="card k5"><p class="when">Friday <svg class="room-i" role="img" aria-label="Telegram"><use href="#i-telegram"/></svg></p><p class="msg">your mom lands sunday, 11:40. want me to keep saturday night clear</p><p class="msg you">yes pls</p><p class="msg">done. she still take her coffee black?</p></div>
+        <div class="card k6"><p class="when">Sunday <svg class="room-i" role="img" aria-label="Discord"><use href="#i-discord"/></svg></p><p class="msg">saw this and thought of you</p><img class="gif" src="https://media0.giphy.com/media/v1.Y2lkPTU3M2EwM2MzejhzangyNjRtN2J3ZGEzbnkzbzY0Yzg3dGtxcXlmdWxhamJ5amN5aiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tQAApm4PMOpiM/200.gif" width="266" height="200" alt="Hold My Hand Otter GIF" loading="lazy" decoding="async"><p class="msg you">that is literally me</p></div>
+        <div class="card k7"><p class="when">Tuesday <svg class="room-i" role="img" aria-label="Text"><use href="#i-sms"/></svg></p><p class="msg">you eat?</p><p class="msg you">...no</p><p class="msg">go eat. i'll wait.</p></div>
       </div>
     </div>
   </section>
@@ -1304,9 +1331,11 @@
         <p class="sub">Hope comes from people with the time and headspace to think, create, love, and care for one another.</p>
         <p class="sub">The future is still ours to build. And it can be better.</p>
         <div class="ctas"><a class="cta" href="sms:+14156293650">Text +1 (415) 629-3650 <span class="arrow" aria-hidden="true">&rarr;</span></a>
-          <a class="cta-alt" href="https://t.me/withminbot">Telegram <span class="at">@withminbot</span></a>
-        <a class="cta-alt" href="https://wa.me/14156293650">WhatsApp <span class="at">+1 (415) 629-3650</span></a>
-        <a class="cta-alt" href="https://discord.com/users/1548381718451589150">Discord <span class="at">min.#9855</span></a></div>
+          <div class="room-row">
+          <a class="room-btn tg" href="https://t.me/withminbot" aria-label="Telegram" title="Telegram"><svg><use href="#i-telegram"/></svg></a>
+          <a class="room-btn wa" href="https://wa.me/14156293650" aria-label="WhatsApp" title="WhatsApp"><svg><use href="#i-whatsapp"/></svg></a>
+          <a class="room-btn dc" href="https://discord.com/users/1548381718451589150" aria-label="Discord" title="Discord"><svg><use href="#i-discord"/></svg></a>
+        </div></div>
         <p class="sms-fine">By texting this number you agree to receive SMS text messages from min. Message frequency may vary. Message and data rates may apply. Reply <strong>STOP</strong> to opt out. Reply <strong>HELP</strong> for help. We will not share or sell your mobile information for marketing or promotional purposes. See <a href="/sms">how the opt-in works</a>, our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</p>
       <p class="rooms">One conversation, whichever room you say it in &mdash; or <a href="https://life.withmin.ai">open it in a browser</a>.</p>
       </div>
