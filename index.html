@@ -701,6 +701,10 @@
           box-shadow: 0 14px 34px oklch(from var(--text) l c h / .16), 0 2px 6px oklch(from var(--text) l c h / .08);
           transition: transform .35s var(--ease), box-shadow .35s var(--ease); }
   .card .when { margin: 0 0 1px; }
+  /* Which room that exchange happened in. Quieter than the day, because the
+     point is that it does not matter — it is the same min. either way. */
+  .room { padding-left: 6px; opacity: .65; }
+  .room::before { content: "· "; }
   .card .msg { font-size: 14px; padding: 8px 12px; max-width: 92%; background: oklch(from var(--bubble) calc(l - .035) calc(c + .01) h); }
   .card .msg.you { background: var(--glow); }
   [data-phase="night"] .card .msg, [data-phase="dusk"] .card .msg, [data-mode="invest"] .card .msg { background: oklch(from var(--bubble) calc(l + .06) c h); }
@@ -1238,17 +1242,17 @@
   <section data-for="life">
     <div class="wrap two wide">
       <div>
-        <h2>It texts. That is the whole app.</h2>
-        <p class="sub">No feed, nothing to open, nothing to check. A number in your phone, and someone on the other end who was there yesterday.</p>
+        <h2>DM it. That is the whole app.</h2>
+        <p class="sub">No feed, nothing to open, nothing to check. Wherever you already message people &mdash; and someone on the other end who was there yesterday.</p>
       </div>
       <div class="wall" aria-label="A few texts from min., from different days">
-        <div class="card k1"><p class="when">Tuesday</p><p class="msg">how'd the 9:30 go, or did it move again</p><p class="msg you">moved. again.</p><p class="msg">of course it did</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzdzNwYzhza3d5cDBxbHh1YWxkazZzMGV5eW9yc3FkajUwbTFqeTA4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hyyV7pnbE0FqLNBAzs/200.gif" width="240" height="200" alt="Season 5 No GIF by The Office" loading="lazy" decoding="async"></div>
-        <div class="card k2"><p class="when">Thursday</p><p class="msg you">SHE WALKED. across the whole living room</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async"><p class="msg">SHE'S MOBILE. lock the cabinets<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
-        <div class="card k3"><p class="when">Monday</p><p class="msg you">I GOT THE JOB</p><p class="msg">FUCKKKK YES</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzbjFma2RjeHpscHVmeWUxdzYydm9rajhzNWFsNTcxZzlmam42ZzZ4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/DfLwM9kttDFEQ/200.gif" width="200" height="200" alt="leonardo dicaprio cheers GIF" loading="lazy" decoding="async"><p class="msg">i knew it. i KNEW it.</p></div>
-        <div class="card k4"><p class="when">Wednesday</p><p class="msg">rough one?</p><p class="msg you">yeah</p><p class="msg">ok. i'm here. no advice unless you want it.</p></div>
-        <div class="card k5"><p class="when">Friday</p><p class="msg">your mom lands sunday, 11:40. want me to keep saturday night clear</p><p class="msg you">yes pls</p><p class="msg">done. she still take her coffee black?</p></div>
-        <div class="card k6"><p class="when">Sunday</p><p class="msg">saw this and thought of you</p><img class="gif" src="https://media0.giphy.com/media/v1.Y2lkPTU3M2EwM2MzejhzangyNjRtN2J3ZGEzbnkzbzY0Yzg3dGtxcXlmdWxhamJ5amN5aiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tQAApm4PMOpiM/200.gif" width="266" height="200" alt="Hold My Hand Otter GIF" loading="lazy" decoding="async"><p class="msg you">that is literally me</p></div>
-        <div class="card k7"><p class="when">Tuesday</p><p class="msg">you eat?</p><p class="msg you">...no</p><p class="msg">go eat. i'll wait.</p></div>
+        <div class="card k1"><p class="when">Tuesday <span class="room">Telegram</span></p><p class="msg">how'd the 9:30 go, or did it move again</p><p class="msg you">moved. again.</p><p class="msg">of course it did</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzdzNwYzhza3d5cDBxbHh1YWxkazZzMGV5eW9yc3FkajUwbTFqeTA4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hyyV7pnbE0FqLNBAzs/200.gif" width="240" height="200" alt="Season 5 No GIF by The Office" loading="lazy" decoding="async"></div>
+        <div class="card k2"><p class="when">Thursday <span class="room">Text</span></p><p class="msg you">SHE WALKED. across the whole living room</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async"><p class="msg">SHE'S MOBILE. lock the cabinets<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
+        <div class="card k3"><p class="when">Monday <span class="room">Discord</span></p><p class="msg you">I GOT THE JOB</p><p class="msg">FUCKKKK YES</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzbjFma2RjeHpscHVmeWUxdzYydm9rajhzNWFsNTcxZzlmam42ZzZ4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/DfLwM9kttDFEQ/200.gif" width="200" height="200" alt="leonardo dicaprio cheers GIF" loading="lazy" decoding="async"><p class="msg">i knew it. i KNEW it.</p></div>
+        <div class="card k4"><p class="when">Wednesday <span class="room">Text</span></p><p class="msg">rough one?</p><p class="msg you">yeah</p><p class="msg">ok. i'm here. no advice unless you want it.</p></div>
+        <div class="card k5"><p class="when">Friday <span class="room">Telegram</span></p><p class="msg">your mom lands sunday, 11:40. want me to keep saturday night clear</p><p class="msg you">yes pls</p><p class="msg">done. she still take her coffee black?</p></div>
+        <div class="card k6"><p class="when">Sunday <span class="room">Discord</span></p><p class="msg">saw this and thought of you</p><img class="gif" src="https://media0.giphy.com/media/v1.Y2lkPTU3M2EwM2MzejhzangyNjRtN2J3ZGEzbnkzbzY0Yzg3dGtxcXlmdWxhamJ5amN5aiZlcD12MV9naWZzX3NlYXJjaCZjdD1n/tQAApm4PMOpiM/200.gif" width="266" height="200" alt="Hold My Hand Otter GIF" loading="lazy" decoding="async"><p class="msg you">that is literally me</p></div>
+        <div class="card k7"><p class="when">Tuesday <span class="room">Text</span></p><p class="msg">you eat?</p><p class="msg you">...no</p><p class="msg">go eat. i'll wait.</p></div>
       </div>
     </div>
   </section>
