@@ -194,9 +194,80 @@
   .f-company b { color: var(--text); font-weight: 500; }
   .f-company a { color: var(--dim); text-decoration: underline; text-underline-offset: 2px; }
   .f-company a:hover { color: var(--text); }
+
+  .or { font-size: 14px; color: var(--dim); opacity: .8; }
+  /* The other rooms, as marks rather than words.
+     Three labelled pills made the row read as a list of brand names and pushed
+     the number — which IS the answer — into being one item among four. A mark
+     is the thing itself: you recognise Telegram faster than you read the word,
+     and the row collapses to three equal circles that sit UNDER the number
+     instead of competing with it. Equal to each other, smaller than the text
+     button, and never a wordmark. */
+  /* The three travel together. Left loose in the row, a narrow screen kept
+     one of them up beside the number and dropped the other two, which reads as
+     a button that got left behind rather than a set. */
+  /* The number is the answer; these are the alternatives. Saying so costs two
+     letters and stops the row reading as four equal buttons. */
+  .or { font-size: 14px; color: var(--dim); opacity: .8; }
+  .room-row { display: flex; align-items: center; gap: 12px; }
+  .room-btn { display: inline-flex; align-items: center; justify-content: center;
+              width: 52px; height: 52px; border-radius: 999px; color: var(--dim);
+              border: 1px solid oklch(from var(--dim) l c h / .45);
+              background: oklch(from var(--bg) l c h / .35); backdrop-filter: blur(6px);
+              transition: transform .25s var(--ease), color .25s var(--ease),
+                          border-color .25s var(--ease), background .25s var(--ease); }
+  .room-btn svg { width: 23px; height: 23px; display: block; }
+  /* Colour only on approach: at rest the row is one quiet material, and the
+     brand arrives as the reward for reaching toward it. */
+  .room-btn:hover { transform: translateY(-2px); color: var(--brand);
+                    border-color: oklch(from var(--brand) l c h / .55);
+                    background: oklch(from var(--brand) l c h / .1); }
+  .room-btn:active { transform: translateY(0) scale(.96); }
+  .room-btn:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+  /* The name, on approach.
+     A mark is faster to recognise than a word, which is why the row is marks —
+     but the first time you meet it you still want to be told, and the browser's
+     own tooltip takes half a second and arrives grey. This one is instant, in
+     the app's colour, and overshoots very slightly on the way up so it lands
+     like something said rather than something displayed. */
+  .room-btn { position: relative; }
+  .room-btn::after, .room-btn::before {
+    position: absolute; left: 50%; opacity: 0; pointer-events: none;
+    transition: opacity .16s var(--ease), transform .3s cubic-bezier(.34, 1.6, .58, 1); }
+  .room-btn::after {
+    content: attr(data-label); bottom: calc(100% + 11px);
+    transform: translate(-50%, 6px) scale(.8); transform-origin: 50% 120%;
+    background: var(--brand); color: #fff; font-size: 11.5px; font-weight: 700;
+    letter-spacing: .015em; padding: 5px 11px; border-radius: 999px; white-space: nowrap;
+    box-shadow: 0 5px 14px oklch(from var(--brand) l c h / .4); }
+  /* the little tail, so the pill points at the thing it names */
+  .room-btn::before {
+    content: ""; bottom: calc(100% + 5px);
+    transform: translate(-50%, 6px) scale(.8);
+    border: 5px solid transparent; border-top-color: var(--brand); }
+  .room-btn:hover::after, .room-btn:focus-visible::after,
+  .room-btn:hover::before, .room-btn:focus-visible::before {
+    opacity: 1; transform: translate(-50%, 0) scale(1); }
+  /* A finger has no hover, and a tooltip that needs one is a tooltip that
+     never shows. On touch the row is three marks and that is the whole of it. */
+  @media (hover: none) { .room-btn::after, .room-btn::before { content: none; } }
+  .room-btn.tg { --brand: oklch(.62 .14 245); }
+  .room-btn.wa { --brand: oklch(.72 .18 150); }
+  .room-btn.dc { --brand: oklch(.58 .17 275); }
+
 </style>
 </head>
 <body>
+<!-- Channel marks, defined once and referenced by <use>. Brand glyphs only:
+     no wordmarks, no colour baked in — they take currentColor so the same
+     symbol works in a pill, on a card, light or dark. -->
+<svg width="0" height="0" aria-hidden="true" style="position:absolute">
+  <symbol id="i-telegram" viewBox="0 0 24 24"><path fill="currentColor" d="M21.9 4.3 18.6 19.1c-.2 1.1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 12.6l-4.8-1.5c-1-.3-1.1-1 .2-1.5l18.8-7.2c.9-.3 1.6.2 1.5 1.9Z"/></symbol>
+  <symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.2 0-.4 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3c-.3.3-.9.9-.9 2.1s.9 2.5 1 2.6c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3Z"/></symbol>
+  <symbol id="i-discord" viewBox="0 0 24 24"><path fill="currentColor" d="M19.3 5.4A16.9 16.9 0 0 0 15.1 4l-.3.5a12.6 12.6 0 0 1 3.7 1.9 17.8 17.8 0 0 0-12.9 0A12.6 12.6 0 0 1 9.3 4.5L9 4a16.9 16.9 0 0 0-4.2 1.4C2 9.5 1.3 13.5 1.6 17.4a17 17 0 0 0 5.2 2.6l.9-1.6a11 11 0 0 1-1.7-.8l.4-.3a12.2 12.2 0 0 0 11.2 0l.4.3a11 11 0 0 1-1.7.8l.9 1.6a17 17 0 0 0 5.2-2.6c.4-4.5-.7-8.5-2.9-12ZM8.7 15c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.9.9 1.8 2c0 1.1-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.9.9 1.8 2c0 1.1-.8 2-1.8 2Z"/></symbol>
+  <symbol id="i-sms" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3c-5 0-9 3.3-9 7.4 0 2.3 1.3 4.4 3.4 5.7-.2.8-.7 2.1-1.4 3 0 0 2.4-.4 4.3-1.8.9.2 1.8.3 2.7.3 5 0 9-3.3 9-7.2S17 3 12 3Z"/></symbol>
+</svg>
+
 <div class="grain" aria-hidden="true"></div>
 <header class="scene">
   <nav class="top">
@@ -209,7 +280,12 @@
     <p class="body"><b>min.</b> is an intelligence that stays with you through life. It knows your days, remembers the people in them, and takes care of the small things quietly, so you have more of yourself to give to the ones who matter.</p>
     <div class="ctas">
       <a class="cta" href="sms:+14156293650">Text +1 (415) 629-3650 <span aria-hidden="true">&rarr;</span></a>
-      <a class="quant" href="https://life.withmin.ai">or open it in a browser</a>
+      <span class="or">or</span>
+      <div class="room-row">
+        <a class="room-btn tg" href="https://t.me/withminbot" aria-label="Telegram" data-label="Telegram"><svg><use href="#i-telegram"/></svg></a>
+        <a class="room-btn wa" href="https://wa.me/14156293650" aria-label="WhatsApp" data-label="WhatsApp"><svg><use href="#i-whatsapp"/></svg></a>
+        <a class="room-btn dc" href="https://discord.com/users/1548381718451589150" aria-label="Discord" data-label="Discord"><svg><use href="#i-discord"/></svg></a>
+      </div>
     </div>
   </main>
   <div class="ground" aria-hidden="true">

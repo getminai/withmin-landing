@@ -642,6 +642,9 @@
   /* The three travel together. Left loose in the row, a narrow screen kept
      one of them up beside the number and dropped the other two, which reads as
      a button that got left behind rather than a set. */
+  /* The number is the answer; these are the alternatives. Saying so costs two
+     letters and stops the row reading as four equal buttons. */
+  .or { font-size: 14px; color: var(--dim); opacity: .8; }
   .room-row { display: flex; align-items: center; gap: 12px; }
   .room-btn { display: inline-flex; align-items: center; justify-content: center;
               width: 52px; height: 52px; border-radius: 999px; color: var(--dim);
@@ -657,6 +660,33 @@
                     background: oklch(from var(--brand) l c h / .1); }
   .room-btn:active { transform: translateY(0) scale(.96); }
   .room-btn:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+  /* The name, on approach.
+     A mark is faster to recognise than a word, which is why the row is marks —
+     but the first time you meet it you still want to be told, and the browser's
+     own tooltip takes half a second and arrives grey. This one is instant, in
+     the app's colour, and overshoots very slightly on the way up so it lands
+     like something said rather than something displayed. */
+  .room-btn { position: relative; }
+  .room-btn::after, .room-btn::before {
+    position: absolute; left: 50%; opacity: 0; pointer-events: none;
+    transition: opacity .16s var(--ease), transform .3s cubic-bezier(.34, 1.6, .58, 1); }
+  .room-btn::after {
+    content: attr(data-label); bottom: calc(100% + 11px);
+    transform: translate(-50%, 6px) scale(.8); transform-origin: 50% 120%;
+    background: var(--brand); color: #fff; font-size: 11.5px; font-weight: 700;
+    letter-spacing: .015em; padding: 5px 11px; border-radius: 999px; white-space: nowrap;
+    box-shadow: 0 5px 14px oklch(from var(--brand) l c h / .4); }
+  /* the little tail, so the pill points at the thing it names */
+  .room-btn::before {
+    content: ""; bottom: calc(100% + 5px);
+    transform: translate(-50%, 6px) scale(.8);
+    border: 5px solid transparent; border-top-color: var(--brand); }
+  .room-btn:hover::after, .room-btn:focus-visible::after,
+  .room-btn:hover::before, .room-btn:focus-visible::before {
+    opacity: 1; transform: translate(-50%, 0) scale(1); }
+  /* A finger has no hover, and a tooltip that needs one is a tooltip that
+     never shows. On touch the row is three marks and that is the whole of it. */
+  @media (hover: none) { .room-btn::after, .room-btn::before { content: none; } }
   .room-btn.tg { --brand: oklch(.62 .14 245); }
   .room-btn.wa { --brand: oklch(.72 .18 150); }
   .room-btn.dc { --brand: oklch(.58 .17 275); }
@@ -1283,10 +1313,11 @@
       <p class="lede" id="lede">Your AI life companion. Always there, knows your life and the people in it.</p>
       <div class="ctas">
         <a class="cta" href="sms:+14156293650">Text +1 (415) 629-3650 <span class="arrow" aria-hidden="true">&rarr;</span></a>
+        <span class="or">or</span>
         <div class="room-row">
-          <a class="room-btn tg" href="https://t.me/withminbot" aria-label="Telegram" title="Telegram"><svg><use href="#i-telegram"/></svg></a>
-          <a class="room-btn wa" href="https://wa.me/14156293650" aria-label="WhatsApp" title="WhatsApp"><svg><use href="#i-whatsapp"/></svg></a>
-          <a class="room-btn dc" href="https://discord.com/users/1548381718451589150" aria-label="Discord" title="Discord"><svg><use href="#i-discord"/></svg></a>
+          <a class="room-btn tg" href="https://t.me/withminbot" aria-label="Telegram" data-label="Telegram"><svg><use href="#i-telegram"/></svg></a>
+          <a class="room-btn wa" href="https://wa.me/14156293650" aria-label="WhatsApp" data-label="WhatsApp"><svg><use href="#i-whatsapp"/></svg></a>
+          <a class="room-btn dc" href="https://discord.com/users/1548381718451589150" aria-label="Discord" data-label="Discord"><svg><use href="#i-discord"/></svg></a>
         </div>
       </div>
       <p class="sms-fine">By texting this number you agree to receive SMS text messages from min. Message frequency may vary. Message and data rates may apply. Reply <strong>STOP</strong> to opt out. Reply <strong>HELP</strong> for help. We will not share or sell your mobile information for marketing or promotional purposes. See <a href="/sms">how the opt-in works</a>, our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</p>
@@ -1368,10 +1399,11 @@
         <p class="sub">Hope comes from people with the time and headspace to think, create, love, and care for one another.</p>
         <p class="sub">The future is still ours to build. And it can be better.</p>
         <div class="ctas"><a class="cta" href="sms:+14156293650">Text +1 (415) 629-3650 <span class="arrow" aria-hidden="true">&rarr;</span></a>
-          <div class="room-row">
-          <a class="room-btn tg" href="https://t.me/withminbot" aria-label="Telegram" title="Telegram"><svg><use href="#i-telegram"/></svg></a>
-          <a class="room-btn wa" href="https://wa.me/14156293650" aria-label="WhatsApp" title="WhatsApp"><svg><use href="#i-whatsapp"/></svg></a>
-          <a class="room-btn dc" href="https://discord.com/users/1548381718451589150" aria-label="Discord" title="Discord"><svg><use href="#i-discord"/></svg></a>
+          <span class="or">or</span>
+        <div class="room-row">
+          <a class="room-btn tg" href="https://t.me/withminbot" aria-label="Telegram" data-label="Telegram"><svg><use href="#i-telegram"/></svg></a>
+          <a class="room-btn wa" href="https://wa.me/14156293650" aria-label="WhatsApp" data-label="WhatsApp"><svg><use href="#i-whatsapp"/></svg></a>
+          <a class="room-btn dc" href="https://discord.com/users/1548381718451589150" aria-label="Discord" data-label="Discord"><svg><use href="#i-discord"/></svg></a>
         </div></div>
         <p class="sms-fine">By texting this number you agree to receive SMS text messages from min. Message frequency may vary. Message and data rates may apply. Reply <strong>STOP</strong> to opt out. Reply <strong>HELP</strong> for help. We will not share or sell your mobile information for marketing or promotional purposes. See <a href="/sms">how the opt-in works</a>, our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</p>
       </div>
