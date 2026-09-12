@@ -654,6 +654,9 @@
                    background: oklch(from var(--bg) l c h / .6); }
   .cta-alt:active { transform: translateY(0) scale(.98); }
   .cta-alt:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
+  /* The handle someone types to find min. Dimmer than the platform name, so
+     the pill reads as one thing rather than two. */
+  .cta-alt .at { font-weight: 500; color: var(--dim); }
   .fine { font-size: 13px; color: var(--dim); margin: 14px 0 0; }
   /* The 10DLC call-to-action disclosure. Every clause here is required next to
      a number a carrier campaign collects on, and it has to read the same as
@@ -1213,8 +1216,8 @@
       <p class="lede" id="lede">Your AI life companion. Always there, knows your life and the people in it. Text it like a person &mdash; it answers from the same number.</p>
       <div class="ctas">
         <a class="cta" href="sms:+14156293650">Text +1 (415) 629-3650 <span class="arrow" aria-hidden="true">&rarr;</span></a>
-        <a class="cta-alt" href="https://t.me/withminbot">Telegram</a>
-        <a class="cta-alt" href="https://discord.com/oauth2/authorize?client_id=1548381718451589150&amp;permissions=274877975616&amp;integration_type=0&amp;scope=bot">Discord</a>
+        <a class="cta-alt" href="https://t.me/withminbot">Telegram <span class="at">@withminbot</span></a>
+        <a class="cta-alt" href="https://discord.com/users/1548381718451589150">Discord <span class="at">min.#9855</span></a>
       </div>
       <p class="sms-fine">By texting this number you agree to receive SMS text messages from min. Message frequency may vary. Message and data rates may apply. Reply <strong>STOP</strong> to opt out. Reply <strong>HELP</strong> for help. We will not share or sell your mobile information for marketing or promotional purposes. See <a href="/sms">how the opt-in works</a>, our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</p>
       <p class="rooms">One conversation, whichever room you say it in &mdash; or <a href="https://life.withmin.ai">open it in a browser</a>.</p>
@@ -1296,8 +1299,8 @@
         <p class="sub">Hope comes from people with the time and headspace to think, create, love, and care for one another.</p>
         <p class="sub">The future is still ours to build. And it can be better.</p>
         <div class="ctas"><a class="cta" href="sms:+14156293650">Text +1 (415) 629-3650 <span class="arrow" aria-hidden="true">&rarr;</span></a>
-          <a class="cta-alt" href="https://t.me/withminbot">Telegram</a>
-        <a class="cta-alt" href="https://discord.com/oauth2/authorize?client_id=1548381718451589150&amp;permissions=274877975616&amp;integration_type=0&amp;scope=bot">Discord</a></div>
+          <a class="cta-alt" href="https://t.me/withminbot">Telegram <span class="at">@withminbot</span></a>
+        <a class="cta-alt" href="https://discord.com/users/1548381718451589150">Discord <span class="at">min.#9855</span></a></div>
         <p class="sms-fine">By texting this number you agree to receive SMS text messages from min. Message frequency may vary. Message and data rates may apply. Reply <strong>STOP</strong> to opt out. Reply <strong>HELP</strong> for help. We will not share or sell your mobile information for marketing or promotional purposes. See <a href="/sms">how the opt-in works</a>, our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</p>
       <p class="rooms">One conversation, whichever room you say it in &mdash; or <a href="https://life.withmin.ai">open it in a browser</a>.</p>
       </div>
