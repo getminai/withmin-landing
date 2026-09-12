@@ -642,6 +642,18 @@
   .rooms a { color: var(--text); border-bottom: 1px solid oklch(from var(--dim) l c h / .35);
              padding-bottom: 1px; transition: border-color .25s var(--ease); white-space: nowrap; }
   .rooms a:hover { border-color: oklch(from var(--text) l c h / .6); }
+  /* The other rooms, as real actions rather than a footnote.
+     Outlined instead of filled: three solid buttons make none of them the
+     answer, and the number is still the answer. */
+  .cta-alt { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 15px; color: var(--text);
+             padding: 13px 20px; border-radius: 999px; border: 1px solid oklch(from var(--dim) l c h / .45);
+             background: oklch(from var(--bg) l c h / .35); backdrop-filter: blur(6px);
+             transition: transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease);
+             white-space: nowrap; }
+  .cta-alt:hover { transform: translateY(-2px); border-color: oklch(from var(--text) l c h / .55);
+                   background: oklch(from var(--bg) l c h / .6); }
+  .cta-alt:active { transform: translateY(0) scale(.98); }
+  .cta-alt:focus-visible { outline: 2px solid var(--text); outline-offset: 3px; }
   .fine { font-size: 13px; color: var(--dim); margin: 14px 0 0; }
   /* The 10DLC call-to-action disclosure. Every clause here is required next to
      a number a carrier campaign collects on, and it has to read the same as
@@ -1201,10 +1213,11 @@
       <p class="lede" id="lede">Your AI life companion. Always there, knows your life and the people in it. Text it like a person &mdash; it answers from the same number.</p>
       <div class="ctas">
         <a class="cta" href="sms:+14156293650">Text +1 (415) 629-3650 <span class="arrow" aria-hidden="true">&rarr;</span></a>
-        <a class="cta-ghost" href="https://life.withmin.ai">or open it in a browser</a>
+        <a class="cta-alt" href="https://t.me/withminbot">Telegram</a>
+        <a class="cta-alt" href="https://discord.com/oauth2/authorize?client_id=1548381718451589150&amp;permissions=274877975616&amp;integration_type=0&amp;scope=bot">Discord</a>
       </div>
       <p class="sms-fine">By texting this number you agree to receive SMS text messages from min. Message frequency may vary. Message and data rates may apply. Reply <strong>STOP</strong> to opt out. Reply <strong>HELP</strong> for help. We will not share or sell your mobile information for marketing or promotional purposes. See <a href="/sms">how the opt-in works</a>, our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</p>
-      <p class="rooms">Prefer another app? min. is the same on <a href="https://t.me/withminbot">Telegram</a> and on <a href="https://discord.com/oauth2/authorize?client_id=1548381718451589150&amp;permissions=274877975616&amp;integration_type=0&amp;scope=bot">Discord</a> &mdash; one conversation, whichever room you say it in.</p>
+      <p class="rooms">One conversation, whichever room you say it in &mdash; or <a href="https://life.withmin.ai">open it in a browser</a>.</p>
     </div>
 
     <div data-for="invest">
@@ -1283,9 +1296,10 @@
         <p class="sub">Hope comes from people with the time and headspace to think, create, love, and care for one another.</p>
         <p class="sub">The future is still ours to build. And it can be better.</p>
         <div class="ctas"><a class="cta" href="sms:+14156293650">Text +1 (415) 629-3650 <span class="arrow" aria-hidden="true">&rarr;</span></a>
-          <a class="cta-ghost" href="https://life.withmin.ai">or open it in a browser</a></div>
+          <a class="cta-alt" href="https://t.me/withminbot">Telegram</a>
+        <a class="cta-alt" href="https://discord.com/oauth2/authorize?client_id=1548381718451589150&amp;permissions=274877975616&amp;integration_type=0&amp;scope=bot">Discord</a></div>
         <p class="sms-fine">By texting this number you agree to receive SMS text messages from min. Message frequency may vary. Message and data rates may apply. Reply <strong>STOP</strong> to opt out. Reply <strong>HELP</strong> for help. We will not share or sell your mobile information for marketing or promotional purposes. See <a href="/sms">how the opt-in works</a>, our <a href="/privacy">Privacy Policy</a> and <a href="/terms">Terms</a>.</p>
-      <p class="rooms">Prefer another app? min. is the same on <a href="https://t.me/withminbot">Telegram</a> and on <a href="https://discord.com/oauth2/authorize?client_id=1548381718451589150&amp;permissions=274877975616&amp;integration_type=0&amp;scope=bot">Discord</a> &mdash; one conversation, whichever room you say it in.</p>
+      <p class="rooms">One conversation, whichever room you say it in &mdash; or <a href="https://life.withmin.ai">open it in a browser</a>.</p>
       </div>
       <div data-for="invest">
         <h2>Hand it an idea.</h2>
