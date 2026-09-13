@@ -580,6 +580,33 @@
          padding: clamp(18px, 3vh, 28px) clamp(22px, 6vw, 84px); height: 72px; }
   .wordmark { font-family: var(--serif); font-weight: 600; font-size: 28px; letter-spacing: -.01em; line-height: 1; }
   .wordmark i { font-style: normal; color: var(--glow-deep); }
+
+  /* THE MARK THAT VISITS A FACE AND COMES HOME.
+     The period is the name — "min., lowercase, with the period" is canon, and
+     it is what a carrier reviewer sees on a compliance page. So the resting
+     state is never anything else. On a real moment the period opens: a second
+     dot rises into a colon and a mouth springs in, and a beat later it closes
+     back to the period. Cute by visiting, not by living there.
+     The face is aria-hidden and a plain "." is read instead, so the name is
+     still the name to a screen reader. */
+  .wordmark i { display: inline-flex; align-items: baseline; }
+  .wordmark .eyes { font-style: normal; font-weight: inherit; }
+  /* the mouth has no width until it is needed, so the wordmark does not jump */
+  .wordmark .mouth { font-style: normal; display: inline-block; width: 0; overflow: hidden;
+                     transform: scale(.3) rotate(-12deg); transform-origin: 0 60%; opacity: 0;
+                     transition: width .16s var(--ease), opacity .12s var(--ease),
+                                 transform .34s cubic-bezier(.34, 1.7, .5, 1); }
+  .wordmark.open .mouth { width: .62em; opacity: 1; transform: scale(1) rotate(0); }
+  /* the blink: the dot squashes for a moment, which is most of the life in it */
+  @keyframes markblink { 0%, 92%, 100% { transform: scaleY(1); } 96% { transform: scaleY(.18); } }
+  .wordmark .eyes { display: inline-block; animation: markblink 7.5s var(--ease) infinite; }
+  .wordmark.open .eyes { animation: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .wordmark .eyes { animation: none; }
+    .wordmark .mouth { transition: none; }
+  }
+  .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
   [data-phase="night"] .wordmark i, [data-phase="dusk"] .wordmark i { color: var(--glow); }
   .navr { display: flex; align-items: center; gap: 18px; }
   /* the music switch: three bars that move while it plays, still when it doesn't */
@@ -1313,7 +1340,7 @@
   <p class="market tape" id="tape" aria-live="polite"></p>
 
   <nav class="top">
-    <a class="wordmark" href="/">min<i>.</i></a>
+    <a class="wordmark" href="/">min<i aria-hidden="true"><b class="eyes">.</b><b class="mouth"></b></i><span class="sr">.</span></a>
     <div class="navr">
       <button type="button" class="tune" id="tune" aria-pressed="true" aria-label="Ambient music: on">
         <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="tune-l">lofi</span>
@@ -1440,7 +1467,7 @@
   <footer>
     <div class="f-top">
       <div class="f-id">
-        <a class="wordmark" href="/">min<i>.</i></a>
+        <a class="wordmark" href="/">min<i aria-hidden="true"><b class="eyes">.</b><b class="mouth"></b></i><span class="sr">.</span></a>
         <address class="f-company">
           <b>Siege AI, Inc.</b><br>
           20024 Tuba St<br>
@@ -1739,6 +1766,49 @@
     window.__ambient = function () { return { on: on, started: started, waiting: waiting, index: idx, track: order[idx] && order[idx].title, count: order.length }; };
     if (on) start(); /* allowed on return visits where the site has earned autoplay; otherwise the first tap */
   }).catch(function () { btn.hidden = true; });
+})();
+
+/* The wordmark reacts rather than cycles.
+   A mark that flickers through moods on a timer is a gimmick, and a sad face
+   with no cause is worse than none — so every face here answers something the
+   person just did. It always returns to the period. */
+(function () {
+  const marks = [...document.querySelectorAll('.wordmark')];
+  if (!marks.length) return;
+  let timer;
+  function face(mouth, hold = 1400) {
+    clearTimeout(timer);
+    marks.forEach((m) => {
+      m.querySelector('.eyes').textContent = ':';
+      m.querySelector('.mouth').textContent = mouth;
+      m.classList.add('open');
+    });
+    timer = setTimeout(close, hold);
+  }
+  function close() {
+    marks.forEach((m) => {
+      m.classList.remove('open');
+      m.querySelector('.eyes').textContent = '.';
+    });
+  }
+  // looking at min. itself: pleased, and it holds while you are there
+  marks.forEach((m) => {
+    m.addEventListener('mouseenter', () => face('D', 1e9));
+    m.addEventListener('mouseleave', close);
+  });
+  // reaching for a way to talk to it
+  document.querySelectorAll('.room-btn').forEach((b) => {
+    b.addEventListener('mouseenter', () => face(')', 1e9));
+    b.addEventListener('mouseleave', close);
+  });
+  // the number, which is the one that actually starts a thread
+  document.querySelectorAll('.cta[href^="sms:"]').forEach((b) => {
+    b.addEventListener('mouseenter', () => face('D', 1e9));
+    b.addEventListener('mouseleave', close);
+  });
+  // a joke it is in on: the lofi switch
+  const tune = document.querySelector('#tune');
+  if (tune) tune.addEventListener('click', () => face('P'));
 })();
 </script>
 </body>
