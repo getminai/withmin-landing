@@ -844,6 +844,17 @@
   .two { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
   @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
 
+  /* the plain section: what the company does, how to reach it, who runs it,
+     in ordinary words on one screen. a reader who wants the shape of the
+     business, not the feeling of it, finds it here without leaving the page. */
+  .plain { border-top: 1px solid var(--line); }
+  .plain-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(24px, 4vw, 48px); margin-top: clamp(24px, 3vh, 36px); }
+  .plain-grid h3 { font: 500 13px/1 var(--sans); letter-spacing: .04em; text-transform: uppercase; color: var(--dim); margin: 0 0 10px; }
+  .plain-grid p { font-size: 15.5px; line-height: 1.6; color: var(--dim); margin: 0 0 12px; text-wrap: pretty; }
+  .plain-grid a { color: var(--text); font-size: 14.5px; font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--line); transition: border-color .3s; }
+  .plain-grid a:hover { border-color: currentColor; }
+  .plain-grid p a { font-size: inherit; font-weight: 400; text-decoration: underline; text-underline-offset: 3px; text-decoration-color: var(--glow-deep); border: 0; }
+  @media (max-width: 760px) { .plain-grid { grid-template-columns: 1fr; gap: 24px; } }
   .quiet { border-top: 1px solid var(--line); }
   .quiet .wrap { max-width: 760px; }
   .quiet h2 { font-size: clamp(32px, 4vw, 52px); }
@@ -1312,7 +1323,9 @@
       <button type="button" class="tune" id="tune" aria-pressed="true" aria-label="Ambient music: on">
         <span class="bars" aria-hidden="true"><i></i><i></i><i></i></span><span class="tune-l">lofi</span>
       </button>
+      <a class="why" href="/product">product</a>
       <a class="why" href="/about">about</a>
+      <a class="why" href="/contact">contact</a>
     </div>
   </nav>
 
@@ -1405,6 +1418,30 @@
     </div>
   </section>
 
+  <section class="plain" data-for="life" id="what">
+    <div class="wrap">
+      <h2>What min. is.</h2>
+      <p class="sub">min. is an AI assistant made by Siege AI, Inc. You reach it by text message, and it keeps up with your calendar, your inbox and the people in your life.</p>
+      <div class="plain-grid">
+        <div>
+          <h3>What it does</h3>
+          <p>Answers what you ask. Keeps up with your calendar. Reads your inbox so you don&rsquo;t have to. Remembers the people in your life, and checks in when something matters.</p>
+          <a href="/product">The product &rarr;</a>
+        </div>
+        <div>
+          <h3>How you reach it</h3>
+          <p>Text <a href="sms:+14156293650">+1 (415) 629-3650</a>, or message it on Telegram, WhatsApp or Discord. On the web at <a href="https://life.withmin.ai">life.withmin.ai</a>. Free to use today.</p>
+          <a href="/sms">How texting works &rarr;</a>
+        </div>
+        <div>
+          <h3>Who makes it</h3>
+          <p>Siege AI, Inc., a founder-run company in Chatsworth, California. Email <a href="mailto:hello@withmin.ai">hello@withmin.ai</a> or call <a href="tel:+14088963638">+1 (408) 896-3638</a>. A person replies.</p>
+          <a href="/about">About us &rarr;</a> &nbsp;&middot;&nbsp; <a href="/contact">Contact &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="quiet">
     <div class="wrap">
       <div data-for="life">
@@ -1450,6 +1487,12 @@
           <h4>Companions</h4>
           <a href="/">min. life</a>
           <a href="/quant">min. quant</a>
+        </div>
+        <div class="f-col">
+          <h4>Company</h4>
+          <a href="/product">Product</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
         </div>
         <div class="f-col">
           <h4>Legal</h4>

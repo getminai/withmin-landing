@@ -3,19 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Text messages from min. | How to opt in</title>
-<meta name="description" content="How to sign up for text messages from min. — the step-by-step opt-in, what min. sends, sample messages, message frequency, message and data rates, STOP and HELP.">
-<link rel="canonical" href="https://withmin.ai/sms">
+<title>Product | min., an AI assistant you text</title>
+<meta name="description" content="min. is an AI assistant you reach by text message. It keeps up with your calendar, your inbox and the people in your life, answers what you ask, and checks in when something matters. Free to use today.">
+<link rel="canonical" href="https://withmin.ai/product">
 <meta name="theme-color" content="#f6efe4">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="min.">
-<meta property="og:title" content="Text messages from min.">
-<meta property="og:description" content="How to opt in to text messages from min., and what it sends.">
-<meta property="og:url" content="https://withmin.ai/sms">
+<meta property="og:title" content="min. | Product">
+<meta property="og:description" content="An AI assistant you text. What it does, how you reach it, and what it costs.">
+<meta property="og:url" content="https://withmin.ai/product">
 <meta property="og:image" content="https://withmin.ai/assets/og-home.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Text messages from min.">
-<meta name="twitter:description" content="How to opt in to text messages from min., and what it sends.">
+<meta name="twitter:title" content="min. | Product">
+<meta name="twitter:description" content="An AI assistant you text. What it does, how you reach it, and what it costs.">
 <meta name="twitter:image" content="https://withmin.ai/assets/og-home.png">
 <link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="/assets/favicon-512.png" sizes="512x512" type="image/png">
@@ -83,134 +83,108 @@
   .f-company b { color: var(--text); font-weight: 500; }
   .f-company a { color: var(--dim); text-decoration: underline; text-underline-offset: 2px; }
   .f-company a:hover { color: var(--text); }
+  .top nav { display: flex; gap: 22px; }
+  .top nav a { font-size: 14.5px; font-weight: 500; color: var(--dim); padding: 8px 2px; text-decoration: none; border-bottom: 1px solid transparent; transition: color .3s, border-color .3s; }
+  .top nav a:hover, .top nav a[aria-current] { color: var(--text); border-color: currentColor; }
+  @media (max-width: 560px) { .top nav { gap: 14px; } .top nav a { font-size: 13.5px; } }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-top: 16px; }
+  .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 16px; padding: 18px 20px; }
+  .tile .kicker { margin-bottom: 6px; }
+  .tile p { margin: 0; }
+  .tile .big { font-family: var(--serif); font-weight: 600; font-size: 20px; color: var(--text); line-height: 1.25; }
+  .tile a { text-decoration-color: var(--glow-deep); }
+  .cta { display: inline-block; margin-top: 18px; padding: 12px 18px; border-radius: 999px; background: var(--text); color: var(--bg); text-decoration: none; font-weight: 500; font-size: 15px; }
+  .cta:hover { opacity: .9; }
+  dl { display: grid; grid-template-columns: max-content 1fr; gap: 10px 22px; margin: 14px 0 0; color: var(--dim); }
+  dt { color: var(--dimmer); font-family: var(--mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; padding-top: 3px; }
+  dd { margin: 0; }
+  dd b { color: var(--text); }
 </style>
-</head>
 
 <body>
 <div class="grain" aria-hidden="true"></div>
 <nav class="top">
   <a class="wordmark" href="/">min<i>.</i></a>
-  <a class="back" href="/">Back to home</a>
+  <nav aria-label="Site">
+    <a href="/product" aria-current="page">Product</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+  </nav>
 </nav>
 <main>
-  <h1>Text messages<i>.</i></h1>
-  <p class="updated">last updated 2026-09-11</p>
+  <h1>Product<i>.</i></h1>
+  <p class="updated">what min. is, what it does, and how to get it</p>
 
   <div class="pledge">
-    <p class="big">min. is an AI life companion you talk to by text.</p>
-    <p style="margin-top:14px">It messages from
-    <a class="bignum" href="sms:+14156293650">+1 (415) 629-3650</a></p>
+    <p class="big">min. is an <span>AI assistant</span> you reach by text message.</p>
+    <p style="margin-top:14px">There is no app to install. You message it the way you message a
+    friend, and it messages you back.</p>
   </div>
 
-  <p class="lead">This page is the call-to-action for min.&rsquo;s text messaging: exactly
-  how a person signs up, what min. sends them, and how they stop. The opt-in form
-  itself lives on the product at
-  <a href="https://life.withmin.ai/sms">life.withmin.ai/sms</a>.</p>
+  <p class="lead">min. is a personal AI assistant made by Siege AI, Inc. It lives in your
+  messages: SMS, Telegram, WhatsApp, or Discord. Once you connect your calendar and
+  email, it keeps up with your days, remembers the people in them, and takes care of
+  the small things so you don&rsquo;t have to.</p>
 
   <section>
-    <p class="kicker">How to sign up</p>
-    <p>There are exactly two ways to opt in, and you choose one of them yourself.</p>
-    <p style="margin-top:18px"><b>Option 1 &mdash; the form on
-    <a href="https://life.withmin.ai/sms">life.withmin.ai/sms</a>.</b></p>
-    <ol>
-      <li>Open <a href="https://life.withmin.ai/sms">life.withmin.ai/sms</a>.</li>
-      <li>Enter your own mobile phone number in the field.</li>
-      <li>Read the consent text and tick the checkbox beside it. It is unchecked by
-      default, and the button stays disabled until you tick it yourself.</li>
-      <li>Press &ldquo;Text me a code&rdquo;. min. texts a 6-digit code to that number.</li>
-      <li>Type the code back into the form. That proves the number is yours, and you
-      are opted in.</li>
-    </ol>
-    <p style="margin-top:18px"><b>Option 2 &mdash; text min. first.</b> Send any message
-    to <a href="sms:+14156293650">+1 (415) 629-3650</a> from your own phone. Starting the
-    conversation is itself the opt-in, and min. replies to that number and no other.</p>
-  </section>
-
-  <section>
-    <p class="kicker">Consent is one-to-one</p>
+    <p class="kicker">What it does</p>
     <ul>
-      <li>You give consent for <b>your own number only</b>. There is no way to submit
-      someone else&rsquo;s number and have min. text them.</li>
-      <li>Consent is <b>never shared, sold, rented, or forwarded</b> to any third party,
-      affiliate, or partner, and no third party can opt you in on our behalf.</li>
-      <li>Consent is <b>never implied or bundled</b>. Ticking the box is a separate,
-      affirmative act; it is pre-checked nowhere, and it is not required to create an
-      account, sign in, or use min. on the web.</li>
-      <li>We buy no phone lists and import no numbers. Every number min. texts was
-      entered by the person holding that phone, or texted min. first.</li>
-      <li>The code step verifies consent: min. only keeps texting a number once
-      someone has proved they hold that phone.</li>
+      <li><b>Answers what you ask.</b> Directions, a recipe, what to buy, what a news story
+      actually said, how to phrase an awkward email. It looks things up and gives you a
+      straight answer.</li>
+      <li><b>Keeps up with your calendar.</b> It knows what is on today, notices when a
+      meeting moves, and reminds you before the things that matter.</li>
+      <li><b>Reads your inbox so you don&rsquo;t have to.</b> Connect Gmail and it surfaces
+      the flight confirmation, the lease renewal, the reply you forgot to send, and
+      can draft a reply when you ask.</li>
+      <li><b>Remembers the people in your life.</b> Who your mom is, when she lands, that
+      your friend just started a new job. It keeps track so you can just talk.</li>
+      <li><b>Checks in when something matters.</b> The morning of a big day, or after it,
+      to ask how it went. Occasionally, not constantly.</li>
+      <li><b>Helps with the errand.</b> Ordering food, finding the restaurant&rsquo;s website,
+      booking the thing. Where it can, it does it. Where it can&rsquo;t, it hands you the
+      link.</li>
     </ul>
   </section>
 
   <section>
-    <p class="kicker">What min. sends</p>
-    <ul>
-      <li>Account and sign-in codes, when you ask for one.</li>
-      <li>Replies to messages you send min.</li>
-      <li>Occasional check-ins about your own calendar, inbox, or to-do list &mdash; the
-      things you connected min. to.</li>
-    </ul>
-    <p style="margin-top:14px">Conversational only. No marketing, no promotions, no
-    third-party advertising, and nothing on behalf of anyone else &mdash; ever.</p>
-  </section>
-
-  <section>
-    <p class="kicker">Sample messages</p>
-    <div class="sample">
-      <p class="lbl">Sign-in code (sent when you ask for one)</p>
-      <p class="txt">min.: 418 205 is your sign-in code. It expires in 10 minutes. Reply STOP to opt out, HELP for help.</p>
-    </div>
-    <div class="sample">
-      <p class="lbl">Reply to something you sent min.</p>
-      <p class="txt">min.: your mom lands Sunday 11:40am. Want me to keep Saturday night clear? Reply STOP to opt out.</p>
-    </div>
-    <div class="sample">
-      <p class="lbl">Check-in about your own calendar or inbox</p>
-      <p class="txt">min.: the lease renewal you flagged is due Friday. Want me to draft the reply? Msg freq may vary. Msg &amp; data rates may apply. Reply STOP to opt out, HELP for help.</p>
-    </div>
-    <div class="sample">
-      <p class="lbl">A link, when you asked min. to look something up</p>
-      <p class="txt">min.: found the piece you wanted on the school bond &mdash; https://www.sfchronicle.com/bayarea/article/school-bond-vote Reply STOP to opt out, HELP for help.</p>
-    </div>
-    <div class="sample">
-      <p class="lbl">A product link, when you asked what to buy</p>
-      <p class="txt">min.: the Stagg EKG is the one people keep landing on &mdash; https://www.amazon.com/dp/B077JBQZPX Want the cheaper one too? Reply STOP to opt out.</p>
+    <p class="kicker">How you reach it</p>
+    <div class="grid">
+      <div class="tile"><p class="kicker">Text message</p><p class="big"><a href="sms:+14156293650">+1 (415) 629-3650</a></p><p>Send it any message to start. Details of the opt-in are on the <a href="/sms">text messages</a> page.</p></div>
+      <div class="tile"><p class="kicker">Telegram</p><p class="big"><a href="https://t.me/withminbot" target="_blank" rel="noopener noreferrer">@withminbot</a></p><p>Open the bot and say hi.</p></div>
+      <div class="tile"><p class="kicker">WhatsApp</p><p class="big"><a href="https://wa.me/14156293650" target="_blank" rel="noopener noreferrer">wa.me/14156293650</a></p><p>The same number, on WhatsApp.</p></div>
+      <div class="tile"><p class="kicker">Web</p><p class="big"><a href="https://life.withmin.ai">life.withmin.ai</a></p><p>Sign in, connect your calendar and email, and see your conversations.</p></div>
     </div>
   </section>
 
   <section>
-    <p class="kicker">Links and pictures</p>
-    <p>min. is a companion you ask things, so its replies sometimes carry a link
-    &mdash; a news article, a video, a product page &mdash; when you asked it to look
-    something up. Two rules hold for every one of them:</p>
-    <ul>
-      <li><b>Never a shortened link.</b> min. sends the full destination URL, exactly
-      as it appears, so you can see where a link goes before you tap it. It uses no
-      URL shortener of any kind, public or private.</li>
-      <li><b>Never an affiliate or tracking link.</b> No referral tags, no commissions,
-      nothing appended to identify us. If min. points at a product, it is because you
-      asked what to buy, and we make nothing either way.</li>
-    </ul>
-    <p style="margin-top:14px">Links are always to the destination itself &mdash; a
-    publisher, a video, a retailer &mdash; never to a redirector we control. min. also
-    sends the occasional GIF as an MMS in reply to something you sent it.</p>
+    <p class="kicker">What it costs</p>
+    <p>min. is <b>free to use today</b>. There is no subscription and no card to enter.
+    Standard message and data rates from your carrier may apply to text messages.</p>
   </section>
 
   <section>
-    <p class="kicker">Frequency, rates, and opting out</p>
-    <p><b>Message frequency may vary. Message and data rates may apply.</b> Reply
-    <b>STOP</b> at any time to opt out and the messages stop immediately. Reply
-    <b>HELP</b> for help, or email <a href="mailto:hello@withmin.ai">hello@withmin.ai</a>.
-    Carriers are not liable for delayed or undelivered messages.</p>
-    <p><b>We will not share or sell your mobile information for marketing or promotional
-    purposes.</b> No mobile information is shared with third parties or affiliates for
-    their own marketing. Your number is shared only with the text-messaging provider that
-    carries the messages on our behalf, which cannot use it for anything else.</p>
-    <p>Full detail in our <a href="/privacy">Privacy Policy</a> and
-    <a href="/terms">Terms</a>.</p>
+    <p class="kicker">Your data</p>
+    <p>You choose what to connect, and you can disconnect anything at any time. min. reads
+    your calendar and email only to help you, never to sell or share. We do not sell
+    your personal information, and we do not share your mobile number with anyone for
+    marketing. The full detail is in our <a href="/privacy">Privacy Policy</a> and
+    <a href="/terms">Terms of Service</a>.</p>
   </section>
 
+  <section>
+    <p class="kicker">Also from Siege AI</p>
+    <p><a href="/quant">min. quant</a> &mdash; research tooling for the markets. You describe
+    an investment idea in plain words; it reads, tests, and reports back with the work shown.
+    Research tooling, not financial advice.</p>
+  </section>
+
+  <section>
+    <p class="kicker">Questions</p>
+    <p>Email <a href="mailto:hello@withmin.ai">hello@withmin.ai</a> or visit the
+    <a href="/contact">contact page</a>. A person replies.</p>
+    <a class="cta" href="sms:+14156293650">Text min. to start &rarr;</a>
+  </section>
 </main>
 <footer>
   <a class="wordmark" href="/">min<i>.</i></a>
