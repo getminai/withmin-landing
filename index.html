@@ -788,7 +788,7 @@
   /* The wall runs off the right edge on purpose: it should read as more than
      fits, the way a thread does. Nothing is lost — the cards past the fold
      repeat the same shapes — so it costs a reader nothing to never see them. */
-  .wall { position: relative; height: 1040px; margin: 8px 0 0; max-width: none; }
+  .wall { position: relative; height: 980px; margin: 8px 0 0; max-width: none; }
   section[data-for="life"] .wrap.two.wide { overflow: visible; }
   /* solid paper, not glass: a card is opaque, has an edge, and casts a real
      shadow, so a stack reads as cards on cards. under the hand (or a tap, on
@@ -847,13 +847,12 @@
   .card:hover, .card:focus-within, .card.front { transform: rotate(0deg) translateY(-6px) scale(1.04) !important; z-index: 20; animation-play-state: paused;
     box-shadow: 0 26px 56px oklch(from var(--text) l c h / .26), 0 3px 8px oklch(from var(--text) l c h / .1); }
   .k1 { left: 0px;   top: 0px;   transform: rotate(-2.2deg); z-index: 3; animation: bob-a 9s ease-in-out infinite; }
-  .k7 { left: 10px;  top: 444px; transform: rotate(1.5deg);  z-index: 4; animation: bob-b 13s ease-in-out infinite; animation-delay: -6s; }
-  .k2 { left: 196px; top: 26px;  transform: rotate(1.6deg);  z-index: 5; animation: bob-b 11s ease-in-out infinite; }
-  .k3 { left: 186px; top: 404px; transform: rotate(-1.3deg); z-index: 6; animation: bob-a 10s ease-in-out infinite; animation-delay: -4s; }
+  .k9 { left: 8px;   top: 478px; transform: rotate(1.7deg);  z-index: 4; animation: bob-b 12s ease-in-out infinite; animation-delay: -2s; }
+  .k2 { left: 196px; top: 34px;  transform: rotate(1.6deg);  z-index: 5; animation: bob-b 11s ease-in-out infinite; }
+  .k3 { left: 188px; top: 466px; transform: rotate(-1.3deg); z-index: 6; animation: bob-a 10s ease-in-out infinite; animation-delay: -4s; }
   .k4 { left: 366px; top: 0px;   transform: rotate(2deg);    z-index: 2; animation: bob-b 9.5s ease-in-out infinite; animation-delay: -3s; }
-  .k9 { left: 358px; top: 282px; transform: rotate(-2.1deg); z-index: 5; animation: bob-a 12s ease-in-out infinite; animation-delay: -2s; }
-  .k8 { left: 540px; top: 78px;  transform: rotate(-1.6deg); z-index: 3; animation: bob-a 10.5s ease-in-out infinite; animation-delay: -2.5s; }
-  .k13{ left: 548px; top: 424px; transform: rotate(2.3deg);  z-index: 2; animation: bob-b 12.5s ease-in-out infinite; animation-delay: -4.5s; }
+  .k13{ left: 372px; top: 330px; transform: rotate(-1.4deg); z-index: 3; animation: bob-a 12.5s ease-in-out infinite; animation-delay: -4.5s; }
+  .k8 { left: 548px; top: 64px;  transform: rotate(2.4deg);  z-index: 4; animation: bob-b 10.5s ease-in-out infinite; animation-delay: -2.5s; }
   @keyframes bob-a { 50% { translate: 0 -5px; } }
   @keyframes bob-b { 50% { translate: 0 5px; } }
   @media (max-width: 1000px) { .two.wide { grid-template-columns: 1fr; } }
@@ -1415,7 +1414,6 @@
         <div class="card k8" data-at="3"><p class="when">Saturday</p><p class="msg you">i think i just got scammed by a sandwich</p><p class="msg">how much</p><p class="msg you">$19</p><p class="msg">that's not a scam, that's a choice<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
         <div class="card k9" data-at="0"><p class="when">Thursday</p><p class="msg you">3am. why am i awake</p><p class="msg">you literally asked me &ldquo;can a raccoon open a car door&rdquo; at 2:40</p><p class="msg you">...and?</p><p class="msg">they can. go to sleep</p></div>
         <div class="card k13" data-at="4"><p class="when">Wednesday</p><p class="msg you">guess who got a parking ticket</p><p class="msg">you, in the exact spot</p><p class="msg you">you never said</p><p class="msg">tuesday, 6:12pm. want the screenshot</p><img class="gif" src="https://media2.giphy.com/media/v1.Y2lkPTU3M2EwM2MzamN6YzhlMXQyY2R2ejhqYjVybWJ2ZGZvb3k0bWw5cWg5dWh4aDYwbSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TL7OmMFkmhC92LUOr7/200.gif" width="240" height="200" alt="You Were Right Bingo GIF by Power" loading="lazy" decoding="async"><p class="msg you">no</p></div>
-        <div class="card k7" data-at="1"><p class="when">Tuesday</p><p class="msg">you eat?</p><p class="msg you">...no</p><p class="msg">go eat. i'll wait.</p></div>
       </div>
     </div>
   </section>
@@ -1810,6 +1808,7 @@
   }
   function clear(card, steps) {
     steps.forEach(function (s) { s.el.classList.remove("in"); if (s.kind !== "tap") s.el.classList.add("out"); });
+    card.style.height = card.emptyH + "px"; /* fold up while the bubbles fade */
     setTimeout(function () {
       steps.forEach(function (s) { s.el.classList.remove("out"); if (s.el.parentNode) s.el.parentNode.removeChild(s.el); });
       fit(card);
@@ -1823,6 +1822,7 @@
     if (!steps.length) return;
     card.classList.add("live");
     makeBox(card);
+    card.emptyH = card.offsetHeight;
     var at = Math.min(steps.length, parseInt(card.getAttribute("data-at") || "0", 10) || 0);
     for (var i = 0; i < at; i++) place(card, steps[i], false);
     fit(card);
