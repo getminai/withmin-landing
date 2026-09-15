@@ -788,7 +788,7 @@
   /* The wall runs off the right edge on purpose: it should read as more than
      fits, the way a thread does. Nothing is lost — the cards past the fold
      repeat the same shapes — so it costs a reader nothing to never see them. */
-  .wall { position: relative; height: 990px; margin: 8px 0 0; max-width: none; }
+  .wall { position: relative; height: 1040px; margin: 8px 0 0; max-width: none; }
   section[data-for="life"] .wrap.two.wide { overflow: visible; }
   /* solid paper, not glass: a card is opaque, has an edge, and casts a real
      shadow, so a stack reads as cards on cards. under the hand (or a tap, on
@@ -796,7 +796,42 @@
   .card { position: absolute; width: 224px; padding: 13px 13px 15px; border-radius: 22px; display: grid; gap: 7px;
           background: var(--surface); border: 1px solid oklch(from var(--text) l c h / .08);
           box-shadow: 0 14px 34px oklch(from var(--text) l c h / .16), 0 2px 6px oklch(from var(--text) l c h / .08);
-          transition: transform .35s var(--ease), box-shadow .35s var(--ease); }
+          transition: transform .35s var(--ease), box-shadow .35s var(--ease), height .42s var(--ease); }
+  /* the wall is alive. each card replays its thread on its own clock: a text
+     lands, min. types for a moment, a picture goes out, a reaction pops onto
+     a bubble; then it sits a while, clears, and starts over. the cards begin
+     at different points, so no two are ever in step. the markup below is the
+     script, so without JavaScript (or with reduced motion) the same threads
+     read in full, exactly as they did before. */
+  .card.live { overflow: hidden; align-content: start; }
+  .card.live .in { animation: land .42s var(--ease) both; transform-origin: 0 100%; }
+  .card.live .you.in { transform-origin: 100% 100%; }
+  @keyframes land { from { opacity: 0; translate: 0 10px; scale: .88; } }
+  .card .msg.typing { display: flex; gap: 4px; align-items: center; padding: 11px 13px; min-height: 0; }
+  .card .msg.typing i { width: 6px; height: 6px; border-radius: 50%; background: currentColor; opacity: .35; animation: dot 1.15s ease-in-out infinite; }
+  .card .msg.typing i:nth-child(2) { animation-delay: .16s; }
+  .card .msg.typing i:nth-child(3) { animation-delay: .32s; }
+  @keyframes dot { 35% { translate: 0 -3px; opacity: .85; } 70% { translate: 0 0; opacity: .35; } }
+  .card .tap.in { animation: tapin .5s cubic-bezier(.34, 1.56, .64, 1) both; }
+  @keyframes tapin { from { scale: 0; } }
+  .card .out { animation: gone .4s var(--ease) both; }
+  @keyframes gone { to { opacity: 0; translate: 0 -6px; } }
+  /* the box at the foot of each card is the one on a phone: you watch your
+     side get typed there, letter by letter, then go up as a bubble */
+  .card .box { display: flex; align-items: flex-end; gap: 6px; margin-top: 3px; padding: 5px 5px 5px 12px; min-height: 32px; border-radius: 18px;
+               border: 1px solid oklch(from var(--text) l c h / .16); font-size: 13px; line-height: 1.3; color: var(--text); }
+  .card .box .txt { flex: 1; min-width: 0; padding: 3px 0; overflow-wrap: anywhere; }
+  .card .box .txt:empty::before { content: attr(data-ph); color: var(--dim); }
+  .card .box.typing .txt::after { content: ""; display: inline-block; width: 1.5px; height: 1em; margin-left: 1px; vertical-align: -2px;
+                                  background: currentColor; animation: caret 1s steps(2, start) infinite; }
+  @keyframes caret { to { opacity: 0; } }
+  .card .box .send { flex: none; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center;
+                     background: oklch(from var(--text) l c h / .1); color: oklch(from var(--text) l c h / .35);
+                     transition: background .25s var(--ease), color .25s var(--ease), scale .25s var(--ease); }
+  .card .box .send svg { width: 11px; height: 11px; display: block; }
+  .card .box.has .send { background: var(--glow); color: var(--ink-on-glow); }
+  .card .box.sent .send { animation: sendpop .4s cubic-bezier(.34, 1.56, .64, 1); }
+  @keyframes sendpop { 40% { scale: .7; } 70% { scale: 1.2; } }
   .card .when { margin: 0 0 1px; }
   /* Which room that exchange happened in. Quieter than the day, because the
      point is that it does not matter — it is the same min. either way. */
@@ -804,24 +839,26 @@
   .card .msg.you { background: var(--glow); }
   [data-phase="night"] .card .msg, [data-phase="dusk"] .card .msg, [data-mode="invest"] .card .msg { background: oklch(from var(--bubble) calc(l + .06) c h); }
   [data-phase="night"] .card .msg.you, [data-phase="dusk"] .card .msg.you, [data-mode="invest"] .card .msg.you { background: var(--glow); }
-  .card .gif { width: min(150px, 78%); }
+  .card .gif { width: min(136px, 72%); }
+  /* the card something just happened in comes forward, so the live moment is never under a neighbour */
+  .card.now { z-index: 12; }
 
 
   .card:hover, .card:focus-within, .card.front { transform: rotate(0deg) translateY(-6px) scale(1.04) !important; z-index: 20; animation-play-state: paused;
     box-shadow: 0 26px 56px oklch(from var(--text) l c h / .26), 0 3px 8px oklch(from var(--text) l c h / .1); }
   .k1 { left: 0px;   top: 0px;   transform: rotate(-2.2deg); z-index: 3; animation: bob-a 9s ease-in-out infinite; }
-  .k7 { left: 10px;  top: 330px; transform: rotate(1.5deg);  z-index: 4; animation: bob-b 13s ease-in-out infinite; animation-delay: -6s; }
+  .k7 { left: 10px;  top: 444px; transform: rotate(1.5deg);  z-index: 4; animation: bob-b 13s ease-in-out infinite; animation-delay: -6s; }
   .k2 { left: 196px; top: 26px;  transform: rotate(1.6deg);  z-index: 5; animation: bob-b 11s ease-in-out infinite; }
-  .k3 { left: 186px; top: 296px; transform: rotate(-1.3deg); z-index: 6; animation: bob-a 10s ease-in-out infinite; animation-delay: -4s; }
+  .k3 { left: 186px; top: 404px; transform: rotate(-1.3deg); z-index: 6; animation: bob-a 10s ease-in-out infinite; animation-delay: -4s; }
   .k4 { left: 366px; top: 0px;   transform: rotate(2deg);    z-index: 2; animation: bob-b 9.5s ease-in-out infinite; animation-delay: -3s; }
-  .k9 { left: 358px; top: 236px; transform: rotate(-2.1deg); z-index: 5; animation: bob-a 12s ease-in-out infinite; animation-delay: -2s; }
+  .k9 { left: 358px; top: 282px; transform: rotate(-2.1deg); z-index: 5; animation: bob-a 12s ease-in-out infinite; animation-delay: -2s; }
   .k8 { left: 540px; top: 78px;  transform: rotate(-1.6deg); z-index: 3; animation: bob-a 10.5s ease-in-out infinite; animation-delay: -2.5s; }
-  .k13{ left: 548px; top: 356px; transform: rotate(2.3deg);  z-index: 2; animation: bob-b 12.5s ease-in-out infinite; animation-delay: -4.5s; }
+  .k13{ left: 548px; top: 424px; transform: rotate(2.3deg);  z-index: 2; animation: bob-b 12.5s ease-in-out infinite; animation-delay: -4.5s; }
   @keyframes bob-a { 50% { translate: 0 -5px; } }
   @keyframes bob-b { 50% { translate: 0 5px; } }
   @media (max-width: 1000px) { .two.wide { grid-template-columns: 1fr; } }
   @media (max-width: 760px) {
-    .wall { height: auto; max-width: none; display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 0 18px; margin: 0 -22px; padding-left: 22px; scrollbar-width: none; }
+    .wall { height: auto; max-width: none; display: flex; align-items: flex-start; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 10px 0 18px; margin: 0 -22px; padding-left: 22px; scrollbar-width: none; }
     .wall::-webkit-scrollbar { display: none; }
     .card { position: static; flex: 0 0 236px; scroll-snap-align: start; transform: none !important; animation: none !important; }
   }
@@ -840,6 +877,8 @@
   .msg { position: relative; }
   .tap { position: absolute; right: -8px; bottom: -12px; font-size: 15px; line-height: 1; padding: 3px 6px; border-radius: 999px;
          background: var(--surface); box-shadow: 0 1px 4px oklch(from var(--text) l c h / .18); }
+  /* a reaction on your own bubble hangs off its other corner, the way a phone does it */
+  .msg.you .tap { right: auto; left: -8px; }
 
   .two { display: grid; grid-template-columns: 1.1fr .9fr; gap: clamp(32px, 6vw, 96px); align-items: start; }
   @media (max-width: 760px) { .two { grid-template-columns: 1fr; } }
@@ -1369,14 +1408,14 @@
         <p class="sub">No feed, nothing to open, nothing to check. Wherever you already message people, min. is there.</p>
       </div>
       <div class="wall" aria-label="A few texts from min., from different days">
-        <div class="card k1"><p class="when">Tuesday</p><p class="msg">how'd the 9:30 go, or did it move again</p><p class="msg you">moved. again.</p><p class="msg">of course it did</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzdzNwYzhza3d5cDBxbHh1YWxkazZzMGV5eW9yc3FkajUwbTFqeTA4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hyyV7pnbE0FqLNBAzs/200.gif" width="240" height="200" alt="Season 5 No GIF by The Office" loading="lazy" decoding="async"></div>
-        <div class="card k2"><p class="when">Thursday</p><p class="msg you">SHE WALKED. across the whole living room</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async"><p class="msg">SHE'S MOBILE. lock the cabinets<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
-        <div class="card k3"><p class="when">Monday</p><p class="msg you">I GOT THE JOB</p><p class="msg">FUCKKKK YES</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzbjFma2RjeHpscHVmeWUxdzYydm9rajhzNWFsNTcxZzlmam42ZzZ4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/DfLwM9kttDFEQ/200.gif" width="200" height="200" alt="leonardo dicaprio cheers GIF" loading="lazy" decoding="async"><p class="msg">i knew it. i KNEW it.</p></div>
-        <div class="card k4"><p class="when">Wednesday</p><p class="msg">rough one?</p><p class="msg you">yeah</p><p class="msg">ok. i'm here. no advice unless you want it.</p></div>
-        <div class="card k8"><p class="when">Saturday</p><p class="msg you">i think i just got scammed by a sandwich</p><p class="msg">how much</p><p class="msg you">$19</p><p class="msg">that's not a scam, that's a choice</p></div>
-        <div class="card k9"><p class="when">Thursday</p><p class="msg you">3am. why am i awake</p><p class="msg">you literally asked me &ldquo;can a raccoon open a car door&rdquo; at 2:40</p><p class="msg you">...and?</p><p class="msg">they can. go to sleep</p></div>
-        <div class="card k13"><p class="when">Wednesday</p><p class="msg you">guess who got a parking ticket</p><p class="msg">you, in the exact spot</p><p class="msg you">you never said</p><p class="msg">tuesday, 6:12pm. want the screenshot</p><img class="gif" src="https://media2.giphy.com/media/v1.Y2lkPTU3M2EwM2MzamN6YzhlMXQyY2R2ejhqYjVybWJ2ZGZvb3k0bWw5cWg5dWh4aDYwbSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TL7OmMFkmhC92LUOr7/200.gif" width="240" height="200" alt="You Were Right Bingo GIF by Power" loading="lazy" decoding="async"><p class="msg you">no</p></div>
-        <div class="card k7"><p class="when">Tuesday</p><p class="msg">you eat?</p><p class="msg you">...no</p><p class="msg">go eat. i'll wait.</p></div>
+        <div class="card k1" data-at="2"><p class="when">Tuesday</p><p class="msg">how'd the 9:30 go, or did it move again</p><p class="msg you">moved. again.</p><p class="msg">of course it did</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzdzNwYzhza3d5cDBxbHh1YWxkazZzMGV5eW9yc3FkajUwbTFqeTA4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hyyV7pnbE0FqLNBAzs/200.gif" width="240" height="200" alt="Season 5 No GIF by The Office" loading="lazy" decoding="async"></div>
+        <div class="card k2" data-at="0"><p class="when">Thursday</p><p class="msg you">SHE WALKED. across the whole living room</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async"><p class="msg">SHE'S MOBILE. lock the cabinets<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
+        <div class="card k3" data-at="9"><p class="when">Monday</p><p class="msg you">I GOT THE JOB<span class="tap" aria-label="min. reacted with an exclamation">&#8252;&#65039;</span></p><p class="msg">FUCKKKK YES</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzbjFma2RjeHpscHVmeWUxdzYydm9rajhzNWFsNTcxZzlmam42ZzZ4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/DfLwM9kttDFEQ/200.gif" width="200" height="200" alt="leonardo dicaprio cheers GIF" loading="lazy" decoding="async"><p class="msg">i knew it. i KNEW it.</p></div>
+        <div class="card k4" data-at="1"><p class="when">Wednesday</p><p class="msg">rough one?</p><p class="msg you">yeah</p><p class="msg">ok. i'm here. no advice unless you want it.<span class="tap" aria-label="reacted with a heart">&#10084;&#65039;</span></p></div>
+        <div class="card k8" data-at="3"><p class="when">Saturday</p><p class="msg you">i think i just got scammed by a sandwich</p><p class="msg">how much</p><p class="msg you">$19</p><p class="msg">that's not a scam, that's a choice<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
+        <div class="card k9" data-at="0"><p class="when">Thursday</p><p class="msg you">3am. why am i awake</p><p class="msg">you literally asked me &ldquo;can a raccoon open a car door&rdquo; at 2:40</p><p class="msg you">...and?</p><p class="msg">they can. go to sleep</p></div>
+        <div class="card k13" data-at="4"><p class="when">Wednesday</p><p class="msg you">guess who got a parking ticket</p><p class="msg">you, in the exact spot</p><p class="msg you">you never said</p><p class="msg">tuesday, 6:12pm. want the screenshot</p><img class="gif" src="https://media2.giphy.com/media/v1.Y2lkPTU3M2EwM2MzamN6YzhlMXQyY2R2ejhqYjVybWJ2ZGZvb3k0bWw5cWg5dWh4aDYwbSZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TL7OmMFkmhC92LUOr7/200.gif" width="240" height="200" alt="You Were Right Bingo GIF by Power" loading="lazy" decoding="async"><p class="msg you">no</p></div>
+        <div class="card k7" data-at="1"><p class="when">Tuesday</p><p class="msg">you eat?</p><p class="msg you">...no</p><p class="msg">go eat. i'll wait.</p></div>
       </div>
     </div>
   </section>
@@ -1666,6 +1705,138 @@
   window.addEventListener("hashchange", function () {
     if (location.hash === "#invest") switchTo("invest");
   });
+})();
+
+/* Every card on the wall lives its thread on its own clock. The script is the
+   markup: the bubbles, pictures and reactions already in the card, taken out
+   at load and put back one at a time, the way they would have arrived. Yours
+   land after the time it takes to type them; min.'s come after a typing
+   bubble; a reaction pops onto its bubble a beat later. A finished thread
+   sits for a while, clears, and starts again. `data-at` says how far along a
+   card is when the page opens, so the wall is mid-conversation, not a row of
+   empty rooms all starting together, and the pauses are jittered so nothing
+   ever falls into step. Reduced motion, or no JavaScript, leaves the threads
+   whole and still. */
+(function () {
+  var cards = document.querySelectorAll(".wall .card");
+  if (!cards.length || !("classList" in document.body)) return;
+  if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  function rnd(a, b) { return a + Math.random() * (b - a); }
+
+  /* the card's height is measured and set by hand, so growing by a bubble is
+     a slide, not a jump */
+  function fit(card) {
+    var was = card.style.height;
+    card.style.height = "auto";
+    var h = card.offsetHeight;
+    card.style.height = was || h + "px";
+    void card.offsetHeight;
+    card.style.height = h + "px";
+  }
+  function place(card, s, animate) {
+    if (s.kind === "tap") s.on.appendChild(s.el); else card.insertBefore(s.el, card.box);
+    if (animate) { s.el.classList.add("in"); now(card); }
+    fit(card);
+  }
+  function now(card) {
+    card.classList.add("now");
+    clearTimeout(card.nowT);
+    card.nowT = setTimeout(function () { card.classList.remove("now"); }, 2600);
+  }
+  function typing(card) {
+    var t = document.createElement("p");
+    t.className = "msg typing in";
+    t.setAttribute("aria-hidden", "true");
+    t.innerHTML = "<i></i><i></i><i></i>";
+    card.insertBefore(t, card.box);
+    fit(card);
+    return t;
+  }
+  function makeBox(card) {
+    var b = document.createElement("div");
+    b.className = "box";
+    b.setAttribute("aria-hidden", "true");
+    b.innerHTML = '<span class="txt" data-ph="Message"></span><span class="send"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 10.5V1.5M2 5.5l4-4 4 4"/></svg></span>';
+    card.appendChild(b);
+    card.box = b;
+    return b;
+  }
+  /* your side is typed into the box a letter at a time, then sent */
+  function type(card, text, done) {
+    var box = card.box, out = box.firstChild, n = 0, per = Math.max(38, Math.min(95, 2400 / Math.max(1, text.length)));
+    box.classList.add("typing");
+    now(card);
+    (function tick() {
+      n++;
+      out.textContent = text.slice(0, n);
+      box.classList.toggle("has", n > 0);
+      if (n % 9 === 0 || n === text.length) fit(card);
+      if (n < text.length) setTimeout(tick, per * rnd(.55, 1.5) + (text[n - 1] === " " ? rnd(0, 120) : 0));
+      else setTimeout(function () {
+        out.textContent = "";
+        box.classList.remove("typing", "has");
+        box.classList.add("sent");
+        setTimeout(function () { box.classList.remove("sent"); }, 450);
+        done();
+      }, rnd(300, 700));
+    })();
+  }
+  function read(card) {
+    var steps = [], kids = Array.prototype.slice.call(card.children);
+    kids.forEach(function (el) {
+      if (el.classList.contains("when")) return;
+      var tap = el.querySelector ? el.querySelector(".tap") : null;
+      if (tap) tap.parentNode.removeChild(tap);
+      el.parentNode.removeChild(el);
+      var gif = el.classList.contains("gif");
+      if (gif) { el.loading = "eager"; var pre = new Image(); pre.src = el.src; }
+      steps.push({ el: el, kind: gif ? "gif" : "msg", you: el.classList.contains("you"), text: gif ? "" : (el.textContent || "") });
+      if (tap) steps.push({ el: tap, kind: "tap", on: el });
+    });
+    return steps;
+  }
+  function step(card, steps, i, extra) {
+    if (i >= steps.length) { setTimeout(function () { clear(card, steps); }, rnd(7000, 14000)); return; }
+    var s = steps[i], next = function () { step(card, steps, i + 1, 0); };
+    var pause = s.kind === "tap" ? rnd(500, 1200) : s.you ? rnd(500, 1400) : 600 + rnd(0, 700);
+    setTimeout(function () {
+      if (s.kind === "msg" && s.you) type(card, s.text, function () { place(card, s, true); next(); });
+      else if (s.kind !== "tap" && !s.you) {
+        var t = typing(card);
+        var typed = s.kind === "gif" ? rnd(900, 1600) : Math.min(3200, 700 + 32 * s.text.length + rnd(0, 500));
+        setTimeout(function () { t.parentNode.removeChild(t); place(card, s, true); next(); }, typed);
+      } else { place(card, s, true); next(); }
+    }, extra + pause);
+  }
+  function clear(card, steps) {
+    steps.forEach(function (s) { s.el.classList.remove("in"); if (s.kind !== "tap") s.el.classList.add("out"); });
+    setTimeout(function () {
+      steps.forEach(function (s) { s.el.classList.remove("out"); if (s.el.parentNode) s.el.parentNode.removeChild(s.el); });
+      fit(card);
+      setTimeout(function () { step(card, steps, 0, 0); }, rnd(1200, 2800));
+    }, 420);
+  }
+
+  var lives = [];
+  cards.forEach(function (card) {
+    var steps = read(card);
+    if (!steps.length) return;
+    card.classList.add("live");
+    makeBox(card);
+    var at = Math.min(steps.length, parseInt(card.getAttribute("data-at") || "0", 10) || 0);
+    for (var i = 0; i < at; i++) place(card, steps[i], false);
+    fit(card);
+    lives.push(function () { step(card, steps, at, rnd(300, 3200)); });
+  });
+  /* the clocks start when the wall comes into view, so a reader arriving
+     from above finds it mid-conversation rather than already finished */
+  var wall = document.querySelector(".wall"), begun = false;
+  function begin() { if (begun) return; begun = true; lives.forEach(function (go) { go(); }); }
+  if (!("IntersectionObserver" in window)) begin();
+  else {
+    var io = new IntersectionObserver(function (es) { if (es.some(function (e) { return e.isIntersecting; })) { begin(); io.disconnect(); } }, { rootMargin: "240px 0px" });
+    io.observe(wall);
+  }
 })();
 
 /* on a touch screen there is no hover: a tap brings a card to the front, and
