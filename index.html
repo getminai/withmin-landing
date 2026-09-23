@@ -1397,7 +1397,9 @@
    bubble; a reaction pops onto its bubble a beat later. A finished thread
    sits for a while, clears, and starts again. Every card opens whole and
    finished, at the height of its whole thread, and keeps that height while
-   it replays; the pauses are jittered so nothing ever falls into step.
+   it replays; one card replays at a time, and a cleared card starts
+   refilling within a second; the pauses are jittered so nothing ever falls
+   into step.
    Reduced motion, or no JavaScript, leaves the threads whole and still. */
 (function () {
   var cards = document.querySelectorAll(".wall .card");
@@ -1479,9 +1481,9 @@
     return steps;
   }
   function step(card, steps, i, extra) {
-    if (i >= steps.length) { setTimeout(function () { clear(card, steps); }, rnd(7000, 14000)); return; }
+    if (i >= steps.length) { setTimeout(turn, rnd(2000, 4500)); return; }
     var s = steps[i], next = function () { step(card, steps, i + 1, 0); };
-    var pause = s.kind === "tap" ? rnd(500, 1200) : s.you ? rnd(500, 1400) : 600 + rnd(0, 700);
+    var pause = i === 0 ? rnd(150, 400) : s.kind === "tap" ? rnd(500, 1200) : s.you ? rnd(500, 1400) : 600 + rnd(0, 700);
     setTimeout(function () {
       if (s.kind === "msg" && s.you) type(card, s.text, function () { place(card, s, true); next(); });
       else if (s.kind !== "tap" && !s.you) {
@@ -1496,7 +1498,7 @@
     setTimeout(function () {
       steps.forEach(function (s) { s.el.classList.remove("out"); if (s.el.parentNode) s.el.parentNode.removeChild(s.el); });
       fit(card);
-      setTimeout(function () { step(card, steps, 0, 0); }, rnd(1200, 2800));
+      setTimeout(function () { step(card, steps, 0, 0); }, rnd(200, 500));
     }, 420);
   }
 
@@ -1514,12 +1516,23 @@
     function grow() { card.fullH = 0; card.style.height = "auto"; card.fullH = card.offsetHeight; card.style.height = card.fullH + "px"; }
     grow();
     steps.forEach(function (s) { if (s.kind === "gif") s.el.addEventListener("load", function () { if (card.contains(s.el)) grow(); }); });
-    lives.push(function () { step(card, steps, steps.length, rnd(300, 3200)); });
+    lives.push({ card: card, steps: steps });
   });
-  /* the clocks start when the wall comes into view, so a reader arriving
-     from above finds it mid-conversation rather than already finished */
+  /* one card replays at a time: the wall is a row of finished threads with
+     one of them happening, never a row of empty rooms. each turn picks a
+     card that was not the last one, clears it, and plays it through; the
+     end of the thread hands the turn on after a short sit. */
+  var last = null;
+  function turn() {
+    if (lives.length < 2) { if (lives[0]) clear(lives[0].card, lives[0].steps); return; }
+    var pick;
+    do { pick = lives[Math.floor(Math.random() * lives.length)]; } while (pick === last);
+    last = pick;
+    clear(pick.card, pick.steps);
+  }
+  /* the first turn starts when the wall comes into view */
   var wall = document.querySelector(".wall"), begun = false;
-  function begin() { if (begun) return; begun = true; lives.forEach(function (go) { go(); }); }
+  function begin() { if (begun || !lives.length) return; begun = true; setTimeout(turn, rnd(1500, 3500)); }
   if (!("IntersectionObserver" in window)) begin();
   else {
     var io = new IntersectionObserver(function (es) { if (es.some(function (e) { return e.isIntersecting; })) { begin(); io.disconnect(); } }, { rootMargin: "240px 0px" });
