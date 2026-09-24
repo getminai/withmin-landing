@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Yours | min.</title>
+<meta name="description" content="10% of min. belongs to the people who use it. What that means, who gets it, and when it pays.">
+<link rel="canonical" href="https://withmin.ai/yours">
+<meta name="theme-color" content="#f6efe4">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="min.">
+<meta property="og:title" content="Yours | min.">
+<meta property="og:description" content="10% of min. belongs to the people who use it.">
+<meta property="og:url" content="https://withmin.ai/yours">
+<meta property="og:image" content="https://withmin.ai/assets/og-home.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Yours | min.">
+<meta name="twitter:description" content="10% of min. belongs to the people who use it.">
+<meta name="twitter:image" content="https://withmin.ai/assets/og-home.png">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/favicon-512.png" sizes="512x512" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preload" href="/assets/Fraunces-600.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/assets/Geist-400.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  @font-face { font-family: "Geist"; font-weight: 400; font-display: swap; src: url("/assets/Geist-400.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 500; font-display: swap; src: url("/assets/Geist-500.woff2") format("woff2"); }
+  @font-face { font-family: "Geist"; font-weight: 600; font-display: swap; src: url("/assets/Geist-600.woff2") format("woff2"); }
+  @font-face { font-family: "Geist Mono"; font-weight: 400; font-display: swap; src: url("/assets/GeistMono-400.woff2") format("woff2"); }
+  @font-face { font-family: "Fraunces"; font-weight: 600; font-display: swap; src: url("/assets/Fraunces-600.woff2") format("woff2"); }
+
+  /* the home page's afternoon, on paper: same ink, same warmth, no city */
+  :root {
+    --serif: "Fraunces", "Iowan Old Style", Georgia, serif;
+    --sans: "Geist", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "Geist Mono", ui-monospace, Menlo, monospace;
+    --glow: oklch(0.84 0.13 62); --glow-deep: oklch(0.72 0.15 55); --ink-on-glow: oklch(0.24 0.05 300);
+    --text: oklch(0.27 0.05 275); --dim: oklch(0.27 0.05 275 / .70); --dimmer: oklch(0.27 0.05 275 / .48);
+    --bg: oklch(0.975 0.02 85); --surface: oklch(0.99 0.012 85); --line: oklch(0.27 0.05 275 / .10);
+    --pledge: oklch(0.96 0.045 85);
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font: 16px/1.6 var(--sans); color: var(--text); background: var(--bg); -webkit-font-smoothing: antialiased; }
+  a { color: inherit; }
+  ::selection { background: var(--glow); color: var(--ink-on-glow); }
+  .grain { position: fixed; inset: 0; z-index: 60; pointer-events: none; opacity: .32; mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .55 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>"); }
+  .top { display: flex; align-items: center; justify-content: space-between; padding: clamp(18px, 3vh, 28px) clamp(22px, 6vw, 84px); height: 72px; }
+  .wordmark { font-family: var(--serif); font-weight: 600; font-size: 28px; letter-spacing: -.01em; line-height: 1; text-decoration: none; }
+  .wordmark i { font-style: normal; color: var(--glow-deep); }
+  .back { font-size: 14.5px; font-weight: 500; color: var(--dim); padding: 8px 2px; text-decoration: none; border-bottom: 1px solid transparent; transition: color .3s, border-color .3s; }
+  .back:hover { color: var(--text); border-color: currentColor; }
+  main { padding: clamp(24px, 6vh, 64px) clamp(22px, 6vw, 84px) clamp(64px, 10vh, 110px); max-width: 760px; }
+  h1 { font-family: var(--serif); font-weight: 600; letter-spacing: -.015em; line-height: 1; margin: 0 0 12px; font-size: clamp(44px, 6vw, 72px); }
+  h1 i { font-style: normal; color: var(--glow-deep); }
+  .updated { font-family: var(--mono); font-size: 12px; color: var(--dimmer); margin: 0 0 clamp(26px, 4vh, 40px); }
+  main p { color: var(--dim); margin: 0; text-wrap: pretty; }
+  main p + p { margin-top: 14px; }
+  main b { color: var(--text); font-weight: 500; }
+  main a { color: var(--text); text-decoration-color: var(--glow-deep); text-underline-offset: 3px; }
+  .pledge { background: var(--pledge); border: 1px solid var(--line); border-radius: 18px; padding: clamp(20px, 3vw, 28px); margin: 0 0 28px; }
+  .pledge .big { font-family: var(--serif); font-weight: 600; letter-spacing: -.012em; line-height: 1.2; font-size: clamp(20px, 2.2vw, 26px); color: var(--text); text-wrap: balance; }
+  .pledge .big span { color: var(--glow-deep); }
+  .lead { font-size: clamp(17px, 1.3vw, 19px); }
+  section { border-top: 1px solid var(--line); margin-top: 30px; padding-top: 24px; }
+  .kicker { font-family: var(--mono); font-size: 11px; color: var(--dimmer); letter-spacing: .08em; text-transform: uppercase; margin: 0 0 12px; }
+  ul { margin: 12px 0 0; padding-left: 20px; color: var(--dim); }
+  li { margin-top: 8px; text-wrap: pretty; }
+  li + li { margin-top: 10px; }
+  footer { padding: 28px clamp(22px, 6vw, 84px) 40px; display: flex; justify-content: space-between; align-items: center; gap: 24px 24px; flex-wrap: wrap; border-top: 1px solid var(--line); font-size: 14.5px; }
+  footer nav { display: flex; gap: 22px; }
+  footer nav a { text-decoration: none; opacity: .8; } footer nav a:hover { opacity: 1; }
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+<nav class="top">
+  <a class="wordmark" href="/">min<i>.</i></a>
+  <a class="back" href="/">Back to home</a>
+</nav>
+<main>
+  <h1>Yours<i>.</i></h1>
+  <p class="updated">last updated 2026-09-23</p>
+
+  <div class="box">
+    <p class="big">10% of min. belongs to the people who use it. <span>Not investors, not the founder. You.</span></p>
+    <p style="margin-top:14px">Without you there is no min. A company built for people should be owned, in part, by them. So one tenth of it is set aside for its users, and this page says exactly how.</p>
+  </div>
+
+  <section>
+    <p class="kicker">What it is</p>
+    <p>One tenth of the company, held in a pool for its users. It is a pledge by the company, written here in public, not shares in your hands today.</p>
+  </section>
+
+  <section>
+    <p class="kicker">Who gets it</p>
+    <p>Anyone who uses min. Every month you actually talk to it earns you one unit. Your share of the pool is your units divided by everyone&rsquo;s, on the day it pays out. Time in, not money in.</p>
+  </section>
+
+  <section>
+    <p class="kicker">When it pays</p>
+    <p>When the company does: a sale, or a listing. Until then it is a claim on the pool. Nothing to sign, nothing to buy, nothing to do except keep texting.</p>
+  </section>
+
+  <section>
+    <p class="kicker">The honest part</p>
+    <p>If min. is never worth anything, neither is the pool. This is not stock, not a token, and not a promise of money. It is a promise that when there is something to share, you are in it.</p>
+  </section>
+</main>
+<footer>
+  <a class="wordmark" href="/">min<i>.</i></a>
+  <nav><a href="/about">Why</a><a href="/yours">Yours</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
+</footer>
+</body>
+</html>
