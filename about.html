@@ -169,6 +169,13 @@
   }
   @media (prefers-reduced-motion: reduce) { .city .train { animation: none; } }
 
+  /* the questions people actually ask, answered plainly */
+  .faq { padding: clamp(48px, 9vh, 96px) clamp(22px, 6vw, 84px) clamp(40px, 7vh, 72px); max-width: 760px; }
+  .faq h2 { font-family: var(--serif); font-weight: 600; letter-spacing: -.012em; line-height: 1.1; font-size: clamp(28px, 3.2vw, 40px); margin: 0 0 clamp(20px, 3vh, 32px); }
+  .faq dl { margin: 0; }
+  .faq dt { font-weight: 600; font-size: clamp(17px, 1.35vw, 19px); margin: 0 0 6px; }
+  .faq dd { margin: 0 0 clamp(22px, 3.5vh, 30px); font-size: clamp(16px, 1.25vw, 18px); line-height: 1.55; color: var(--dim); max-width: 58ch; text-wrap: pretty; }
+  .faq dd:last-child { margin-bottom: 0; }
   footer { padding: 28px clamp(22px, 6vw, 84px) 40px; display: flex; justify-content: space-between; align-items: center; gap: 24px 24px; flex-wrap: wrap; border-top: 1px solid var(--line); font-size: 14.5px; }
   footer nav { display: flex; gap: 22px; }
   footer nav a { opacity: .8; } footer nav a:hover { opacity: 1; }
@@ -721,6 +728,20 @@
     <div class="haze"></div>
   </div>
 </header>
+
+<section class="faq" aria-labelledby="faq-h">
+  <h2 id="faq-h">Questions</h2>
+  <dl>
+    <dt>How is min. different from other AI assistants?</dt>
+    <dd>Most AI assistants wait for a task, answer it, and forget you. min. knows your days and the people in them, remembers what you told it last week, and texts you first when something matters. It's the AI you actually want to talk to.</dd>
+    <dt>Is min. free?</dt>
+    <dd>Yes. min. is free, and it always will be.</dd>
+    <dt>How does min. make money?</dt>
+    <dd>When you ask min. to find something to buy, some of the links it sends are affiliate links, so the store pays us a small commission if you buy. min. will never recommend something because of the money.</dd>
+    <dt>Is my conversation private?</dt>
+    <dd>Yes. Nothing you say to min. is ever shared, sold, or used to train AI. We only use AI providers that are contractually barred from training on your data.</dd>
+  </dl>
+</section>
 
 <footer>
   <a class="wordmark" href="/">min<i class="mark" aria-hidden="true"><svg viewBox="0 0 20 20"><circle class="eye top" cx="3.6" cy="8.1" r="2.6"/><circle class="eye bot" cx="3.6" cy="16.4" r="2.6"/><path class="mouth" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></i><span class="sr">.</span></a>
