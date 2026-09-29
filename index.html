@@ -662,7 +662,7 @@
   /* The wall runs off the right edge on purpose: it should read as more than
      fits, the way a thread does. Nothing is lost — the cards past the fold
      repeat the same shapes — so it costs a reader nothing to never see them. */
-  .wall { position: relative; height: 980px; margin: 8px 0 0; max-width: none; }
+  .wall { position: relative; height: 990px; margin: 8px 0 0; max-width: none; }
   section .wrap.two.wide { overflow: visible; }
   /* solid paper, not glass: a card is opaque, has an edge, and casts a real
      shadow, so a stack reads as cards on cards. under the hand (or a tap, on
@@ -724,13 +724,13 @@
 
   .card:hover, .card:focus-within, .card.front { transform: rotate(0deg) translateY(-6px) scale(1.04) !important; z-index: 20; animation-play-state: paused;
     box-shadow: 0 26px 56px oklch(from var(--text) l c h / .26), 0 3px 8px oklch(from var(--text) l c h / .1); }
-  .k1 { left: 0px;   top: 0px;   transform: rotate(-2.2deg); z-index: 3; animation: bob-a 9s ease-in-out infinite; }
-  .k9 { left: 8px;   top: 478px; transform: rotate(1.7deg);  z-index: 4; animation: bob-b 12s ease-in-out infinite; animation-delay: -2s; }
-  .k2 { left: 212px; top: 34px;  transform: rotate(1.6deg);  z-index: 5; animation: bob-b 11s ease-in-out infinite; }
-  .k3 { left: 215px; top: 466px; transform: rotate(-1.3deg); z-index: 6; animation: bob-a 10s ease-in-out infinite; animation-delay: -4s; }
-  .k4 { left: 366px; top: 0px;   transform: rotate(2deg);    z-index: 2; animation: bob-b 9.5s ease-in-out infinite; animation-delay: -3s; }
-  .k13{ left: 450px; top: 486px; transform: rotate(-1.4deg); z-index: 5; animation: bob-a 12.5s ease-in-out infinite; animation-delay: -4.5s; }
-  .k8 { left: 548px; top: 64px;  transform: rotate(2.4deg);  z-index: 4; animation: bob-b 10.5s ease-in-out infinite; animation-delay: -2.5s; }
+  .k1 { left: -14px; top: 0px;   transform: rotate(-2.2deg); z-index: 3; animation: bob-a 9s ease-in-out infinite; }
+  .k9 { left: -7px;  top: 490px; transform: rotate(1.7deg);  z-index: 4; animation: bob-b 12s ease-in-out infinite; animation-delay: -2s; }
+  .k2 { left: 210px; top: 38px;  transform: rotate(1.6deg);  z-index: 5; animation: bob-b 11s ease-in-out infinite; }
+  .k3 { left: 213px; top: 478px; transform: rotate(-1.3deg); z-index: 6; animation: bob-a 10s ease-in-out infinite; animation-delay: -4s; }
+  .k4 { left: 378px; top: 0px;   transform: rotate(2deg);    z-index: 2; animation: bob-b 9.5s ease-in-out infinite; animation-delay: -3s; }
+  .k13{ left: 454px; top: 498px; transform: rotate(-1.4deg); z-index: 5; animation: bob-a 12.5s ease-in-out infinite; animation-delay: -4.5s; }
+  .k8 { left: 574px; top: 70px;  transform: rotate(2.4deg);  z-index: 4; animation: bob-b 10.5s ease-in-out infinite; animation-delay: -2.5s; }
   @keyframes bob-a { 50% { translate: 0 -5px; } }
   @keyframes bob-b { 50% { translate: 0 5px; } }
   @media (max-width: 1000px) { .two.wide { grid-template-columns: 1fr; } }
