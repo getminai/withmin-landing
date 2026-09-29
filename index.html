@@ -1249,7 +1249,7 @@
         <div class="card k9"><p class="when">Reminders</p><p class="msg you">remind me to call my mom at 6</p><p class="msg">Done.</p><p class="msg gap">It's 6! Call your mother!</p><p class="msg you">calling. tell me it'll be quick</p><p class="msg">It will not be quick.<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
         <div class="card k5"><p class="when">Lists</p><p class="msg you">add eggs to my costco list</p><p class="msg">Gotcha, total of 6 things on your Costco list!</p><p class="msg you gap">ok i'm here. what's on it</p><p class="msg">Eggs, oat milk, paper towels, olive oil, dog food, giant croissants.<span class="tap" aria-label="reacted with a heart">&#10084;&#65039;</span></p></div>
         <div class="card k3"><p class="when">Celebrations</p><p class="msg you">I GOT THE JOB<span class="tap" aria-label="min. reacted with an exclamation">&#8252;&#65039;</span></p><p class="msg">FUCKKKK YES!</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzbjFma2RjeHpscHVmeWUxdzYydm9rajhzNWFsNTcxZzlmam42ZzZ4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/DfLwM9kttDFEQ/200.gif" width="200" height="200" alt="leonardo dicaprio cheers GIF" loading="lazy" decoding="async"><p class="msg">I knew it. I KNEW it.</p></div>
-        <div class="card k13"><p class="when">Milestones</p><img class="gif you" src="https://media1.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNGw0OGh4aTBhc2JhcDg1cnBhZWdudzFqd21lazI5ZHhsc2tsdzVkcSZlcD12MV9naWZzX2dpZklkJmN0PWc/9vFqgfGEmGh5C4E01U/200.gif" width="130" height="200" alt="Happy First Step GIF by helenedouay" loading="lazy" decoding="async"><p class="msg you">SHE WALKED. across the whole living room</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async"><p class="msg">SHE'S MOBILE. Lock the cabinets.<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
+        <div class="card k13"><p class="when">Milestones</p><video class="gif you" src="https://media0.giphy.com/media/v1.Y2lkPTU3M2EwM2MzZzJrcTJiajUyeWpmNjI2aHJhOHJlbXM5dnZia2Zyc2lnMmJudmN6bCZlcD12MV9naWZzX2dpZklkJmN0PWc/kTQor6gXu6SQnimz7Z/giphy-downsized-small.mp4" width="286" height="276" muted loop playsinline preload="auto" aria-label="A video of a toddler in a raincoat walking in the rain under an umbrella"></video><p class="msg you">SHE WALKED. down the whole block</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async"><p class="msg">SHE'S MOBILE. Lock the cabinets.<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
         <div class="card k8"><p class="when">Banter</p><p class="msg you">i think i just got scammed by a sandwich</p><p class="msg">How much?</p><p class="msg you">$19</p><p class="msg">That's not a scam. That's a choice.<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
         <div class="card k4"><p class="when">Check-ins</p><p class="msg">How'd the 9:30 go? Or did it move again?</p><p class="msg you">moved. again.</p><p class="msg">Of course it did.</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzdzNwYzhza3d5cDBxbHh1YWxkazZzMGV5eW9yc3FkajUwbTFqeTA4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hyyV7pnbE0FqLNBAzs/200.gif" width="240" height="200" alt="Season 5 No GIF by The Office" loading="lazy" decoding="async"></div>
       </div>
@@ -1423,8 +1423,15 @@
     void card.offsetHeight;
     card.style.height = h + "px";
   }
+  /* a video lifted out of the card and put back is paused by the browser a
+     moment later, so it starts again once it has data and that has settled */
+  function replay(v) {
+    function go() { if (!v.isConnected) return; try { v.currentTime = 0; } catch (e) {} var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+    if (v.readyState >= 2) setTimeout(go, 30); else v.addEventListener("loadeddata", function () { setTimeout(go, 30); }, { once: true });
+  }
   function place(card, s, animate) {
     if (s.kind === "tap") s.on.appendChild(s.el); else card.insertBefore(s.el, card.box);
+    if (s.el.tagName === "VIDEO") replay(s.el);
     if (animate) { s.el.classList.add("in"); now(card); }
     fit(card);
   }
@@ -1479,7 +1486,7 @@
       if (tap) tap.parentNode.removeChild(tap);
       el.parentNode.removeChild(el);
       var gif = el.classList.contains("gif");
-      if (gif) { el.loading = "eager"; var pre = new Image(); pre.src = el.src; }
+      if (gif && el.tagName === "IMG") { el.loading = "eager"; var pre = new Image(); pre.src = el.src; }
       steps.push({ el: el, kind: gif ? "gif" : "msg", you: el.classList.contains("you"), text: gif ? "" : (el.textContent || "") });
       if (tap) steps.push({ el: tap, kind: "tap", on: el });
     });
@@ -1520,7 +1527,7 @@
     steps.forEach(function (s) { place(card, s, false); });
     function grow() { card.fullH = 0; card.style.height = "auto"; card.fullH = card.offsetHeight; card.style.height = card.fullH + "px"; }
     grow();
-    steps.forEach(function (s) { if (s.kind === "gif") s.el.addEventListener("load", function () { if (card.contains(s.el)) grow(); }); });
+    steps.forEach(function (s) { if (s.kind === "gif") s.el.addEventListener(s.el.tagName === "VIDEO" ? "loadeddata" : "load", function () { if (card.contains(s.el)) grow(); }); });
     lives.push({ card: card, steps: steps });
   });
   /* one card replays at a time: the wall is a row of finished threads with
