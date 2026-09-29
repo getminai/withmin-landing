@@ -718,6 +718,8 @@
   [data-phase="night"] .card .msg, [data-phase="dusk"] .card .msg { background: oklch(from var(--bubble) calc(l + .06) c h); }
   [data-phase="night"] .card .msg.you, [data-phase="dusk"] .card .msg.you { background: var(--glow); }
   .card .gif { width: min(136px, 72%); }
+  .card .gif.you { width: 92px; border-bottom-left-radius: var(--r); border-bottom-right-radius: 6px; justify-self: end; }
+  .card.live .gif.you { align-self: flex-end; }
   /* the card something just happened in comes forward, so the live moment is never under a neighbour */
   .card.now { z-index: 12; }
 
@@ -729,7 +731,7 @@
   .k2 { left: 210px; top: 38px;  transform: rotate(1.6deg);  z-index: 5; animation: bob-b 11s ease-in-out infinite; }
   .k3 { left: 213px; top: 478px; transform: rotate(-1.3deg); z-index: 6; animation: bob-a 10s ease-in-out infinite; animation-delay: -4s; }
   .k4 { left: 378px; top: 0px;   transform: rotate(2deg);    z-index: 2; animation: bob-b 9.5s ease-in-out infinite; animation-delay: -3s; }
-  .k13{ left: 400px; top: 498px; transform: rotate(-1.4deg); z-index: 3; animation: bob-a 12.5s ease-in-out infinite; animation-delay: -4.5s; }
+  .k13{ left: 400px; top: 480px; transform: rotate(-1.4deg); z-index: 3; animation: bob-a 12.5s ease-in-out infinite; animation-delay: -4.5s; }
   .k8 { left: 574px; top: 70px;  transform: rotate(2.4deg);  z-index: 4; animation: bob-b 10.5s ease-in-out infinite; animation-delay: -2.5s; }
   .k5 { left: 574px; top: 512px; transform: rotate(1.9deg);  z-index: 5; animation: bob-b 11.5s ease-in-out infinite; animation-delay: -1.5s; }
   @keyframes bob-a { 50% { translate: 0 -5px; } }
@@ -1247,7 +1249,7 @@
         <div class="card k9"><p class="when">Reminders</p><p class="msg you">remind me to call my mom at 6</p><p class="msg">Done.</p><p class="msg gap">It's 6! Call your mother!</p><p class="msg you">calling. tell me it'll be quick</p><p class="msg">It will not be quick.<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
         <div class="card k5"><p class="when">Lists</p><p class="msg you">add eggs to my costco list</p><p class="msg">Gotcha, total of 6 things on your Costco list!</p><p class="msg you gap">ok i'm here. what's on it</p><p class="msg">Eggs, oat milk, paper towels, olive oil, dog food, giant croissants.<span class="tap" aria-label="reacted with a heart">&#10084;&#65039;</span></p></div>
         <div class="card k3"><p class="when">Celebrations</p><p class="msg you">I GOT THE JOB<span class="tap" aria-label="min. reacted with an exclamation">&#8252;&#65039;</span></p><p class="msg">FUCKKKK YES!</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzbjFma2RjeHpscHVmeWUxdzYydm9rajhzNWFsNTcxZzlmam42ZzZ4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/DfLwM9kttDFEQ/200.gif" width="200" height="200" alt="leonardo dicaprio cheers GIF" loading="lazy" decoding="async"><p class="msg">I knew it. I KNEW it.</p></div>
-        <div class="card k13"><p class="when">Milestones</p><p class="msg you">SHE WALKED. across the whole living room</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async"><p class="msg">SHE'S MOBILE. Lock the cabinets.<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
+        <div class="card k13"><p class="when">Milestones</p><img class="gif you" src="https://media1.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNGw0OGh4aTBhc2JhcDg1cnBhZWdudzFqd21lazI5ZHhsc2tsdzVkcSZlcD12MV9naWZzX2dpZklkJmN0PWc/9vFqgfGEmGh5C4E01U/200.gif" width="130" height="200" alt="Happy First Step GIF by helenedouay" loading="lazy" decoding="async"><p class="msg you">SHE WALKED. across the whole living room</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzNnp5cWF4NjBxZXI0Z2Rjc2h6MXRuZmIxZjZ0cmZ0aHlqYzA0bWhkbyZlcD12MV9naWZzX3NlYXJjaCZjdD1n/TiTPNkp7IUTQUdO6YT/200.gif" width="356" height="200" alt="Happy Crowd Goes Wild GIF by The Great British Bake Off" loading="lazy" decoding="async"><p class="msg">SHE'S MOBILE. Lock the cabinets.<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
         <div class="card k8"><p class="when">Banter</p><p class="msg you">i think i just got scammed by a sandwich</p><p class="msg">How much?</p><p class="msg you">$19</p><p class="msg">That's not a scam. That's a choice.<span class="tap" aria-label="reacted with a laugh">&#128514;</span></p></div>
         <div class="card k4"><p class="when">Check-ins</p><p class="msg">How'd the 9:30 go? Or did it move again?</p><p class="msg you">moved. again.</p><p class="msg">Of course it did.</p><img class="gif" src="https://media3.giphy.com/media/v1.Y2lkPTU3M2EwM2MzdzNwYzhza3d5cDBxbHh1YWxkazZzMGV5eW9yc3FkajUwbTFqeTA4bCZlcD12MV9naWZzX3NlYXJjaCZjdD1n/hyyV7pnbE0FqLNBAzs/200.gif" width="240" height="200" alt="Season 5 No GIF by The Office" loading="lazy" decoding="async"></div>
       </div>
