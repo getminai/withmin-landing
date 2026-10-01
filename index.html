@@ -25,7 +25,7 @@
 <meta name="twitter:image" content="https://withmin.ai/assets/og-smile.png">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
- {"@type":"Organization","@id":"https://withmin.ai/#org","name":"min.","url":"https://withmin.ai/","sameAs":["https://www.instagram.com/withmin.ai/"],
+ {"@type":"Organization","@id":"https://withmin.ai/#org","name":"min.","url":"https://withmin.ai/","sameAs":["https://www.instagram.com/withmin.ai/","https://x.com/withminai"],
   "description":"min. is the AI that makes you smile every day: an intelligent life companion you text like a person."},
  {"@type":"WebSite","@id":"https://withmin.ai/#site","url":"https://withmin.ai/","name":"min.",
   "publisher":{"@id":"https://withmin.ai/#org"}},
@@ -561,10 +561,10 @@
      Three labelled pills made the row read as a list of brand names and pushed
      the number — which IS the answer — into being one item among four. A mark
      is the thing itself: you recognise Telegram faster than you read the word,
-     and the row collapses to four equal circles that sit UNDER the number
+     and the row collapses to five equal circles that sit UNDER the number
      instead of competing with it. Equal to each other, smaller than the text
      button, and never a wordmark. */
-  /* The four travel together. Left loose in the row, a narrow screen kept
+  /* The five travel together. Left loose in the row, a narrow screen kept
      one of them up beside the number and dropped the other two, which reads as
      a button that got left behind rather than a set. */
   /* The number is the answer; these are the alternatives. Saying so costs two
@@ -618,6 +618,7 @@
   .room-btn.wa { --brand: oklch(.72 .18 150); }
   .room-btn.dc { --brand: oklch(.58 .17 275); }
   .room-btn.ig { --brand: oklch(.63 .21 0); }
+  .room-btn.x { --brand: var(--text); }
 
   /* On a card, the room is a mark beside the day — the thread is the subject,
      so this stays quiet and never becomes a badge. */
@@ -830,6 +831,7 @@
   <symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-2.9.8.8-2.8-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.6-1.2.1-.2 0-.4 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3c-.3.3-.9.9-.9 2.1s.9 2.5 1 2.6c.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.2.2-1.3-.1-.1-.3-.2-.5-.3Z"/></symbol>
   <symbol id="i-discord" viewBox="0 0 24 24"><path fill="currentColor" d="M19.3 5.4A16.9 16.9 0 0 0 15.1 4l-.3.5a12.6 12.6 0 0 1 3.7 1.9 17.8 17.8 0 0 0-12.9 0A12.6 12.6 0 0 1 9.3 4.5L9 4a16.9 16.9 0 0 0-4.2 1.4C2 9.5 1.3 13.5 1.6 17.4a17 17 0 0 0 5.2 2.6l.9-1.6a11 11 0 0 1-1.7-.8l.4-.3a12.2 12.2 0 0 0 11.2 0l.4.3a11 11 0 0 1-1.7.8l.9 1.6a17 17 0 0 0 5.2-2.6c.4-4.5-.7-8.5-2.9-12ZM8.7 15c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.9.9 1.8 2c0 1.1-.8 2-1.8 2Zm6.6 0c-1 0-1.8-.9-1.8-2s.8-2 1.8-2 1.9.9 1.8 2c0 1.1-.8 2-1.8 2Z"/></symbol>
   <symbol id="i-instagram" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5.2"/><circle cx="12" cy="12" r="4.1"/></g><circle cx="17.4" cy="6.6" r="1.25" fill="currentColor"/></symbol>
+  <symbol id="i-x" viewBox="-2.5 -2.5 29 29"><path fill="currentColor" d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.4l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.6l5.24 6.93Zm-1.29 19.5h2.04L6.49 3.24H4.3Z"/></symbol>
 </svg>
 
 <div class="grain" aria-hidden="true"></div>
@@ -1272,6 +1274,7 @@
           <a class="room-btn wa" href="https://wa.me/18444441102" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" data-label="WhatsApp"><svg><use href="#i-whatsapp"/></svg></a>
           <a class="room-btn dc" href="https://discord.com/users/1548381718451589150" target="_blank" rel="noopener noreferrer" aria-label="Discord" data-label="Discord"><svg><use href="#i-discord"/></svg></a>
           <a class="room-btn ig" href="https://www.instagram.com/withmin.ai/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
+          <a class="room-btn x" href="https://x.com/messages/compose?recipient_id=1929639067203129348" target="_blank" rel="noopener noreferrer" aria-label="X" data-label="X"><svg><use href="#i-x"/></svg></a>
         </div>
       </div>
     </div>
@@ -1322,6 +1325,7 @@
           <a class="room-btn wa" href="https://wa.me/18444441102" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" data-label="WhatsApp"><svg><use href="#i-whatsapp"/></svg></a>
           <a class="room-btn dc" href="https://discord.com/users/1548381718451589150" target="_blank" rel="noopener noreferrer" aria-label="Discord" data-label="Discord"><svg><use href="#i-discord"/></svg></a>
           <a class="room-btn ig" href="https://www.instagram.com/withmin.ai/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" data-label="Instagram"><svg><use href="#i-instagram"/></svg></a>
+          <a class="room-btn x" href="https://x.com/messages/compose?recipient_id=1929639067203129348" target="_blank" rel="noopener noreferrer" aria-label="X" data-label="X"><svg><use href="#i-x"/></svg></a>
         </div></div>
         <p class="sms-fine">Texting min. opts you in to one-to-one texts; msg &amp; data rates may apply, reply <strong>STOP</strong> to opt out. <a href="/privacy#sms">Privacy</a> &middot; <a href="/terms">Terms</a>.</p>
       </div>
