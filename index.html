@@ -524,8 +524,13 @@
   h1 em { font-style: italic; }
   .lede { font-size: clamp(17px, 1.35vw, 20px); line-height: 1.5; color: var(--dim); margin: 0 0 clamp(26px, 4vh, 36px); max-width: 44ch; text-wrap: balance;
           transition: opacity .6s var(--ease); }
-  .ctas { display: inline-flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+  /* one column, centred on itself: the number, "or DM" under its middle, the
+     rooms centred under that. the column is as wide as its widest row; on a
+     phone the rooms are wider than the button, so the button widens to match */
+  .ctas { display: inline-flex; flex-direction: column; align-items: stretch; gap: 12px; }
+  .ctas .cta { justify-content: center; }
   .ctas .or { align-self: center; }
+  .ctas .room-row { justify-content: center; }
   .cta { display: inline-flex; align-items: center; gap: 10px; background: var(--glow); color: var(--ink-on-glow); font-weight: 600; font-size: 16px;
          padding: 15px 24px; border-radius: 999px; box-shadow: 0 10px 30px oklch(from var(--glow) l c h / .35), inset 0 1px 0 oklch(1 0 0 / .5);
          transition: transform .25s var(--ease), box-shadow .25s var(--ease); white-space: nowrap; }
@@ -809,7 +814,7 @@
 
   footer { border-top: 1px solid var(--line); padding: 40px 0 56px; }
   .f-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; flex-wrap: wrap; }
-  .f-cols { display: flex; gap: clamp(40px, 8vw, 96px); }
+  .f-cols { display: flex; flex-wrap: wrap; gap: 28px clamp(40px, 8vw, 96px); }
   .f-col { display: grid; gap: 8px; font-size: 14.5px; }
   .f-col h4 { margin: 0 0 4px; font: 500 12.5px/1 var(--sans); letter-spacing: .02em; color: var(--dim); }
   .f-col a { color: var(--text); opacity: .8; transition: opacity .2s; } .f-col a:hover { opacity: 1; }
@@ -1353,6 +1358,11 @@
           <h4>Legal</h4>
           <a href="/privacy">Privacy</a>
           <a href="/terms">Terms</a>
+        </div>
+        <div class="f-col">
+          <h4>Follow</h4>
+          <a href="https://www.instagram.com/withmin.ai/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://x.com/withminai" target="_blank" rel="noopener noreferrer">X</a>
         </div>
       </div>
     </div>
