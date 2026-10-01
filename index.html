@@ -624,6 +624,8 @@
   .room-btn.dc { --brand: oklch(.58 .17 275); }
   .room-btn.ig { --brand: oklch(.63 .21 0); }
   .room-btn.x { --brand: var(--text); }
+  /* X's colour is the page's ink, so its pill is ink and its name is paper */
+  .room-btn.x::after { color: var(--bg); }
 
   /* On a card, the room is a mark beside the day — the thread is the subject,
      so this stays quiet and never becomes a badge. */

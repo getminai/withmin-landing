@@ -247,6 +247,8 @@
   .room-btn.dc { --brand: oklch(.58 .17 275); }
   .room-btn.ig { --brand: oklch(.63 .21 0); }
   .room-btn.x { --brand: var(--text); }
+  /* X's colour is the page's ink, so its pill is ink and its name is paper */
+  .room-btn.x::after { color: var(--bg); }
 
 
   /* iMessage blue, because this button IS the messages app: it is the only
