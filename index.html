@@ -739,7 +739,7 @@
   .card .when { margin: 0 0 1px; }
   /* Which room that exchange happened in. Quieter than the day, because the
      point is that it does not matter — it is the same min. either way. */
-  .card .msg { font-size: 14px; padding: 8px 12px; max-width: 92%; background: oklch(from var(--bubble) calc(l - .035) calc(c + .01) h); }
+  .card .msg { font-size: 14px; padding: 8px 12px; margin: 8px 0; max-width: 92%; background: oklch(from var(--bubble) calc(l - .035) calc(c + .01) h); }
   .card .msg.you { background: var(--glow); }
   [data-phase="night"] .card .msg, [data-phase="dusk"] .card .msg { background: oklch(from var(--bubble) calc(l + .06) c h); }
   [data-phase="night"] .card .msg.you, [data-phase="dusk"] .card .msg.you { background: var(--glow); }
@@ -771,7 +771,7 @@
   .card .xp b { font: 500 13px/1.32 var(--sans); }
   /* a post and the words sent with it go out as one group, the way a phone
      stacks them: almost touching, on whichever side sent them */
-  .card .msg.you + .link.you, .card .msg:not(.you) + .link:not(.you) { margin-top: -18px; }
+  .card .msg.you + .link.you, .card .msg:not(.you) + .link:not(.you) { margin-top: -12px; }
   .card .link.you + .msg.you:not(.gap), .card .link:not(.you) + .msg:not(.you):not(.gap) { margin-top: -4px; }
   [data-phase="night"] .card .link, [data-phase="dusk"] .card .link { background: oklch(from var(--bubble) calc(l + .06) c h); }
   /* a photo they send of the plate in front of them */
