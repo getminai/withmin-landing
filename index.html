@@ -769,6 +769,10 @@
   .card .link.xp { width: 158px; }
   .card .xp p { padding: 10px 12px 9px; gap: 5px; }
   .card .xp b { font: 500 13px/1.32 var(--sans); }
+  /* a post and the words sent with it go out as one group, the way a phone
+     stacks them: almost touching, on whichever side sent them */
+  .card .msg.you + .link.you, .card .msg:not(.you) + .link:not(.you) { margin-top: -18px; }
+  .card .link.you + .msg.you:not(.gap), .card .link:not(.you) + .msg:not(.you):not(.gap) { margin-top: -4px; }
   [data-phase="night"] .card .link, [data-phase="dusk"] .card .link { background: oklch(from var(--bubble) calc(l + .06) c h); }
   /* a photo they send of the plate in front of them */
   .card .gif.you.photo { width: 150px; }
